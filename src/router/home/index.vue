@@ -11,15 +11,15 @@
         <div class="search-content flex-start">
           <div class="swiper-area flex-start">
             <span>深圳</span>
-            <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm.png"></i>
+            <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
           </div>
-          <div class="search-bar flex-start">
-            <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search.png"></i>
+          <div class="search-bar flex-start" @click="$router.push('/search/index')">
+            <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100"></i>
             <span>输入目的地/电站名</span>
           </div>
           <div class="swiper-logo">
             <span>登录</span>
-            <!-- <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/personal.png"></i> -->
+            <!-- <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/personal.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100"></i> -->
           </div>
         </div>
       </div>
@@ -87,7 +87,27 @@ export default {
           color: '#3eb7fc',
           size: 28,
           picUrl: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search-site.png',
-        }
+        }, {
+          name: '我的收藏',
+          color: '#feb741',
+          size: 28,
+          picUrl: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search-site.png',
+        }, {
+          name: '最近充电',
+          color: '#949efb',
+          size: 28,
+          picUrl: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search-site.png',
+        }, {
+          name: '充电地图',
+          color: '#f78745',
+          size: 28,
+          picUrl: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search-site.png',
+        }, {
+          name: '一键导航',
+          color: '#52caef',
+          size: 28,
+          picUrl: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search-site.png',
+        },
       ]
     }
   },
@@ -252,7 +272,7 @@ export default {
 
     .entry-item {
       padding-bottom: 15px;
-      width: 25%;
+      width: 20%;
       float: left;
       text-align: center;
 
