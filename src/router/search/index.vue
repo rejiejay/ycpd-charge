@@ -72,7 +72,7 @@
         <div class="list">
             <div class="list-content">
                 <div class="item">
-                    <div class="item-main">
+                    <div class="item-main flex-start-center">
                         <div class="item-img">
                             <img src="http://cyygiftsend.szpiccxxjsb.cn/imgs/stores/YC7550102_100x100.jpg">
                         </div>
@@ -87,20 +87,49 @@
                                 <div class="describe-icon flex-start">
                                     <div class="icon-left">
                                         <div class="icon-star icon-left-gray flex-start">
-                                            
-                                            <img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/square-star-gray.png?v=1&x-oss-process=image/resize,m_fill,w_28,h_28,limit_0/auto-orient,0/quality,q_100">
+                                            <div class="icon-star-black" style="width: 70%"></div>
+                                            <img v-for="star in new Array(5)" :key="star" src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/square-star-gray.png?v=1&x-oss-process=image/resize,m_fill,w_28,h_28,limit_0/auto-orient,0/quality,q_100">
                                         </div>
-                                        <div class="icon-star icon-left-active flex-start">
-
+                                        <div class="icon-star icon-left-active" style="width: 70%">
+                                            <div class="icon-left-active-content flex-start">
+                                                <img v-for="star in new Array(5)" :key="star" src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/square-star-active.png?v=1&x-oss-process=image/resize,m_fill,w_28,h_28,limit_0/auto-orient,0/quality,q_100">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="icon-right"></div>
+                                    <div class="icon-right icon-right-fast">
+                                        <div class="icon-right-content flex-start">
+                                            <div class="icon-right-speed">
+                                                快
+                                            </div>
+                                            <div class="icon-right-number">
+                                                <span>6</span>/6
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="describe-price">
+                                    <div class="price-top">当前<span>1.8177</span>元/度</div>
+                                    <div class="price-bottom flex-start">
+                                        <div class="price-bottom-left">11:30开始 1.4652元/度</div>
+                                        <div class="price-bottom-figth">最近充电2小时前</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="item-line"></div>
-                    <div class="item-tab"></div>
+                    <div class="item-line">
+                        <div class="line-block-dotted"></div>
+                    </div>
+                    <div class="item-tabs-list">
+                        <div class="tabs-list-content">
+                            <div class="tabs-item" style="color: #00a6ca; border-color: #00a6ca;">自营</div>
+                            <div class="tabs-item" style="color: #46bb00; border-color: #46bb00;">公共站</div>
+                            <div class="tabs-item" style="color: #283593; border-color: #283593;">露天1F</div>
+                            <div class="tabs-item" style="color: #fbc02d; border-color: #fbc02d;">自营</div>
+                            <div class="tabs-item" style="color: #1ccfc9; border-color: #1ccfc9;">芝麻信用·免充值</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,35 +181,15 @@ export default {
     },
 
     mounted() {
-        this.setFilterWidth();
     },
 
     methods: {
-        setFilterWidth: function () { // 设置 条件筛选栏 宽度
-            let filterDomList = this.$refs.filter.getElementsByClassName('filter-item');
-            let countWidth = 10;
-
-            for (let i = 0; i < filterDomList.length; i++) {
-                countWidth += filterDomList[i].offsetWidth;
-            }
-            
-            this.$refs.filter.setAttribute("style", `width: ${countWidth}px`);
-        }
     },
 }
 
 </script>
 
 <style scoped lang="less">
-
-.flex-start {
-    display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
-    display: -moz-box;     /* 老版本语法: Firefox (buggy) */
-    display: -ms-flexbox;  /* 混合版本语法: IE 10 */
-    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
-    display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
-    justify-content: flex-start;
-}
 
 .search {
     min-height: 100%;
@@ -399,12 +408,14 @@ export default {
     width: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
+    white-space: nowrap;
 
     .filter-content {
+        float: left;
         padding: 0px 5px;
         
         .filter-item {
-            float: left;
+            display: inline-block;
             padding: 7px 5px;
 
             .item-content {
@@ -461,15 +472,11 @@ export default {
         padding: 15px;
 
         .item-main {
-            display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
-            display: -moz-box;     /* 老版本语法: Firefox (buggy) */
-            display: -ms-flexbox;  /* 混合版本语法: IE 10 */
-            display: -webkit-flex; /* 新版本语法: Chrome 21+ */
-            display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
-            justify-content: start;
 
             .item-img {
                 border-radius: 4px;
+                width: 73px;
+                height: 73px;
                 border: 1px solid #ddd;
                 overflow: hidden;
 
@@ -487,6 +494,7 @@ export default {
                 padding-left: 15px;
 
                 .item-describe-content {
+                    position: relative;
                 }
 
                 .describe-title {
@@ -517,24 +525,167 @@ export default {
                 }
 
                 .describe-icon {
+                    padding-top: 2.5px;
+                    align-items: center;
 
                     .icon-left {
-                        padding-top: 2.5px;
+                        position: relative;
 
                         .icon-star {
+                            position: relative;
+
+                            .icon-star-black {
+                                position: absolute;
+                                top: -1px;
+                                left: 0px;
+                                width: 100%;
+                                height: 100%;
+                                border-top: 1px solid #fff;
+                                border-bottom: 1px solid #fff;
+                                background: #fff;
+                            }
+
                             img {
+                                padding-right: 2.5px;
                                 display: block;
                                 width: 14px;
                                 height: 14px;
                             }
                         }
+
+                        .icon-left-gray {
+                            width: 82.5px;
+                        }
+
+                        .icon-left-active {
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                            overflow: hidden;
+                            z-index: 2;
+
+                            .icon-left-active-content {
+                                width: 82.5px;
+                            }
+                        }
                     }
 
+                    .icon-right {
+                        -webkit-box-flex: 1;
+                        -ms-flex: 1;
+                        flex: 1;
+
+                        .icon-right-content {
+                            font-size: 12px;
+                            float: right;
+                            border: 1px solid #ddd;
+                            border-radius: 4px;
+
+                            .icon-right-speed {
+                                padding: 2px 5px;
+                                color: #fff;
+                                background: #ddd;
+                            }
+
+                            .icon-right-number {
+                                padding: 2px 5px;
+                                letter-spacing: 2px;
+                                color: #909399;
+
+                                span {
+                                    padding-left: 2px;
+                                }
+                            }
+                        }
+                    }
+
+                    .icon-right-fast {
+                        .icon-right-content {
+                            border: 1px solid #ff3232;
+
+                            .icon-right-speed {
+                                background: #ff3232;
+                            }
+
+                            .icon-right-number span {
+                                color: #ff3232;
+                            }
+
+                        }
+                    }
+
+                    .icon-right-slow {
+                        color: #48ba00;
+                    }
+                }
+
+                .describe-price {
+                    font-size: 12px;
+
+                    .price-top {
+                        color: #606266;
+
+                        span {
+                            position: relative;
+                            top: 2px;
+                            color: #fd6339;
+                            font-weight: bold;
+                            font-size: 24px;
+                        }
+                    }
+
+
+                    .price-bottom {
+                        padding-top: 2.5px;
+                        color: #909399;
+                        
+                        .price-bottom-figth {
+                            -webkit-box-flex: 1;
+                            -ms-flex: 1;
+                            flex: 1;
+                            text-align: right;
+                        }
+                    }
                 }
             }
         }
-    }
 
+        .item-line {
+            position: relative;
+            padding-top: 15px;
+            padding-bottom: 10px;
+
+            .line-block-dotted {
+                width: 100%;
+                height: 1px;
+                background-image: url(https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dotted-repeat.png);
+                background-repeat: repeat-x;
+            }
+        }
+        
+        .item-tabs-list {
+            height: 28px;
+            line-height: 26px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+
+            .tabs-list-content {
+                float: left;
+                height: 26px;
+            }
+
+            .tabs-item {
+                display: inline-block;
+                margin-right: 10px;
+                padding: 0px 10px;
+                border-radius: 5px;
+                border: 1px solid #E4E7ED;
+                font-size: 12px;
+                color: #606266;
+            }
+        }
+    }
 }
 
 </style>
