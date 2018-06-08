@@ -98,25 +98,14 @@
                     v-bind:class="[visualTab === 'compre' ? 'drop-down-show' : '']" 
                 >
                     <div class="drop-compre">
-                        <div class="drop-compre-item flex-start-center compre-item-selected">
+                        <div 
+                            class="drop-compre-item flex-start-center"
+                            v-bind:class="[key === compreDrop.valueIndex ? 'compre-item-selected' : '',]" 
+                            v-for="(val, key) in compreDrop.list" 
+                            :key="key"
+                        >
                             <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
-                            <span class="flex-rest">综合排序</span>
-                        </div>
-                        <div class="drop-compre-item flex-start-center">
-                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
-                            <span class="flex-rest">离我最近</span>
-                        </div>
-                        <div class="drop-compre-item flex-start-center">
-                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
-                            <span class="flex-rest">评价最好</span>
-                        </div>
-                        <div class="drop-compre-item flex-start-center">
-                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
-                            <span class="flex-rest">价格最低</span>
-                        </div>
-                        <div class="drop-compre-item flex-start-center">
-                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
-                            <span class="flex-rest">价格最高</span>
+                            <span class="flex-rest">{{val}}</span>
                         </div>
                     </div>
                 </div>
@@ -255,9 +244,20 @@ export default {
                 }
             ],
 
-            distanRange: {
+            distanRange: { // 距离选择
                 value: 1,
                 step: [1, 5,  10, 20, 50, 100, 200],
+            },
+
+            compreDrop: { // 排序选择
+                valueIndex: 0,
+                list: [
+                    '综合排序',
+                    '离我最近',
+                    '评价最好',
+                    '价格最低',
+                    '价格最高',
+                ]
             }
         }
     },
