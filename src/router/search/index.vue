@@ -111,17 +111,22 @@
                 </div>
                 
                 <div class="drop-down-other"
-                    v-bind:class="[visualTab === 'other' ? 'drop-down-show' : 'drop-down-show']" 
+                    v-bind:class="[visualTab === 'other' ? 'drop-down-show' : '']" 
                 >
                     <div class="drop-other-main">
-                        <div class="other-main-content">
-                            <div class="other-main-title">我的爱车</div>
+                        <div class="other-main-content"
+                            v-for="(group, groupkey) in otherDrop.group" 
+                            :key="groupkey"
+                        >
+                            <div class="other-main-title">{{group.title}}</div>
                             <div class="main-button-group">
-                                <el-button plain size="mini">朴素按钮</el-button>
-                                <el-button plain size="mini">朴素按钮</el-button>
-                                <el-button plain size="mini">朴素按钮</el-button>
-                                <el-button plain size="mini">朴素按钮</el-button>
-                                <el-button plain size="mini">朴素按钮</el-button>
+                                <el-button 
+                                    v-for="(item, listkey) in group.list" 
+                                    :key="listkey"
+                                    :type="item.isSelected ? 'primary' : null"
+                                    size="mini"
+                                    @click="item.fun(); otherDrop.group[groupkey].list[listkey].isSelected = !otherDrop.group[groupkey].list[listkey].isSelected;"
+                                >{{item.name}}</el-button>
                             </div>
                         </div>
                     </div>
@@ -278,6 +283,62 @@ export default {
                     '评价最好',
                     '价格最低',
                     '价格最高',
+                ]
+            },
+
+            otherDrop: { // 筛选选择
+                group: [
+                    {
+                        title: '我的爱车',
+                        list: [
+                            {
+                                name: '登录查看我的爱车',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '临时指定车型',
+                                isSelected: false,
+                                fun: () => {}
+                            }
+                        ]
+                    }, {
+                        title: '推荐电站',
+                        list: [
+                            {
+                                name: '精品电站',
+                                isSelected: false,
+                                fun: () => {}
+                            }
+                        ]
+                    }, {
+                        title: '电站类型',
+                        list: [
+                            {
+                                name: '公共站',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '驻地站',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '专用站',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '个人桩',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '复用桩',
+                                isSelected: false,
+                                fun: () => {}
+                            }
+                        ]
+                    }, {
+                        title: '充电方式',
+                        list: [ ]
+                    }
                 ]
             }
         }
