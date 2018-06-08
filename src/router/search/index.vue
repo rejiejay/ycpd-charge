@@ -136,6 +136,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- 条件排序下拉遮罩 -->
+        <div v-bind:class="[visualTab ? 'drop-down-shade' : '']" 
+            @click="visualTab = null"
+        ></div>
         
         <!-- 条件筛选栏 -->
         <div class="filter">
@@ -580,7 +585,7 @@ export default {
     }
 }
 
-// 条件排序栏
+// 条件排序下拉框
 .search .sort-drop-down {
     position: fixed;
     top: 103px;
@@ -734,6 +739,15 @@ export default {
     }
 }
 
+// 条件排序下拉遮罩
+.search .drop-down-shade {
+    height: 100%;
+    position: fixed;
+    top: 103px;
+    width: 100%;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.24);
+}
 
 // 条件筛选栏
 .search .filter {
