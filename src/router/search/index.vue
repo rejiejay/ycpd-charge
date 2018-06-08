@@ -109,6 +109,26 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="drop-down-other"
+                    v-bind:class="[visualTab === 'other' ? 'drop-down-show' : 'drop-down-show']" 
+                >
+                    <div class="drop-other-main">
+                        <div class="other-main-content">
+                            <div class="other-main-title">我的爱车</div>
+                            <div class="main-button-group">
+                                <el-button plain size="mini">朴素按钮</el-button>
+                                <el-button plain size="mini">朴素按钮</el-button>
+                                <el-button plain size="mini">朴素按钮</el-button>
+                                <el-button plain size="mini">朴素按钮</el-button>
+                                <el-button plain size="mini">朴素按钮</el-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="drop-submit">
+                        <div class="drop-submit-content">确定</div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -202,8 +222,9 @@
 <script>
 
 import Vue from 'vue';
-import { Slider } from 'element-ui';
+import { Slider, Button } from 'element-ui';
 Vue.use(Slider);
+Vue.use(Button);
 
 export default {
     name: 'search',
@@ -581,6 +602,35 @@ export default {
         }
     }
 
+    .drop-down-other {
+        display: none;
+        position: relative;
+        top: -200px;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+
+        .drop-other-main {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+
+            .other-main-title {
+                padding-top: 5px;
+                padding-bottom: 15px;
+                font-size: 14px;
+                color: #909399;
+            }
+
+            .main-button-group {
+
+                .el-button {
+                    margin-left: 0px;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+
     .drop-submit {
         padding: 10px 15px;
 
@@ -603,25 +653,26 @@ export default {
         -webkit-animation: dropdownshow 0.5s 1;	/* Safari 和 Chrome */
         -o-animation: dropdownshow 0.5s 1;	/* Opera */
     }
+
+    @keyframes dropdownshow {
+        from {
+            top: -200px;
+        }
+        to {
+            top: 0px;
+        }
+    }
+
+    @-webkit-keyframes dropdownshow {
+        from {
+            top: -200px;
+        }
+        to {
+            top: 0px;
+        }
+    }
 }
 
-@keyframes dropdownshow {
-    from {
-        top: -200px;
-    }
-    to {
-        top: 0px;
-    }
-}
-
-@-webkit-keyframes dropdownshow {
-    from {
-        top: -200px;
-    }
-    to {
-        top: 0px;
-    }
-}
 
 // 条件筛选栏
 .search .filter {
