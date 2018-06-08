@@ -25,7 +25,10 @@
         
         <!-- 条件排序栏 -->
         <div class="sort-tab flex-start">
-            <div class="tab-item tab-selected">
+            <div class="tab-item" 
+                v-bind:class="[visualTab === 'distan' ? 'tab-selected' : '']" 
+                @click="showTab('distan')"
+            >
                 <div class="tab-item-content flex-start">
                     <span>距您10km</span>
                     <i class="icon-bule"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm-bule.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
@@ -34,18 +37,24 @@
                 <div class="tab-item-line"></div>
             </div>
 
-            <div class="tab-item">
+            <div class="tab-item"
+                v-bind:class="[visualTab === 'compre' ? 'tab-selected' : '']" 
+                @click="showTab('compre')"
+            >
                 <div class="tab-item-content flex-start">
-                    <span>距您10km</span>
+                    <span>综合排序</span>
                     <i class="icon-bule"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm-bule.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
                     <i class="icon-black"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm-black.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
                 </div>
                 <div class="tab-item-line"></div>
             </div>
 
-            <div class="tab-item">
+            <div class="tab-item"
+                v-bind:class="[visualTab === 'other' ? 'tab-selected' : '']" 
+                @click="showTab('other')"
+            >
                 <div class="tab-item-content flex-start">
-                    <span style="color: #409EFF;">距您10km</span>
+                    <span style="color: #409EFF;">筛选</span>
                     <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm-bule.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
                 </div>
             </div>
@@ -132,11 +141,17 @@
                     </div>
                 </div>
             </div>
+            <div class="bottom">已经到底了</div>
         </div>
+        
     </div>
 </template>
 
 <script>
+
+import Vue from 'vue';
+import { Slider } from 'element-ui';
+Vue.use(Slider);
 
 export default {
     name: 'search',
@@ -146,7 +161,6 @@ export default {
 
     data () {
         return {
-            width: 0,
             filterList: [
                 {
                     name: '精品站',
@@ -173,17 +187,26 @@ export default {
                     name: '停车免费',
                     isSelected: false
                 }
-            ]
+            ],
+
+            // 显示的条件排序栏
+            visualTab: null, // distan compre other
         }
     },
 
     computed: {
     },
 
-    mounted() {
-    },
-
     methods: {
+        showTab(value) { // 显示 条件排序栏
+            if (value === 'distan') {
+                this.visualTab = this.visualTab === 'distan' ? null : 'distan';
+            } else if (value === 'compre') {
+                this.visualTab = this.visualTab === 'compre' ? null : 'compre';
+            } else if (value === 'other') {
+                this.visualTab = this.visualTab === 'other' ? null : 'other';
+            }
+        }
     },
 }
 
@@ -198,9 +221,12 @@ export default {
 
 // 轮播图
 .search .search-bar {
+    position: fixed;
+    top: 0px;
     width: 100%;
     background: #fff;
     border-bottom: 1px solid #ddd;
+    z-index: 3;
 
     .search-content {
         padding: 10px 0px;
@@ -320,9 +346,13 @@ export default {
 
 // 条件排序栏
 .search .sort-tab {
+    position: fixed;
+    top: 52px;
+    width: 100%;
     height: 50px;
     border-bottom: 1px solid #ddd;
     background: #fff;
+    z-index: 3;
 
     .tab-item {
         position: relative;
@@ -402,13 +432,17 @@ export default {
 
 // 条件筛选栏
 .search .filter {
+    position: fixed;
+    top: 103px;
+    width: 100%;
     height: 43px;
     border-bottom: 1px solid #ddd;
     background: #fff;
-    width: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    z-index: 3;
+
 
     .filter-content {
         float: left;
@@ -461,7 +495,7 @@ export default {
 
 // 查询结果列表
 .search .list {
-    padding-bottom: 15px;
+    padding-top: 147px;
 
     .list-content {
         background: #fff;
@@ -664,27 +698,34 @@ export default {
         }
         
         .item-tabs-list {
-            height: 28px;
-            line-height: 26px;
+            height: 24px;
+            line-height: 21px;
             overflow-x: scroll;
             overflow-y: hidden;
             white-space: nowrap;
 
             .tabs-list-content {
                 float: left;
-                height: 26px;
+                height: 21px;
             }
 
             .tabs-item {
                 display: inline-block;
-                margin-right: 10px;
-                padding: 0px 10px;
+                margin-right: 5px;
+                padding: 0px 8px;
                 border-radius: 5px;
                 border: 1px solid #E4E7ED;
                 font-size: 12px;
                 color: #606266;
             }
         }
+    }
+
+    .bottom {
+        line-height: 50px;
+        text-align: center;
+        font-size: 14px;
+        color: #909399;
     }
 }
 

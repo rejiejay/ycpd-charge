@@ -10,7 +10,7 @@ const routes = [
     name: 'home',
     component: () => import('@/router/home/index'), // 主页 首屏
     meta: { title: '充电桩' },
-  },{
+  }, {
     path: '/search/index',
     alias: ['/search'],
     name: 'search',
