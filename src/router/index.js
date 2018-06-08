@@ -16,6 +16,11 @@ const routes = [
     name: 'search',
     component: () => import('@/router/search/index'), // 搜索
     meta: { title: '搜索' },
+  }, {
+    path: '/search/detail',
+    name: 'searchDetail',
+    component: () => import('@/router/search/detail'), // 列表详情
+    meta: { title: '列表详情' },
   },
 ];
 

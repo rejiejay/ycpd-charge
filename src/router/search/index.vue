@@ -8,10 +8,10 @@
             <div class="search-content flex-start">
 
                 <div class="search-back" @click="$router.push('/index')">
-                    <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search-back.png"></i>
+                    <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search-back.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100"></i>
                 </div>
                 <div class="search-bar flex-start" @click="$router.push('/search/index')">
-                    <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search.png"></i>
+                    <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100"></i>
                     <!-- <span>输入目的地/电站名</span> -->
                     <div class="search-input">
                         <input type="text" placeholder="输入目的地/电站名">
@@ -374,7 +374,7 @@ export default {
     background: #efefef;
 }
 
-// 轮播图
+// 顶部搜索栏
 .search .search-bar {
     position: fixed;
     top: 0px;
