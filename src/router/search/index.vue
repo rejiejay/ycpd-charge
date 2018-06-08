@@ -59,6 +59,69 @@
                 </div>
             </div>
         </div>
+
+        <!-- 条件排序下拉框 -->
+        <div class="sort-drop-down">
+            <div class="drop-down-content">
+
+                <div class="drop-down-distan"
+                    v-bind:class="[visualTab === 'distan' ? 'drop-down-show' : '']" 
+                >
+                    <div class="drop-distan-main">
+                        <div class="drop-distan-tiltle">距离我</div>
+                        <div class="drop-distan-rage">
+                            <el-slider
+                                v-model="distanRange.value"
+                                :step="Math.floor( 100 / (distanRange.step.length - 1))"
+                                show-stops
+                                :show-tooltip="false"
+                            ></el-slider>
+                        </div>
+                        <div class="distan-rage-number flex-start">
+                            <div 
+                                class="distan-rage-item" 
+                                v-bind:class="[key === (distanRange.step.length - 1) ? 'item-last' : '',]" 
+                                v-for="(val, key) in distanRange.step" 
+                                :key="key"
+                                :style="`width: ${1 / distanRange.step.length * 100}%`"
+                            >
+                                {{val}}km
+                            </div>
+                        </div>
+                    </div>
+                    <div class="drop-submit">
+                        <div class="drop-submit-content">确定</div>
+                    </div>
+                </div>
+                
+                <div class="drop-down-compre"
+                    v-bind:class="[visualTab === 'compre' ? 'drop-down-show' : '']" 
+                >
+                    <div class="drop-compre">
+                        <div class="drop-compre-item flex-start-center compre-item-selected">
+                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
+                            <span class="flex-rest">综合排序</span>
+                        </div>
+                        <div class="drop-compre-item flex-start-center">
+                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
+                            <span class="flex-rest">离我最近</span>
+                        </div>
+                        <div class="drop-compre-item flex-start-center">
+                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
+                            <span class="flex-rest">评价最好</span>
+                        </div>
+                        <div class="drop-compre-item flex-start-center">
+                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
+                            <span class="flex-rest">价格最低</span>
+                        </div>
+                        <div class="drop-compre-item flex-start-center">
+                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/tick.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"/></i>
+                            <span class="flex-rest">价格最高</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- 条件筛选栏 -->
         <div class="filter">
@@ -161,7 +224,10 @@ export default {
 
     data () {
         return {
-            filterList: [
+            // 显示的条件排序项
+            visualTab: null, // distan compre other
+
+            filterList: [ // 条件筛选项
                 {
                     name: '精品站',
                     isSelected: false
@@ -189,8 +255,10 @@ export default {
                 }
             ],
 
-            // 显示的条件排序栏
-            visualTab: null, // distan compre other
+            distanRange: {
+                value: 1,
+                step: [1, 5,  10, 20, 50, 100, 200],
+            }
         }
     },
 
@@ -427,6 +495,131 @@ export default {
         span {
             color: #409EFF;
         }
+    }
+}
+
+// 条件排序栏
+.search .sort-drop-down {
+    position: fixed;
+    top: 103px;
+    width: 100%;
+    z-index: 4;
+
+    .drop-down-content {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .drop-down-distan {
+        display: none;
+        position: relative;
+        top: -200px;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+        
+        .drop-distan-main {
+            padding: 15px 0px;
+            border-bottom: 1px solid #ddd;
+
+            .drop-distan-tiltle {
+                padding-left: 25px;
+                padding-right: 25px;
+                padding-bottom: 15px;
+                font-size: 16px;
+                color: #303133;
+            }
+
+            .drop-distan-rage {
+                position: relative;
+                padding: 0px 30px;
+            }
+                
+            .distan-rage-number {
+                padding: 5px 15px 5px 15px;
+                font-size: 14px;
+
+                .item-last {
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+    .drop-down-compre {
+        display: none;
+        position: relative;
+        top: -200px;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+
+        .drop-compre-item {
+            height: 40px;
+
+            i {
+                height: 40px;
+                width: 40px;
+
+                img {
+                    display: none;
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+
+            span {
+                position: relative;
+                top: 1px;
+                font-size: 16px;
+                line-height: 40px;
+                color: #303133;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+
+        .compre-item-selected i img {
+            display: block;
+        }
+    }
+
+    .drop-submit {
+        padding: 10px 15px;
+
+        .drop-submit-content {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 5px;
+            color: #fff;
+            background: #409EFF;
+        }
+    }
+
+    .drop-down-show {
+        display: block;
+        top: 0px;
+
+        animation: dropdownshow 0.5s 1;
+        -moz-animation: dropdownshow 0.5s 1;	/* Firefox */
+        -webkit-animation: dropdownshow 0.5s 1;	/* Safari 和 Chrome */
+        -o-animation: dropdownshow 0.5s 1;	/* Opera */
+    }
+}
+
+@keyframes dropdownshow {
+    from {
+        top: -200px;
+    }
+    to {
+        top: 0px;
+    }
+}
+
+@-webkit-keyframes dropdownshow {
+    from {
+        top: -200px;
+    }
+    to {
+        top: 0px;
     }
 }
 
