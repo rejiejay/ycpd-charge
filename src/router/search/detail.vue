@@ -116,85 +116,91 @@
                     </div>
 
                     <div class="particu-describe">
-                        <div class="particu-describe">
-                            <div class="particu-describe-list">
-                                <div class="particu-describe-item flex-start">
-                                    <div class="particu-describe-title">支付方式</div>
-                                    <div class="particu-describe-lable flex-rest">
-                                        <div class="describe-lable-main">本APP,养车频道微信公众号</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="particu-describe-list">
-                                <div class="particu-describe-item flex-start">
-                                    <div class="particu-describe-title">当前时段</div>
-                                    <div class="particu-describe-lable flex-rest flex-start">
-                                        <div class="describe-lable-left">14:00-16:30</div>
-                                        <div class="describe-lable-right flex-rest">其他时段 ></div>
-                                    </div>
-                                </div>
-                                <div class="particu-describe-item flex-start">
-                                    <div class="particu-describe-title">充电单价</div>
-                                    <div class="particu-describe-lable">
-                                        <div class="describe-lable-main">1.6777元/度</div>
-                                        <div class="describe-lable-sub1">电费1.1177元/度 | 服务费 0.5600元/度</div>
-                                        <span class="describe-lable-sub2">16:30开始 1.3252元/度</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="particu-describe-list">
-                                <div class="particu-describe-item flex-start">
-                                    <div class="particu-describe-title">充电单价</div>
-                                    <div class="particu-describe-lable">
-                                        <div class="describe-lable-main">(半小时内免费停车)超过半小时5元起, 每半小时加2元, 每天最高收费30元</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="particu-describe-list">
-                                <div class="particu-describe-item flex-start">
-                                    <div class="particu-describe-title">超站所有方</div>
-                                    <div class="particu-describe-lable">
-                                        <div class="describe-lable-main">养车频道</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="particu-describe-list">
-                                <div class="particu-describe-item flex-start">
-                                    <div class="particu-describe-title">营业时间</div>
-                                    <div class="particu-describe-lable">
-                                        <div class="describe-lable-main">周一至周日00:00-24:00</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="particu-describe-list">
-                                <div class="particu-describe-item flex-start">
-                                    <div class="particu-describe-title">服务电话</div>
-                                    <div class="particu-describe-lable flex-rest flex-start">
-                                        <div class="describe-lable-left">4000-123-321</div>
-                                        <div class="describe-lable-right flex-rest">></div>
-                                    </div>
+                        <div class="particu-describe-list">
+                            <div class="particu-describe-item flex-start">
+                                <div class="particu-describe-title">支付方式</div>
+                                <div class="particu-describe-lable flex-rest">
+                                    <div class="describe-lable-main">本APP,养车频道微信公众号</div>
                                 </div>
                             </div>
                         </div>
 
-                    </div>
-
-                    <div class="particu-succeed-car">
-                        <div class="succeed-car-title flex-start">
-                            <div class="car-title-left">
+                        <div class="particu-describe-list">
+                            <div class="particu-describe-item flex-start">
+                                <div class="particu-describe-title">当前时段</div>
+                                <div class="particu-describe-lable flex-rest flex-start">
+                                    <div class="describe-lable-left">14:00-16:30</div>
+                                    <div class="describe-lable-right flex-rest">其他时段 ></div>
+                                </div>
                             </div>
-                            <div class="car-title-right flex-rest">
+                            <div class="particu-describe-item flex-start">
+                                <div class="particu-describe-title">充电单价</div>
+                                <div class="particu-describe-lable">
+                                    <div class="describe-lable-main">1.6777元/度</div>
+                                    <div class="describe-lable-sub1">电费1.1177元/度 | 服务费 0.5600元/度</div>
+                                    <span class="describe-lable-sub2">16:30开始 1.3252元/度</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="succeed-car-main"></div>
+
+                        <div class="particu-describe-list">
+                            <div class="particu-describe-item flex-start">
+                                <div class="particu-describe-title">充电单价</div>
+                                <div class="particu-describe-lable flex-rest">
+                                    <div class="describe-lable-main">(半小时内免费停车)超过半小时5元起, 每半小时加2元, 每天最高收费30元</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="particu-describe-list">
+                            <div class="particu-describe-item flex-start">
+                                <div class="particu-describe-title">超站所有方</div>
+                                <div class="particu-describe-lable">
+                                    <div class="describe-lable-main">养车频道</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="particu-describe-list">
+                            <div class="particu-describe-item flex-start">
+                                <div class="particu-describe-title">营业时间</div>
+                                <div class="particu-describe-lable">
+                                    <div class="describe-lable-main">周一至周日00:00-24:00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="particu-describe-list">
+                            <div class="particu-describe-item flex-start">
+                                <div class="particu-describe-title">服务电话</div>
+                                <div class="particu-describe-lable flex-rest flex-start">
+                                    <div class="describe-lable-left">4000-123-321</div>
+                                    <div class="describe-lable-right flex-rest">></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="particu-succeed-time">
+                    <div class="particu-succeed particu-succeed-car">
+                        <div class="succeed-title flex-start">
+                            <div class="car-title-left">用户成功充电车型</div>
+                            <div class="car-title-right flex-rest">查看全部 ></div>
+                        </div>
+                        <div class="succeed-car-list">
+                            <div class="car-list-content">
+                                <div class="succeed-car-item"  v-for="carItem in new Array(10)" :key="carItem" >
+                                    <i><img src="http://cyygiftsend.szpiccxxjsb.cn/imgs/stores/YC7550102_100x100.jpg"></i>
+                                    <span>泰众E200</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="particu-succeed particu-succeed-time">
+                        <div class="succeed-title flex-start">
+                            <div class="car-title-left">七天成功充电<span>213</span>次</div>
+                            <div class="car-title-right flex-rest">最近充电35分钟前 ></div>
+                        </div>
                     </div>
                 </div>
             </mt-tab-container-item>
@@ -642,8 +648,78 @@ export default {
                 }
             }
         }
-    }
 
+        .particu-succeed {
+            background: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+
+            .succeed-title {
+                padding: 0px 15px;
+                line-height: 40px;
+                border-bottom: 1px solid #ddd;
+
+                .car-title-left {
+                    font-size: 16px;
+                    color: #303133;
+
+                    span {
+                        color: #26a2ff;
+                    }
+                }
+
+                .car-title-right {
+                    text-align: right;
+                    font-size: 14px;
+                    color: #606266;
+                }
+            }
+        }
+        
+        .particu-succeed-car {
+            position: relative;
+
+            .succeed-car-list {
+                padding: 15px;
+                width: 100%;
+                overflow-x: scroll;
+                overflow-y: hidden;
+                white-space: nowrap;
+
+                .car-list-content {
+                    float: left;
+                }
+
+                .succeed-car-item {
+                    display: inline-block;
+                    margin-right: 15px;
+
+                    i {
+                        display: block;
+                        width: 70px;
+                        height: 70px;
+                        border-radius: 5px;
+                        overflow: hidden;
+
+                        img {
+                            display: block;
+                            width: 70px;
+                            height: 70px;
+                        }
+                    }
+
+                    span {
+                        padding-top: 10px;
+                        font-size: 14px;
+                        text-align: center;
+                        display: block;
+                        color: #909399;
+                    }
+                }
+            }
+        }
+    }
 }
 
 </style>
