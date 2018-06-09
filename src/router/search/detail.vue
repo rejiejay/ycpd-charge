@@ -30,7 +30,7 @@
                 <div class="banner-main-describe">
                     <div class="main-describe-title">深圳信青工业一期充电器</div>
                     <div class="main-describe-icon flex-start-center">
-                        
+                        <iconstar width="60" />
                     </div>
                 </div>
             </div>
@@ -41,10 +41,13 @@
 
 <script>
 
+import iconstar from './../../components/icon-star';
+
 export default {
     name: 'searchDetail',
 
     components: {
+        iconstar
     },
 
     data () {
