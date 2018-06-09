@@ -114,6 +114,88 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="particu-describe">
+                        <div class="particu-describe">
+                            <div class="particu-describe-list">
+                                <div class="particu-describe-item flex-start">
+                                    <div class="particu-describe-title">支付方式</div>
+                                    <div class="particu-describe-lable flex-rest">
+                                        <div class="describe-lable-main">本APP,养车频道微信公众号</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="particu-describe-list">
+                                <div class="particu-describe-item flex-start">
+                                    <div class="particu-describe-title">当前时段</div>
+                                    <div class="particu-describe-lable flex-rest flex-start">
+                                        <div class="describe-lable-left">14:00-16:30</div>
+                                        <div class="describe-lable-right flex-rest">其他时段 ></div>
+                                    </div>
+                                </div>
+                                <div class="particu-describe-item flex-start">
+                                    <div class="particu-describe-title">充电单价</div>
+                                    <div class="particu-describe-lable">
+                                        <div class="describe-lable-main">1.6777元/度</div>
+                                        <div class="describe-lable-sub1">电费1.1177元/度 | 服务费 0.5600元/度</div>
+                                        <span class="describe-lable-sub2">16:30开始 1.3252元/度</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="particu-describe-list">
+                                <div class="particu-describe-item flex-start">
+                                    <div class="particu-describe-title">充电单价</div>
+                                    <div class="particu-describe-lable">
+                                        <div class="describe-lable-main">(半小时内免费停车)超过半小时5元起, 每半小时加2元, 每天最高收费30元</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="particu-describe-list">
+                                <div class="particu-describe-item flex-start">
+                                    <div class="particu-describe-title">超站所有方</div>
+                                    <div class="particu-describe-lable">
+                                        <div class="describe-lable-main">养车频道</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="particu-describe-list">
+                                <div class="particu-describe-item flex-start">
+                                    <div class="particu-describe-title">营业时间</div>
+                                    <div class="particu-describe-lable">
+                                        <div class="describe-lable-main">周一至周日00:00-24:00</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="particu-describe-list">
+                                <div class="particu-describe-item flex-start">
+                                    <div class="particu-describe-title">服务电话</div>
+                                    <div class="particu-describe-lable flex-rest flex-start">
+                                        <div class="describe-lable-left">4000-123-321</div>
+                                        <div class="describe-lable-right flex-rest">></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="particu-succeed-car">
+                        <div class="succeed-car-title flex-start">
+                            <div class="car-title-left">
+                            </div>
+                            <div class="car-title-right flex-rest">
+                            </div>
+                        </div>
+                        <div class="succeed-car-main"></div>
+                    </div>
+
+                    <div class="particu-succeed-time">
+                    </div>
                 </div>
             </mt-tab-container-item>
 
@@ -135,10 +217,6 @@ import {
   Navbar, TabItem, TabContainer, TabContainerItem,
 } from 'mint-ui';
 import 'mint-ui/lib/font/style.css';
-import 'mint-ui/lib/header/style.css';
-import 'mint-ui/lib/button/style.css';
-import 'mint-ui/lib/navbar/style.css';
-import 'mint-ui/lib/tab-item/style.css';
 import 'mint-ui/lib/tab-container/style.css';
 import 'mint-ui/lib/tab-container-item/style.css';
 
@@ -351,8 +429,48 @@ export default {
     padding-top: 15px;
 
     .mint-navbar {
+        background-color: #fff;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        text-align: center;
         border-top: 1px solid #ddd;
         border-bottom: 1px solid #ddd;
+
+        .mint-tab-item {
+            display: block;
+            padding: 7px 0;
+            -webkit-box-flex: 1;
+                -ms-flex: 1;
+                    flex: 1;
+            text-decoration: none;
+            padding: 17px 0;
+            font-size: 16px;
+
+            .mint-tab-item-label {
+                font-size: 16px;
+            }
+        }
+
+        .mint-tab-item:last-child {
+            border-right: 0;
+        }
+
+        .is-selected {
+            position: relative;
+            border-bottom: 3px solid #26a2ff;
+            color: #26a2ff;
+            margin-bottom: -3px;
+            z-index: 2;
+        }
+
+        .is-fixed {
+            top: 0;
+            right: 0;
+            left: 0;
+            position: fixed;
+            z-index: 1;
+        }
 
         .mt-tab-line {
             position: relative;
@@ -373,6 +491,7 @@ export default {
     .particu {
         
         .particu-navigator {
+            margin-bottom: 15px;
             background: #fff;
             border-bottom: 1px solid #ddd;
 
@@ -468,6 +587,57 @@ export default {
                         height: 100%;
                         width: 1px;
                         background: #ddd;
+                    }
+                }
+            }
+        }
+
+        .particu-describe {
+            margin-bottom: 15px;
+            background: #fff;
+            border-top: 1px solid #ddd;
+
+            .particu-describe-list {
+                border-bottom: 1px solid #ddd;
+                padding: 15px 15px 0px 15px;
+
+                .particu-describe-item {
+                    padding-bottom: 15px;
+
+                    .particu-describe-title {
+                        width: 90px;
+                        font-size: 16px;
+                        color: #606266;
+                    }
+
+                    .particu-describe-lable {
+                        .describe-lable-main {
+                            font-size: 16px;
+                            color: #303133;
+                        }
+
+                        .describe-lable-sub1 {
+                            padding: 5px 0px;
+                            font-size: 14px;
+                            color: #909399;
+                        }
+
+                        .describe-lable-sub2 {
+                            font-size: 12px;
+                            color: #bc9663;
+                            background: #f8f5e5;
+                        }
+
+                        .describe-lable-left {
+                            font-size: 16px;
+                            color: #303133;
+                        }
+
+                        .describe-lable-right {
+                            text-align: right;
+                            font-size: 14px;
+                            color: #909399;
+                        }
                     }
                 }
             }
