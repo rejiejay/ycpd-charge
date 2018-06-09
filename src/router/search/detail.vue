@@ -72,7 +72,49 @@
 
             <!-- 详情 -->
             <mt-tab-container-item id="particu">
-                <div class="particu"></div>
+                <div class="particu">
+                    <div class="particu-navigator">
+                        <div class="particu-navigator-main flex-start-center">
+                            <div class="navigator-main-descrip flex-rest">
+                                <div class="main-descrip-title">广东省深圳市龙岗区坂田街道中兴路信擎科技园</div>
+                                <div class="main-descrip-link">查看具体位置示意图</div>
+                                <div class="main-descrip-label">距离我0.2km<span>露天1F</span></div>
+                            </div>
+                            <div class="navigator-main-icon">导航 <span>></span></div>
+                        </div>
+                        <div class="particu-navigator-lable">
+                            <div class="navigator-lable-content">
+                                <div class="lable-item">
+                                    <div class="flex-center">
+                                        <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/cate.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100" alt=""></i>
+                                        <span>美食</span>
+                                    </div>
+                                    <div class="lable-item-line"></div>
+                                </div>
+                                <div class="lable-item">
+                                    <div class="flex-center">
+                                        <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/car-1.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100" alt=""></i>
+                                        <span>汽车</span>
+                                    </div>
+                                    <div class="lable-item-line"></div>
+                                </div>
+                                <div class="lable-item">
+                                    <div class="flex-center">
+                                        <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/wc.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100" alt=""></i>
+                                        <span>洗手间</span>
+                                    </div>
+                                    <div class="lable-item-line"></div>
+                                </div>
+                                <div class="lable-item">
+                                    <div class="flex-center">
+                                        <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/hotel.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100" alt=""></i>
+                                        <span>酒店</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </mt-tab-container-item>
 
             <!-- 终端 -->
@@ -329,7 +371,107 @@ export default {
 
     // 详情
     .particu {
+        
+        .particu-navigator {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
 
+            .particu-navigator-main {
+                border-bottom: 1px solid #ddd;
+
+                .navigator-main-descrip {
+                    padding: 15px;
+
+                    .main-descrip-title {
+                        padding-bottom: 7.5px;
+                        font-size: 14px;
+                        color: #303133;
+                    }
+
+                    .main-descrip-link {
+                        padding-bottom: 7.5px;
+                        font-size: 14px;
+                        color: #606266;
+                    }
+
+                    .main-descrip-label {
+                        font-size: 12px;
+                        color: #909399;
+                        padding-right: 5px;
+
+                        span {
+                            margin-left: 5px;
+                            display: inline-block;
+                            padding: 0px 8px;
+                            border-radius: 5px;
+                            border: 1px solid #E4E7ED;
+                            font-size: 12px;
+                            color: #606266;
+                        }
+                    }
+                }
+
+                .navigator-main-icon {
+                    padding-right: 15px;
+                    font-size: 16px;
+                    color: #909399;
+
+                    span {
+                        padding-left: 2px;
+                    }
+                }
+            }
+
+            .particu-navigator-lable {
+                height: 43px;
+                width: 100%;
+                overflow-x: scroll;
+                overflow-y: hidden;
+                white-space: nowrap;
+
+                .navigator-lable-content {
+                    float: left;
+                    height: 43px;
+                }
+
+                .lable-item {
+                    position: relative;
+                    display: inline-block;
+                    height: 43px;
+                    width: 90px;
+
+                    .flex-center {
+                        height: 43px;
+                    }
+
+                    i {
+                        display: block;
+                        width: 24px;
+                        height: 24px;
+
+                        img {
+                            display: block;
+                            width: 24px;
+                            height: 24px;
+                        }
+                    }
+
+                    span {
+                        display: block;
+                        padding-left: 5px;
+                    }
+
+                    .lable-item-line {
+                        position: absolute;
+                        right: 0px;
+                        top: 0px;
+                        height: 100%;
+                        width: 1px;
+                        background: #ddd;
+                    }
+                }
+            }
+        }
     }
 
 }
