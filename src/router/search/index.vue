@@ -452,7 +452,7 @@ export default {
 
         input {
             width: 95%;
-            padding: 0px 2.5;
+            padding: 0px 2.5px;
             border: none;
             outline: none;
             font-size: 16px;

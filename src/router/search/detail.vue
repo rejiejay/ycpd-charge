@@ -223,11 +223,78 @@
                                 <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/filter-selected.png?x-oss-process=image/resize,m_fill,w_28,h_28,limit_0/auto-orient,0/quality,q_100"></i>
                             </div>
                         </div>
-                        <div class="termina-filter-right flex-start-center">
+                        <div class="termina-filter-right flex-start-center" @click="terminaFilter.popupVisible = true">
                             <span>筛选</span>
                             <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm-bule.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
                             <div class="filter-right-hint">2</div>
                         </div>
+                        <mt-popup
+                            v-model="terminaFilter.popupVisible"
+                            position="bottom"
+                        >
+                            <div class="popup-title">
+                                <div class="popup-title-main">终端筛选</div>
+                                <div class="popup-title-sub"
+                                    @click="terminaFilter.popupVisible = false"
+                                >取消</div>
+                            </div>
+                            <div class="popup-main">
+                                <div class="popup-main-title">终端名称/编号/车位号</div>
+                                
+                                <div class="popup-main-search">
+                                    <div class="main-search-content flex-start">
+                                        <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/search.png?x-oss-process=image/resize,m_fill,w_48,h_48,limit_0/auto-orient,0/quality,q_100"></i>
+                                        <!-- <span>输入目的地/电站名</span> -->
+                                        <div class="search-input">
+                                            <input type="text" placeholder="输入目的地/电站名">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="popup-main-content"
+                                    v-for="(group, groupkey) in terminaFilter.popupGroup" 
+                                    :key="groupkey"
+                                >
+                                    <div class="popup-main-title">{{group.title}}</div>
+                                    <div class="popup-button-group">
+                                        <el-button 
+                                            v-for="(item, listkey) in group.list" 
+                                            :key="listkey"
+                                            :type="item.isSelected ? 'primary' : null"
+                                            size="mini"
+                                            @click="item.fun(); terminaFilter.popupGroup[groupkey].list[listkey].isSelected = !terminaFilter.popupGroup[groupkey].list[listkey].isSelected;"
+                                        >{{item.name}}</el-button>
+                                    </div>
+                                </div>
+                                <div class="popup-main-title">查看最低功率15kW-360kW的充电站(适用于直流快充)</div>
+                                <div class="popup-main-rage">
+                                    <div class="popup-rage-main">
+                                        <el-slider
+                                            v-model="terminaFilter.popupRange.value"
+                                            :step="Math.floor( 100 / (terminaFilter.popupRange.step.length - 1))"
+                                            show-stops
+                                            range
+                                            :show-tooltip="false"
+                                        ></el-slider>
+                                    </div>
+                                    <div class="popup-rage-number flex-start">
+                                        <div 
+                                            class="popup-rage-item" 
+                                            v-bind:class="[key === (terminaFilter.popupRange.step.length - 1) ? 'item-last' : '',]" 
+                                            v-for="(val, key) in terminaFilter.popupRange.step" 
+                                            :key="key"
+                                            :style="`width: ${1 / terminaFilter.popupRange.step.length * 100}%`"
+                                        >
+                                            {{val}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-submit flex-start">
+                                <div class="popup-submit-sub">清空</div>
+                                <div class="popup-submit-btn flex-rest">确定</div>
+                            </div>
+                        </mt-popup>
                     </div>
                     
                     <div class="termina-list">
@@ -290,16 +357,24 @@
 // mint-ui 框架
 import Vue from 'vue';
 import { 
-  Navbar, TabItem, TabContainer, TabContainerItem,
+  Navbar, TabItem, TabContainer, 
+  TabContainerItem, Popup 
 } from 'mint-ui';
 import 'mint-ui/lib/font/style.css';
 import 'mint-ui/lib/tab-container/style.css';
 import 'mint-ui/lib/tab-container-item/style.css';
+import 'mint-ui/lib/popup/style.css';
 
 Vue.component('mt-navbar', Navbar);
 Vue.component('mt-tab-item', TabItem);
 Vue.component('mt-tab-container', TabContainer);
 Vue.component('mt-tab-container-item', TabContainerItem);
+Vue.component('mt-popup', Popup);
+
+// element-ui 框架
+import { Slider, Button } from 'element-ui';
+Vue.use(Slider);
+Vue.use(Button);
 
 import iconstar from './../../components/icon-star';
 
@@ -314,6 +389,139 @@ export default {
         return {
             // 选项卡栏
             navbarSelected: "termina", // 详情:particu 终端:termina 评论:comment
+
+            // 终端 筛选
+            terminaFilter: {
+                popupVisible: false, // 下拉弹出框
+                popupGroup: [
+                    {
+                        title: '充电方式',
+                        list: [
+                            {
+                                name: '直流快充',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '交流快充',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '漫流漫充',
+                                isSelected: false,
+                                fun: () => {}
+                            }
+                        ]
+                    }, {
+                        title: '终端状态',
+                        list: [
+                            {
+                                name: '空闲',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '充电中',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '离网',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '已充满',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '已插枪',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '暂停中',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '故障',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '未知',
+                                isSelected: false,
+                                fun: () => {}
+                            }
+                        ]
+                    }, {
+                        title: '充电接口',
+                        list: [
+                            {
+                                name: '国标2011',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '国标2015',
+                                isSelected: false,
+                                fun: () => {}
+                            }
+                        ]
+                    }, {
+                        title: '辅源类型(仅适用于直流快充)',
+                        list: [
+                            {
+                                name: '12V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '24V',
+                                isSelected: false,
+                                fun: () => {}
+                            }
+                        ]
+                    }, {
+                        title: '电压(仅适用于直流快充)',
+                        list: [
+                            {
+                                name: '220V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '250V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '280V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '300V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '350V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '450V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '500V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '700V',
+                                isSelected: false,
+                                fun: () => {}
+                            }, {
+                                name: '750V',
+                                isSelected: false,
+                                fun: () => {}
+                            }
+                        ]
+                    }
+                ],
+                popupRange: { // 功率选择
+                    value: [10, 50], // 百分比
+                    step: [15, 30,  45, 60, 90, 120, 150, 180, 360],
+                },
+            }
         }
     },
 
@@ -867,6 +1075,153 @@ export default {
                     line-height: 16px;
                     color: #fff;
                     background: #ff2c2c;
+                }
+            }
+
+            .mint-popup {
+                width: 100%;
+
+                .popup-title {
+                    height: 50px;
+                    line-height: 50px;
+                    text-align: center;
+                    color: #303133;
+                    border-bottom: 1px solid #ddd;
+
+                    .popup-title-sub {
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        padding: 0px 15px;
+                        color: #909399;
+                    }
+                }
+
+                .popup-main {
+                    padding: 15px;
+                    height: 450px;
+                    overflow-y: auto;
+
+                    .popup-main-title { // 弹出框 标题
+                        padding-top: 5px;
+                        padding-bottom: 15px;
+                        font-size: 14px;
+                        color: #909399;
+                    }
+
+                    .popup-main-search { // 弹出框 搜索
+                        padding-bottom: 10px;
+
+                        .main-search-content {
+                            position: relative;
+                            background: #fff;
+                            border: 1px solid #e5e5e6;
+                            border-radius: 15px;
+                        }
+
+                        i {
+                            display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+                            display: -moz-box;     /* 老版本语法: Firefox (buggy) */
+                            display: -ms-flexbox;  /* 混合版本语法: IE 10 */
+                            display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+                            display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
+                            align-items: center;
+                            padding-left: 10px;
+                            padding-right: 5px;
+                            height: 30px;
+
+                            img {
+                                width: 24px;
+                                height: 24px;
+                            }
+                        }
+
+                        span {
+                            display: block;
+                            -webkit-box-flex: 1;
+                            -ms-flex: 1;
+                            flex: 1;
+                            color: #909399;
+                        }
+
+                        .search-input {
+                            -webkit-box-flex: 1;
+                            -ms-flex: 1;
+                            flex: 1;
+                        }
+
+                        input {
+                            line-height: 30px;
+                            width: 95%;
+                            padding: 0px 2.5px;
+                            border: none;
+                            outline: none;
+                            font-size: 14px;
+                            color: #909399;
+                            background-color: transparent;
+                        }
+                        input::-webkit-input-placeholder{
+                            color: #909399;
+                        }
+                        input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+                            color: #909399;
+                        }
+                        input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+                            color: #909399;
+                        }
+                        input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+                            color: #909399;
+                        }
+                    }
+
+                    .popup-button-group { // 弹出框 按钮组
+
+                        .el-button {
+                            margin-left: 0px;
+                            margin-right: 10px;
+                            margin-bottom: 10px;
+                        }
+                    }
+
+                    .popup-main-rage { // 弹出框 电压
+
+                        .popup-rage-main {
+                            position: relative;
+                            padding: 0px 15px;
+                        }
+                            
+                        .popup-rage-number {
+                            padding: 5px 15px 5px 15px;
+                            font-size: 12px;
+
+                            .item-last {
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+
+                .popup-submit {
+                    border-top: 1px solid #ddd;
+                    padding: 10px 15px;
+
+                    .popup-submit-sub,
+                    .popup-submit-btn {
+                        line-height: 40px;
+                        text-align: center;
+                    }
+
+                    .popup-submit-sub {
+                        width: 70px;
+                        padding-right: 15px;
+                        color: #F56C6C;
+                    }
+
+                    .popup-submit-btn {
+                        border-radius: 5px;
+                        color: #fff;
+                        background: #409eff;
+                    }
                 }
             }
         }
