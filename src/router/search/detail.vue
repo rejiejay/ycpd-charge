@@ -348,6 +348,30 @@
 
             <!-- 评论 -->
             <mt-tab-container-item id="comment">
+                <div class="comment">
+                    <div class="comment-filter">
+                        <div class="comment-filter-content"
+                            v-bind:class="[comment.filter.isShowMore ? 'filter-content-showmore' : '']" 
+                        >
+                            <el-button 
+                                v-for="(item, listkey) in comment.filter.list" 
+                                :key="listkey"
+                                :type="listkey === comment.filter.index ? 'primary' : null"
+                                size="mini"
+                                round
+                                @click="comment.filter.index = listkey"
+                            >{{item.name}}{{listkey === 0 ? '' : `(${item.count})`}}</el-button>
+                        </div>
+
+                        <div class="comment-filter-showmore flex-center"
+                            @click="comment.filter.isShowMore = !comment.filter.isShowMore;"
+                        >
+                            <i class="icon-black"
+                                v-bind:class="[comment.filter.isShowMore ? 'icon-black-reverse' : '']" 
+                            ><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm-black.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
+                        </div>
+                    </div>
+                </div>
             </mt-tab-container-item>
         </mt-tab-container>
     </div>
@@ -388,7 +412,7 @@ export default {
     data () {
         return {
             // 选项卡栏
-            navbarSelected: "termina", // 详情:particu 终端:termina 评论:comment
+            navbarSelected: "comment", // 详情:particu 终端:termina 评论:comment
 
             // 终端 筛选
             terminaFilter: {
@@ -521,6 +545,44 @@ export default {
                     value: [10, 50], // 百分比
                     step: [15, 30,  45, 60, 90, 120, 150, 180, 360],
                 },
+            },
+
+            comment: {
+                filter: {
+                    index: 0,
+                    isShowMore: false,
+                    list: [
+                        {
+                            name: '全部',
+                            count: 10,
+                        }, {
+                            name: '顺利充电',
+                            count: 10,
+                        }, {
+                            name: '周边环境好',
+                            count: 11,
+                        }, {
+                            name: '充电很快',
+                            count: 11,
+                        }, {
+                            name: '不用排队',
+                            count: 7,
+                        }, {
+                            name: '价格便宜',
+                            count: 7,
+                        }, {
+                            name: '不能充满',
+                            count: 3,
+                        }, {
+                            name: '停车费用高',
+                            count: 2,
+                        }, {
+                            name: '充电太慢',
+                            count: 1,
+                        }
+                    ]
+                },
+                
             }
         }
     },
@@ -1316,6 +1378,53 @@ export default {
                     }
                 }
             }
+        }
+    }
+
+    // 评论
+    .comment {
+        .comment-filter {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+
+            .comment-filter-content {
+                padding: 15px 15px 0px 15px;
+                max-height: 72px;
+                overflow: hidden;
+
+                .el-button {
+                    margin-left: 0px;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .filter-content-showmore {
+                max-height: none;
+            }
+
+            .comment-filter-showmore {
+                height: 32px;
+
+                i, img {
+                    display: block;
+                    width: 16px;
+                    height: 16px;
+                }
+
+                i {
+                    margin: 0 auto;
+                }
+
+                .icon-black-reverse {
+                    transform: rotate(180deg);
+                    -ms-transform: rotate(180deg);     /* IE 9 */
+                    -moz-transform: rotate(180deg);    /* Firefox */
+                    -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
+                    -o-transform: rotate(180deg);      /* Opera */
+                }
+            }
+
         }
     }
 }
