@@ -207,6 +207,76 @@
 
             <!-- 终端 -->
             <mt-tab-container-item id="termina">
+                <div class="termina">
+                    <div class="termina-filter flex-start">
+                        <div class="termina-filter-left flex-rest flex-start">
+                            <div class="termina-filter-item">
+                                <span>空闲优先</span>
+                                <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/filter-selected.png?x-oss-process=image/resize,m_fill,w_28,h_28,limit_0/auto-orient,0/quality,q_100"></i>
+                            </div>
+                            <div class="termina-filter-item">
+                                <span>已插枪</span>
+                                <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/filter-selected.png?x-oss-process=image/resize,m_fill,w_28,h_28,limit_0/auto-orient,0/quality,q_100"></i>
+                            </div>
+                            <div class="termina-filter-item">
+                                <span>直流快充</span>
+                                <i><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/filter-selected.png?x-oss-process=image/resize,m_fill,w_28,h_28,limit_0/auto-orient,0/quality,q_100"></i>
+                            </div>
+                        </div>
+                        <div class="termina-filter-right flex-start-center">
+                            <span>筛选</span>
+                            <i class="flex-center"><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm-bule.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
+                            <div class="filter-right-hint">2</div>
+                        </div>
+                    </div>
+                    
+                    <div class="termina-list">
+                        <div class="termina-item flex-start">
+                            <div class="termina-item-icon">
+                                <div class="item-icon-main">
+                                    <div class="icon-main-title">101号</div>
+                                    <div class="icon-main-label">直流</div>
+                                </div>
+                                <div class="item-icon-sub">芝麻信用</div>
+                            </div>
+                            <div class="termina-item-main flex-rest">
+                                <div class="item-main-top">
+                                    <div class="item-main-title flex-start">
+                                        <div class="main-title-left flex-rest">44030700039101</div>
+                                        <div class="main-title-right flex-start">
+                                            <div class="title-right-item" style="background: #46bb00;">空闲</div>
+                                            <div class="title-right-item" style="background: #ff3939;">快</div>
+                                        </div>
+                                    </div>
+                                    <div class="item-main-sub">车位号 无</div>
+                                </div>
+                                <div class="item-main-line"><div class="line-block-dotted"></div></div>
+                                <div class="item-main-bottom">
+                                    <div class="main-bottom-item flex-start">
+                                        <div class="bottom-item-title">终端类型</div>
+                                        <div class="bottom-item-label flex-rest">快充</div>
+                                    </div>
+                                    <div class="main-bottom-item flex-start">
+                                        <div class="bottom-item-title">充电接口</div>
+                                        <div class="bottom-item-label flex-rest">国标2015 国标2011</div>
+                                    </div>
+                                    <div class="main-bottom-item flex-start">
+                                        <div class="bottom-item-title">功率</div>
+                                        <div class="bottom-item-label flex-rest">15kW-150kW</div>
+                                    </div>
+                                    <div class="main-bottom-item flex-start">
+                                        <div class="bottom-item-title">电压</div>
+                                        <div class="bottom-item-label flex-rest">250V-750V</div>
+                                    </div>
+                                    <div class="main-bottom-item flex-start">
+                                        <div class="bottom-item-title">辅源类型</div>
+                                        <div class="bottom-item-label flex-rest">12V</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </mt-tab-container-item>
 
             <!-- 评论 -->
@@ -243,7 +313,7 @@ export default {
     data () {
         return {
             // 选项卡栏
-            navbarSelected: "particu", // 详情:particu 终端:termina 评论:comment
+            navbarSelected: "termina", // 详情:particu 终端:termina 评论:comment
         }
     },
 
@@ -715,6 +785,179 @@ export default {
                         text-align: center;
                         display: block;
                         color: #909399;
+                    }
+                }
+            }
+        }
+    }
+
+    // 终端
+    .termina {
+        background: #fff;
+        margin-bottom: 15px;
+
+        .termina-filter {
+            padding: 8px 15px;
+            border-bottom: 1px solid #ddd;
+
+            .termina-filter-left {
+
+                .termina-filter-item {
+                    position: relative;
+                    margin-right: 10px;
+                    padding: 0 10px;
+                    height: 28px;
+                    border-radius: 5px;
+                    border: 1px solid #ddd;
+
+                    span {
+                        font-size: 14px;
+                        line-height: 28px;
+                        color: #409EFF;
+                    }
+
+                    i {
+                        position: absolute;
+                        right: 0px;
+                        bottom: 0px;
+
+                        img {
+                            display: block;
+                            width: 14px;
+                            height: 14px;
+                        }
+                    }
+                }
+            }
+
+            .termina-filter-right {
+                position: relative;
+                padding-left: 8px;
+                padding-right: 4px;
+                border-radius: 5px;
+                border: 1px solid #26a2ff;
+
+                span {
+                    display: block;
+                    padding-right: 2px;
+                    font-size: 14px;
+                    color: #26a2ff;
+                }
+
+                i {
+                    position: relative;
+                    height: 28px;
+
+                    img {
+                        display: block;
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                .filter-right-hint {
+                    position: absolute;
+                    top: -8px;
+                    right: -8px;
+                    height: 16px;
+                    width: 16px;
+                    font-size: 12px;
+                    text-align: center;
+                    border-radius: 8px;
+                    line-height: 16px;
+                    color: #fff;
+                    background: #ff2c2c;
+                }
+            }
+        }
+
+        .termina-item {
+            padding-top: 10px;
+            border-bottom: 1px solid #ddd;
+
+            .termina-item-icon {
+                padding: 0 15px;
+
+                .item-icon-main {
+                    margin: 0 auto;
+                    padding: 10px 0px;
+                    width: 60px;
+                    color: #fff;
+                    border-radius: 5px;
+                    background: #fd6339;
+                    text-align: center;
+
+                    .icon-main-title {
+                        font-size: 16px;
+                        padding-bottom: 5px;
+                    }
+                }
+
+                .item-icon-sub {
+                    margin: 10px auto 15px;
+                    padding: 2px 10px;
+                    font-size: 14px;
+                    border-radius: 5px;
+                    color: #49d9d4;
+                    border: 1px solid #49d9d4;
+                }
+            }
+            
+            .termina-item-main {
+                padding-right: 15px;
+
+                .item-main-top {
+                    .item-main-title {
+                        .main-title-left {
+                            font-size: 16px;
+                            color: #303133;
+                        }
+
+                        .title-right-item {
+                            font-size: 12px;
+                            border-radius: 5px;
+                            padding: 2px 5px;
+                            margin-left: 10px;
+                            color: #fff;
+                        }
+                    }
+
+                    .item-main-sub {
+                        padding-top: 5px;
+                        font-size: 14px;
+                        color: #606266;
+                    }
+                }
+
+                .item-main-line {
+                    position: relative;
+                    padding-top: 15px;
+                    padding-bottom: 10px;
+
+                    .line-block-dotted {
+                        width: 100%;
+                        height: 1px;
+                        background-image: url(https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dotted-repeat.png);
+                        background-repeat: repeat-x;
+                    }
+
+                }     
+                
+                .item-main-bottom {
+                    font-size: 14px; 
+                    padding-bottom: 10px;
+
+                    .main-bottom-item {
+                        padding-bottom: 5px;
+
+                        .bottom-item-title {
+                            width: 70px;
+                            color: #606266;
+                        }
+
+                        .bottom-item-label {
+                            color: #303133;
+                        }
                     }
                 }
             }
