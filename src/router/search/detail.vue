@@ -371,6 +371,122 @@
                             ><img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/icon/dowm-black.png?x-oss-process=image/resize,m_fill,w_32,h_32,limit_0/auto-orient,0/quality,q_100"></i>
                         </div>
                     </div>
+
+                    <div class="comment-list">
+                        <div class="comment-item">
+                            <div class="comment-item-content flex-start">
+                                <div class="comment-item-img">
+                                    <img src="http://p6ygud9kn.bkt.clouddn.com/myweb/rejiejay.png" />
+                                </div>
+                                <div class="comment-item-main flex-rest">
+                                    <div class="item-main-title flex-start">
+                                        <div class="item-title-name flex-rest">
+                                            曾杰杰
+                                        </div>
+                                        <div class="item-title-lable">
+                                            6-12 10:37:07
+                                        </div>
+                                    </div>
+                                    <div class="item-main-grade flex-start">
+                                        <span>打分</span>
+                                        <iconstar width='80' />
+                                    </div>
+                                    <div class="item-main-description">
+                                        位置挺好，环境不错，还是可以的。
+                                    </div>
+                                    <div class="item-main-operation">
+                                        <div class="item-operation-content flex-start">
+                                            <div class="item-main-lable">
+                                                <svg t="1528771475040" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4325" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                                    width="16" height="16"
+                                                >
+                                                    <path d="M510.340709 900.892171c-23.173792 0-247.254314-180.180685-332.157006-289.301965-58.338686-53.264111-105.562221-152.650679-105.562221-222.732827 0-148.765185 108.952434-269.77626 242.874563-269.77626 81.781608 0 151.191444 67.679425 194.013739 137.605008 42.822294-69.925582 112.207571-137.605008 194.013739-137.605008 133.922129 0 242.874563 121.011074 242.874563 269.77626 0 70.239737-47.445592 169.805384-106.055454 223.182059C754.630505 722.553437 534.862195 900.892171 510.340709 900.892171zM315.497069 165.0685c-108.570741 0-196.887182 100.397594-196.887182 223.788879 0 58.382689 42.059931 145.353482 91.864244 189.903118 1.033539 0.943488 2.022053 1.977028 2.874467 3.098571 83.937714 109.042485 251.138784 234.421031 297.17119 267.923052 48.054459-34.715663 213.05542-161.193239 294.611901-267.451308 0.899486-1.12359 1.888-2.178619 2.964518-3.142573 50.03251-44.663222 92.312452-131.813095 92.312452-190.33086 0-123.391285-88.316441-223.788879-196.885136-223.788879-70.487378 0-137.808646 75.135234-173.241646 149.597133-7.634888 16.033162-33.908274 16.033162-41.543162 0C453.303668 240.203734 385.983423 165.0685 315.497069 165.0685z" p-id="4326" 
+                                                        fill="#909399"
+                                                    ></path>
+                                                </svg>
+                                                <span>赞</span>
+                                            </div>
+                                            <div class="item-main-lable">
+                                                <svg t="1528771462959" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3584" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                                    width="16" height="16"
+                                                >
+                                                    <path d="M816 808h-144c-4.8 0-8 1.6-11.2 4.8l-80 80c-36.8 36.8-97.6 36.8-136 0l-80-80c-3.2-3.2-6.4-4.8-11.2-4.8h-144c-70.4 0-128-57.6-128-128v-448c0-70.4 57.6-128 128-128h608c70.4 0 128 57.6 128 128v448c-1.6 70.4-59.2 128-129.6 128z m0-64c35.2 0 64-28.8 64-64v-448c0-35.2-28.8-64-64-64H208c-35.2 0-64 28.8-64 64v448c0 35.2 28.8 64 64 64h144c20.8 0 41.6 8 56 24l80 80c12.8 12.8 32 12.8 44.8 0l80-80c14.4-14.4 35.2-24 56-24H816z m-496-336c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z m192 0c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z m192 0c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z" p-id="3585" 
+                                                        fill="#909399">
+                                                    </path>
+                                                </svg>
+                                                <span>评论 1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-reply-list">
+                                        <div class="item-reply-item flex-start">
+                                            <div class="reply-item-icon flex-start">
+                                                <svg t="1528771462959" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3584" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                                    width="16" height="16"
+                                                >
+                                                    <path d="M816 808h-144c-4.8 0-8 1.6-11.2 4.8l-80 80c-36.8 36.8-97.6 36.8-136 0l-80-80c-3.2-3.2-6.4-4.8-11.2-4.8h-144c-70.4 0-128-57.6-128-128v-448c0-70.4 57.6-128 128-128h608c70.4 0 128 57.6 128 128v448c-1.6 70.4-59.2 128-129.6 128z m0-64c35.2 0 64-28.8 64-64v-448c0-35.2-28.8-64-64-64H208c-35.2 0-64 28.8-64 64v448c0 35.2 28.8 64 64 64h144c20.8 0 41.6 8 56 24l80 80c12.8 12.8 32 12.8 44.8 0l80-80c14.4-14.4 35.2-24 56-24H816z m-496-336c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z m192 0c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z m192 0c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z" p-id="3585" 
+                                                        fill="#909399">
+                                                    </path>
+                                                </svg>
+                                                <span>135****3790: </span>
+                                            </div>
+                                            <div class="reply-item-description">
+                                                外来车辆可以让进的吗?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-item">
+                            <div class="comment-item-content flex-start">
+                                <div class="comment-item-img">
+                                    <img src="http://p6ygud9kn.bkt.clouddn.com/myweb/rejiejay.png" />
+                                </div>
+                                <div class="comment-item-main flex-rest">
+                                    <div class="item-main-title flex-start">
+                                        <div class="item-title-name flex-rest">
+                                            许多多
+                                        </div>
+                                        <div class="item-title-lable">
+                                            6-22 21:36:07
+                                        </div>
+                                    </div>
+                                    <div class="item-main-grade flex-start">
+                                        <span>打分</span>
+                                        <iconstar width='80' />
+                                    </div>
+                                    <div class="item-main-description">
+                                        非常好、充电快又方便。
+                                    </div>
+                                    <div class="item-main-operation">
+                                        <div class="item-operation-content flex-start">
+                                            <div class="item-main-lable">
+                                                <svg t="1528771475040" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4325" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                                    width="16" height="16"
+                                                >
+                                                    <path d="M510.340709 900.892171c-23.173792 0-247.254314-180.180685-332.157006-289.301965-58.338686-53.264111-105.562221-152.650679-105.562221-222.732827 0-148.765185 108.952434-269.77626 242.874563-269.77626 81.781608 0 151.191444 67.679425 194.013739 137.605008 42.822294-69.925582 112.207571-137.605008 194.013739-137.605008 133.922129 0 242.874563 121.011074 242.874563 269.77626 0 70.239737-47.445592 169.805384-106.055454 223.182059C754.630505 722.553437 534.862195 900.892171 510.340709 900.892171zM315.497069 165.0685c-108.570741 0-196.887182 100.397594-196.887182 223.788879 0 58.382689 42.059931 145.353482 91.864244 189.903118 1.033539 0.943488 2.022053 1.977028 2.874467 3.098571 83.937714 109.042485 251.138784 234.421031 297.17119 267.923052 48.054459-34.715663 213.05542-161.193239 294.611901-267.451308 0.899486-1.12359 1.888-2.178619 2.964518-3.142573 50.03251-44.663222 92.312452-131.813095 92.312452-190.33086 0-123.391285-88.316441-223.788879-196.885136-223.788879-70.487378 0-137.808646 75.135234-173.241646 149.597133-7.634888 16.033162-33.908274 16.033162-41.543162 0C453.303668 240.203734 385.983423 165.0685 315.497069 165.0685z" p-id="4326" 
+                                                        fill="#909399"
+                                                    ></path>
+                                                </svg>
+                                                <span>赞</span>
+                                            </div>
+                                            <div class="item-main-lable">
+                                                <svg t="1528771462959" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3584" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                                    width="16" height="16"
+                                                >
+                                                    <path d="M816 808h-144c-4.8 0-8 1.6-11.2 4.8l-80 80c-36.8 36.8-97.6 36.8-136 0l-80-80c-3.2-3.2-6.4-4.8-11.2-4.8h-144c-70.4 0-128-57.6-128-128v-448c0-70.4 57.6-128 128-128h608c70.4 0 128 57.6 128 128v448c-1.6 70.4-59.2 128-129.6 128z m0-64c35.2 0 64-28.8 64-64v-448c0-35.2-28.8-64-64-64H208c-35.2 0-64 28.8-64 64v448c0 35.2 28.8 64 64 64h144c20.8 0 41.6 8 56 24l80 80c12.8 12.8 32 12.8 44.8 0l80-80c14.4-14.4 35.2-24 56-24H816z m-496-336c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z m192 0c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z m192 0c27.2 0 48 20.8 48 48v32c0 27.2-20.8 48-48 48s-48-20.8-48-48v-32c0-27.2 20.8-48 48-48z" p-id="3585" 
+                                                        fill="#909399">
+                                                    </path>
+                                                </svg>
+                                                <span>评论 1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </mt-tab-container-item>
         </mt-tab-container>
@@ -1383,6 +1499,8 @@ export default {
 
     // 评论
     .comment {
+        padding-bottom: 15px;
+
         .comment-filter {
             background: #fff;
             border-bottom: 1px solid #ddd;
@@ -1425,6 +1543,117 @@ export default {
                 }
             }
 
+        }
+
+        .comment-list {
+            background: #fff;
+
+            .comment-item {
+                border-bottom: 1px solid #ddd;
+
+                .comment-item-content {
+                    padding: 15px 15px 0px 15px;
+                }
+            }
+
+            .comment-item-img {
+                width: 48px;
+                height: 48px;
+                border-radius: 24px;
+                overflow: hidden;
+
+                img {
+                    display: block;
+                    width: 48px;
+                    height: 48px;
+                }
+            }
+
+            .comment-item-main {
+                padding-left: 15px;
+
+                .item-main-title {
+                    padding-bottom: 10px;
+
+                    .item-title-name {
+                        font-size: 16px;
+                        color: #303133;
+                    }
+                    .item-title-lable {
+                        font-size: 14px;
+                        color: #909399;
+                    }
+                }
+
+                .item-main-grade {
+                    padding-bottom: 10px;
+
+                    span {
+                        padding-right: 5px;
+                        font-size: 14px;
+                        color: #909399;
+                    }
+                }
+
+                .item-main-description {
+                    padding-bottom: 10px;
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: #606266;
+                }
+
+                .item-main-operation {
+                    overflow: hidden;
+                    padding-bottom: 10px;
+
+                    .item-operation-content {
+                        float: right;
+                    }
+
+                    .item-main-lable {
+                        padding-left: 10px;
+
+                        svg {
+                            position: relative;
+                            top: 2px;
+                        }
+
+                        span {
+                            font-size: 14px;
+                            color: #909399;
+                        }
+                    }
+                }
+
+                .item-reply-list {
+                    border-top: 1px solid #ddd;
+
+                    .item-reply-item {
+                        padding: 10px 0px;
+
+                        .reply-item-icon {
+                            padding-right: 10px;
+                            svg {
+                                position: relative;
+                                top: 4px;
+                            }
+
+                            span {
+                                line-height: 22px;
+                                padding-left: 5px;
+                                font-size: 14px;
+                                color: #909399;
+                            }
+                        }
+                        
+                        .reply-item-description {
+                            font-size: 14px;
+                            color: #606266;
+                            line-height: 22px;
+                        }
+                    }
+                }
+            }
         }
     }
 }
