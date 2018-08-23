@@ -12,7 +12,7 @@
 
 ## 项目预览
 
-[https://www.rejiejay.cn/maintain-channel/](https://www.rejiejay.cn/maintain-channel/)
+[暂无](https://www.rejiejay.cn/maintain-channel/)
 
 ## 项目搭建
 
