@@ -12,20 +12,21 @@ const routes = [
     meta: { title: '充电桩' },
   }, {
     path: '/list/detail',
-    name: 'listDetail',
+    name: 'listDetail1',
     component: () => import('@/router/list/detail'), // 列表详情
     meta: { title: '列表详情' },
-  }, { // 第一版的UI
-    path: '/index2',
-    name: 'list',
-    component: () => import('@/router/list1/index'), // 列表
-    meta: { title: '充电桩' },
-  }, {
-    path: '/list2/detail',
-    name: 'listDetail',
-    component: () => import('@/router/list1/detail'), // 列表详情
-    meta: { title: '列表详情' },
   },
+  //  { // 第一版的UI
+  //   path: '/index2',
+  //   name: 'list',
+  //   component: () => import('@/router/list1/index'), // 列表
+  //   meta: { title: '充电桩' },
+  // }, {
+  //   path: '/list2/detail',
+  //   name: 'listDetail1',
+  //   component: () => import('@/router/list1/detail'), // 列表详情
+  //   meta: { title: '列表详情' },
+  // },
 ];
 
 let router = new Router({

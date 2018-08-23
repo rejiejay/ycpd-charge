@@ -229,7 +229,7 @@ Vue.use(Button);
 import iconstar from './../../components/icon-star';
 
 export default {
-    name: 'list',
+    name: 'list1',
 
     components: {
         iconstar

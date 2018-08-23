@@ -21,4 +21,4 @@ let main = () => {
     return config;
 }
 
-module.exports = main();
+export default main();
