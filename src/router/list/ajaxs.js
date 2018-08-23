@@ -1,4 +1,4 @@
-import RequestedUrl from './../../config/RequestedUrl.js';
+import config from './../../config/';
 
 const ajaxs = {
 }
