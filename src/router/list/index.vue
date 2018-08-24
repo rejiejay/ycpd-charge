@@ -42,8 +42,31 @@
     <div class="sidebar-shade" v-if="isSidebarShow" @click="isSidebarShow = false"></div>
     <div class="sidebar" v-bind:class="[isSidebarShow ? 'sidebar-show' : '']" >
         <div class="sidebar-content">
-            
+            <div class="sidebar-content-main">
+                <!-- 一个块部分 -->
+                <div 
+                    class="sidebar-main-block"
+                    v-for="(group, groupKey) in sidebarGroup" 
+                    :key="groupKey"
+                >
+                    <div class="sidebar-block-title">{{group.title}}</div>
+                    <!-- 模块下的列表 -->
+                    <div class="sidebar-block-list">
+                        <div 
+                            class="sidebar-block-item"
+                            :class="{'sidebar-item-selected': verifySidebarSelected(item.isSelected, listKey, group.isMultiple, group.selectedIndex)}"
+                            v-for="(item, listKey) in group.list" 
+                            :key="listKey"
+                            @click="sidebarHandle(groupKey, listKey)"
+                        >{{item.name}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部按钮 -->
             <div class="sidebar-bottom flex-start">
+                <div class="sidebar-bottom-left" @click="sidebarGroup = sidebardefault">重置</div>
+                <div class="sidebar-bottom-right" @click="sidebarAffirm">确定</div>
             </div>
         </div>
     </div>
@@ -60,8 +83,46 @@ export default {
 
     data () {
         return {
-            isSidebarShow: true, // 是否显示侧边栏
-
+            isSidebarShow: false, // 侧边栏 - 是否显示
+            sidebardefault: [{title:'电站筛选',isMultiple:true,selectedIndex:null,list:[{name:'有空闲',isSelected:true,},{name:'全时段开放',isSelected:false,},{name:'免费停车',isSelected:false,},{name:'地锁',isSelected:false,}]},{title:'充电方式',isMultiple:false,selectedIndex:null,list:[{name:'直流快充',isSelected:false,},{name:'交流快充',isSelected:false,},{name:'交流慢充',isSelected:false,}]}], // 侧边栏 - 重置的数据 
+            sidebarGroup: [ // 侧边栏 - 数据
+                {
+                    title: '电站筛选',
+                    isMultiple: true, // 多选
+                    selectedIndex: null, // 选中的下标
+                    list: [
+                        {
+                            name: '有空闲',
+                            isSelected: true, // 是否选中
+                        }, {
+                            name: '全时段开放',
+                            isSelected: false, // 是否选中
+                        }, {
+                            name: '免费停车',
+                            isSelected: false, // 是否选中
+                        }, {
+                            name: '地锁',
+                            isSelected: false, // 是否选中
+                        }
+                    ]
+                }, {
+                    title: '充电方式',
+                    isMultiple: false, // 多选
+                    selectedIndex: null, // 选中的下标
+                    list: [
+                        {
+                            name: '直流快充',
+                            isSelected: false, // 是否选中
+                        }, {
+                            name: '交流快充',
+                            isSelected: false, // 是否选中
+                        }, {
+                            name: '交流慢充',
+                            isSelected: false, // 是否选中
+                        }
+                    ]
+                }
+            ]
         }
     },
 
@@ -69,6 +130,42 @@ export default {
     },
 
     methods: {
+        /**
+         * 侧边栏 - 点击 选中
+         * @param {Number} groupKey 分模块的下标
+         * @param {Number} listKey 分组的下标
+         */
+        sidebarHandle: function(groupKey, listKey) {
+            let newSidebarGroup = this.sidebarGroup.concat(); // 复制一个新的数组
+            newSidebarGroup[groupKey].selectedIndex = listKey; // 设置选中的下标
+            newSidebarGroup[groupKey].list[listKey].isSelected = !newSidebarGroup[groupKey].list[listKey].isSelected; // 是否选中 设置为相反
+            this.sidebarGroup = newSidebarGroup; // 新数组赋值进去
+        },
+
+        /**
+         * 侧边栏 - 判断是否 选中
+         * @param {Boolean} isSelected 当前 - 是否选中
+         * @param {Number} targetIndex 当前 - 下标
+         * @param {Boolean} isMultiple 模块 - 是否多选
+         * @param {Number} selectedIndex 模块 - 选中的下标
+         * @return {Boolean} 是否选中
+         */
+        verifySidebarSelected: function(isSelected, targetIndex, isMultiple, selectedIndex) {
+            if (isMultiple) { // 多选
+                // 当前选中就返回选中， 未选中就返回未选中
+                return isSelected;
+            } else { // 单选
+                // 当前的下标 和 模块的下标相等则 表示选中, 不相等就返回未选中
+                return targetIndex === selectedIndex
+            }
+        },
+
+        /**
+         * 侧边栏 - 点击确认
+         */
+        sidebarAffirm: function() {
+            this.isSidebarShow = false; // 隐藏侧边栏
+        },
     },
 }
 
@@ -151,6 +248,11 @@ export default {
         -o-transition: right 0.2s;	/* Opera */
         background: #fff;
         z-index: @sidebar-main-z-index;
+
+        .sidebar-content {
+            min-height: 100%;
+            position: relative;
+        }
     }
 
     // 显示动画
@@ -170,10 +272,47 @@ export default {
     }
 
     // 主要内容区域
-    .sidebar .sidebar-shade-content {
-        position: relative;
+    .sidebar .sidebar-content-main {
+        padding: 15px 15px 65px 15px;
 
+        // 一个块部分
+        .sidebar-main-block {
+            // 标题 
+            .sidebar-block-title {
+                font-size: 14px;
+                color: @black3;
+                padding-bottom: 10px;
+            }
 
+            // 列表
+            .sidebar-block-list {
+                overflow: hidden;
+
+                > div {
+                    float: left;
+                }
+            }
+
+            // 项目 
+            .sidebar-block-item {
+                padding: 0px 5px;
+                margin-bottom: 15px;
+                margin-right: 15px;
+                height: 35px;
+                min-width: 100px;
+                line-height: 35px;
+                text-align: center;
+                border: 1px solid #ddd;
+                border-radius: 2.5px;
+            }
+
+            // 选中的项目
+            .sidebar-item-selected {
+                color: #a9c9ff;
+                border: 1px solid #a9c9ff;
+                background: #eef5ff;
+            }
+        }
     }
 
     // 底部按钮
@@ -182,6 +321,22 @@ export default {
         bottom: 0px;
         height: 45px;
         width: 100%;
+
+        > div {
+            font-size: 14px;
+            width: 50%;
+            line-height: 45px;
+            text-align: center;
+        }
+
+        .sidebar-bottom-left {
+            border-top: 1px solid #ddd;
+        }
+
+        .sidebar-bottom-right {
+            color: #fff;
+            background: #5594ff;
+        }
     }
 }
 </style>
