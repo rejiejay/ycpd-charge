@@ -17,6 +17,16 @@
     align-items: center;
 }
 
+.flex-column-center {
+    display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box;     /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox;  /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
+    flex-direction: column;
+    align-items: center;
+}
+
 .flex-center {
     display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
     display: -moz-box;     /* 老版本语法: Firefox (buggy) */
