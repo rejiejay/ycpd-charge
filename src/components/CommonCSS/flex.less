@@ -1,42 +1,46 @@
-.flex-start {
-    display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
-    display: -moz-box;     /* 老版本语法: Firefox (buggy) */
-    display: -ms-flexbox;  /* 混合版本语法: IE 10 */
-    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
-    display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
-    justify-content: flex-start;
-}
-
-.flex-start-center {
-    display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
-    display: -moz-box;     /* 老版本语法: Firefox (buggy) */
-    display: -ms-flexbox;  /* 混合版本语法: IE 10 */
-    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
-    display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.flex-column-center {
-    display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
-    display: -moz-box;     /* 老版本语法: Firefox (buggy) */
-    display: -ms-flexbox;  /* 混合版本语法: IE 10 */
-    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
-    display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
-    flex-direction: column;
-    align-items: center;
-}
-
+.flex-start,
+.flex-start-center,
+.flex-start-bottom,
+.flex-column-center,
 .flex-center {
     display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
     display: -moz-box;     /* 老版本语法: Firefox (buggy) */
     display: -ms-flexbox;  /* 混合版本语法: IE 10 */
     display: -webkit-flex; /* 新版本语法: Chrome 21+ */
     display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
+}
+
+// 主轴水平向右 顶部对齐
+.flex-start {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+// 主轴水平向右 居中
+.flex-start-center {
+    justify-content: flex-start;
+    align-items: center;
+}
+
+// 主轴水平向右 底部对齐
+.flex-start-bottom {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+// 主轴水平向下 居中对齐
+.flex-column-center {
+    flex-direction: column;
+    align-items: center;
+}
+
+// 居中对齐
+.flex-center {
     justify-content: center;
     align-items: center;
 }
 
+// 占满剩余部分
 .flex-rest {
     -webkit-box-flex: 1;
     -ms-flex: 1;
