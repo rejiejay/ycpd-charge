@@ -127,7 +127,7 @@
                             <div class="bottom-list-item">
                                 <div class="bottom-item-content">
                                     <span
-                                        :style="item.isSpare ? 'border-color: #5594FF; color: #5594FF;' : 'border-color: #E50012; color: #E50012;'"
+                                        :style="item.isSpare ? 'border-color: #00B90A; color: #00B90A;' : 'border-color: #E50012; color: #E50012;'"
                                     >
                                         {{item.isSpare ? '有空闲' : '无空闲'}}
                                     </span>
