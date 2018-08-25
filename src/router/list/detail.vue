@@ -77,6 +77,34 @@
                 </div>
             </div>
         </div>
+
+        <!-- 计费详情 -->
+        <div class="detail-cost-count">
+            <div class="cost-count-content">
+
+                <!-- 计费详情 标题 -->
+                <div class="cost-count-title flex-start-center">
+                    <div class="count-title-icon" style="background-size: 14px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADuklEQVRoQ+2ZT2gcdRTHP2/StAQTL9ZEgoLFUrWCN6HHeFIjRAPuRGkvVo3tbnLQqzStEa8iZmcD8d9FD9kppA20tqfkWPAoLTa0WGgIbdVLEimt6TyZaWadnezO7szsulnJXH+/3/u973vf9+83Qpt/0ub6swOg1R6UkYK+5jjMAE+2WpnQ/cuGwehsVn6K0ksyeb25DZX3dV62x+Sp/zeAtqfQNuN9bHV20mhskzX4wI4H6jVopqi75U9exmFIlYMC/Sr0u+dFWVFYEeEKBvP6GAu2Kffrkd10D2QsfQJhQhwOKzxap1KravAjyqSdk1uRdaAegUn2jJ/XPbd/4xOUjxUeSSJD4C+EL/r28fnUoNyrJKMpHnCtLjCnyqEkiofPiHBJYbiSNxoO4J2CvrjhcK5Ke7IscFYMzrGL687frLjKGp30s8Ez6vC6whvVztLJoP2h/BIE2FAAHt+Vn8MKiBugBiedvXxvm/IgyiuZonYYf/CuOnyqPAzywLeM8FLQEw0DsMn5xQq0me/p4sh378laHDod/VZ71u7yAzBUZnHhUt8+BvyYaBgA09JJVU6ELvvqYJaPTok4cZT3955SNa5YfKkwHpL7WTEnE14KTtDMbenTvaBVroWyzfwLOYarKR+4l6i+3wVx2WIu6Ak3O6mw36VS0nmgrE83LZ1W5ZhvJZfz3V08F0Wb0BwS2fe7dFq/y69lMWEwbWclmxqAV2Hv8HuwSBkGH8xm5ZvIYM2rBtftMYmk80hB33ccvg4YaVV7eTw1hcxpfUUfcKEsU/TydM1sExOAm524w41ghpMOXk0dxKallirZgGWs4piM1QraTEwArjwzr3mFXOkuoZAaQCavC8CAL9QwGKw1iLt7kwDYDPzzAeMspgZg5vWqwoESgN08OzsqS83wwMiMHnDuczXg7aXUADKWrqF0lxQWeuycrMcFgPC2nZPZyMC3tBvl34IorLcSQPlzjuC2GIejQGxW59WAsdZSA0hKIbOgb6pyGqUjoFAkiOZQKGEQe4Fs6Qh4g0tdIJoTxAnTqG/1OCCakkaTFrJgsFYDIcJbxayc8bzVrEKWtJUIZ5uKIKDUI1VtJWqlu3rWMwUt4HA8TjNXSW4FEB6AyGauHgVr7UnSTleT6WUnhyl33W2znz/Oxch2OsE84N9dNhe0bKBJ+X+gxNGWjZSNArCZ1//7ob5RFPJ51dbPKoHi1L4PWz6Itn5aDFXZ9nzc3VJp2/V5vVYRTLueeh5Iq0Da8zsA0low7fl/AETYZ0QvyjTxAAAAAElFTkSuQmCC)"></div>
+                    <span>计费详情</span>
+                </div>
+
+                <!-- 计费详情 内容 -->
+                <div class="cost-count-describe">
+                    <div class="count-describe-item flex-start">
+                        <div class="describe-item-lable">电费:</div>
+                        <div class="describe-item-main flex-rest">1.22元/度</div>
+                    </div>
+                    <div class="count-describe-item flex-start">
+                        <div class="describe-item-lable">服务费:</div>
+                        <div class="describe-item-main flex-rest">0.6元/度</div>
+                    </div>
+                    <div class="count-describe-item flex-start">
+                        <div class="describe-item-lable">停车费:</div>
+                        <div class="describe-item-main flex-rest">半小时内免费，首小时5元，之后每小时3元，最高20元。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -169,7 +197,7 @@ export default {
 }
 
 // 横幅栏
-.detail-banner {
+.detail .detail-banner {
     padding-bottom: 5px;
 
     // 横幅栏 - 整体框架
@@ -268,6 +296,57 @@ export default {
                     line-height: 20px;
                 }
             }
+        }
+    }
+}
+
+// 计费详情
+.detail .detail-cost-count {
+    padding-bottom: 5px;
+
+    // 计费详情 -> 框架
+    .cost-count-content {
+        background: #fff;
+        padding-left: 15px;
+    }
+
+    // 计费详情 -> 标题
+    .cost-count-title {
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        border-bottom: 1px solid #ddd;
+
+        .count-title-icon {
+            position: relative;
+            top: 1px;
+            border: none;
+            width: 14px;
+            height: 14px;
+        }
+
+        span {
+            color: @black2;
+            padding-left: 2.5px;
+        }
+    }
+
+    // 计费详情 -> 内容
+    .cost-count-describe {
+        padding: 15px 15px 5px 0px;
+
+        .count-describe-item {
+            font-size: 14px;
+            padding-bottom: 10px;
+        }
+
+        .describe-item-lable {
+            width: 55px;
+            color: @black3;
+        }
+
+        .describe-item-main {
+            color: @black2;
         }
     }
 }
