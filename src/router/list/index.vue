@@ -70,6 +70,116 @@
             </div>
         </div>
     </div>
+
+    <!-- 列表 -->
+    <div class="list-content">
+        <!-- 列表下的一个项 -->
+        <div class="list-item">
+            <div class="list-item-content">
+
+                <!-- 顶部 -->
+                <div class="list-item-top flex-start">
+                    <!-- 顶部 标题 -->
+                    <div class="item-top-picture">
+                        <img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png" alt="充电站图片" />
+                    </div>
+
+                    <!-- 顶部 内容 -->
+                    <div class="item-top-describe"
+                        :style="'width: ' + (clientWidth - 95 ) + 'px;'"
+                    >
+                        <div class="top-describe-content">
+                            <div class="describe-top-row1">深圳信挚工业一期充电站</div>
+                            
+                            <div class="describe-top-row2 flex-start">
+                                <div class="item-top-address flex-rest">坂田街道中兴路信挚工业园</div>
+                                <div class="item-top-distance">0.39km</div>
+                            </div>
+
+                            <div class="describe-top-row3 flex-start-center">
+                                <div class="top-row3-fast">快</div>
+                                <span>空闲2/共3</span>
+                                <div class="top-row3-slow">慢</div>
+                                <span>空闲3/共3</span>
+                            </div>
+                            <div class="describe-top-row4">
+                                <div class="top-row4-price"><span>1.82</span>元/度</div>
+                                <div class="top-row4-details flex-start-center">
+                                    <div class="row4-details-icon" style="background-size: 14px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADuklEQVRoQ+2ZT2gcdRTHP2/StAQTL9ZEgoLFUrWCN6HHeFIjRAPuRGkvVo3tbnLQqzStEa8iZmcD8d9FD9kppA20tqfkWPAoLTa0WGgIbdVLEimt6TyZaWadnezO7szsulnJXH+/3/u973vf9+83Qpt/0ub6swOg1R6UkYK+5jjMAE+2WpnQ/cuGwehsVn6K0ksyeb25DZX3dV62x+Sp/zeAtqfQNuN9bHV20mhskzX4wI4H6jVopqi75U9exmFIlYMC/Sr0u+dFWVFYEeEKBvP6GAu2Kffrkd10D2QsfQJhQhwOKzxap1KravAjyqSdk1uRdaAegUn2jJ/XPbd/4xOUjxUeSSJD4C+EL/r28fnUoNyrJKMpHnCtLjCnyqEkiofPiHBJYbiSNxoO4J2CvrjhcK5Ke7IscFYMzrGL687frLjKGp30s8Ez6vC6whvVztLJoP2h/BIE2FAAHt+Vn8MKiBugBiedvXxvm/IgyiuZonYYf/CuOnyqPAzywLeM8FLQEw0DsMn5xQq0me/p4sh378laHDod/VZ71u7yAzBUZnHhUt8+BvyYaBgA09JJVU6ELvvqYJaPTok4cZT3955SNa5YfKkwHpL7WTEnE14KTtDMbenTvaBVroWyzfwLOYarKR+4l6i+3wVx2WIu6Ak3O6mw36VS0nmgrE83LZ1W5ZhvJZfz3V08F0Wb0BwS2fe7dFq/y69lMWEwbWclmxqAV2Hv8HuwSBkGH8xm5ZvIYM2rBtftMYmk80hB33ccvg4YaVV7eTw1hcxpfUUfcKEsU/TydM1sExOAm524w41ghpMOXk0dxKallirZgGWs4piM1QraTEwArjwzr3mFXOkuoZAaQCavC8CAL9QwGKw1iLt7kwDYDPzzAeMspgZg5vWqwoESgN08OzsqS83wwMiMHnDuczXg7aXUADKWrqF0lxQWeuycrMcFgPC2nZPZyMC3tBvl34IorLcSQPlzjuC2GIejQGxW59WAsdZSA0hKIbOgb6pyGqUjoFAkiOZQKGEQe4Fs6Qh4g0tdIJoTxAnTqG/1OCCakkaTFrJgsFYDIcJbxayc8bzVrEKWtJUIZ5uKIKDUI1VtJWqlu3rWMwUt4HA8TjNXSW4FEB6AyGauHgVr7UnSTleT6WUnhyl33W2znz/Oxch2OsE84N9dNhe0bKBJ+X+gxNGWjZSNArCZ1//7ob5RFPJ51dbPKoHi1L4PWz6Itn5aDFXZ9nzc3VJp2/V5vVYRTLueeh5Iq0Da8zsA0low7fl/AETYZ0QvyjTxAAAAAElFTkSuQmCC)"></div>
+                                    <span>计费详情</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 底部 -->
+                <div class="list-item-bottom flex-start-center">
+                    <div class="item-bottom-list"
+                        :style="'width: ' + (clientWidth - 125 ) + 'px;'"
+                    >
+                        <div class="bottom-list-content">
+
+                            <div class="bottom-list-item">
+                                <div class="bottom-item-content">
+                                    <span>有空闲</span>
+                                </div>
+                            </div>
+
+                            <div class="bottom-list-item">
+                                <div class="bottom-item-content">
+                                    <span>有空闲</span>
+                                </div>
+                            </div>
+
+                            <div class="bottom-list-item">
+                                <div class="bottom-item-content">
+                                    <span>有空闲</span>
+                                </div>
+                            </div>
+
+                            <div class="bottom-list-item">
+                                <div class="bottom-item-content">
+                                    <span>有空闲</span>
+                                </div>
+                            </div>
+
+                            <div class="bottom-list-item">
+                                <div class="bottom-item-content">
+                                    <span>有空闲</span>
+                                </div>
+                            </div>
+
+                            <div class="bottom-list-item">
+                                <div class="bottom-item-content">
+                                    <span>有空闲</span>
+                                </div>
+                            </div>
+
+                            <div class="bottom-list-item">
+                                <div class="bottom-item-content">
+                                    <span>有空闲</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item-bottom-navigation">
+                        <div class="bottom-navigation-content flex-center">
+                            <div class="bottom-navigation flex-start-center">
+                                <svg width="18" height="18" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表" transform="translate(-599.000000, -495.000000)" stroke="#5594FF" stroke-width="2"><g id="电站1" transform="translate(0.000000, 218.000000)"><g id="导航btn" transform="translate(566.000000, 259.000000)"><rect id="Rectangle-Copy" x="1" y="1" width="152" height="62" rx="31"></rect><path d="M47,20.734838 L37.9369628,43.8043872 L47,38.8609124 L56.0630372,43.8043872 L47,20.734838 Z" id="Triangle-3"></path></g></g></g></g>
+                                </svg>
+                                <span>导航</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -83,9 +193,10 @@ export default {
 
     data () {
         return {
+            clientWidth: document.body.offsetWidth || document.documentElement.clientWidth || window.innerWidth, // 设备的宽度
+
             isSidebarShow: false, // 侧边栏 - 是否显示
-            sidebardefault: [{title:'电站筛选',isMultiple:true,selectedIndex:null,list:[{name:'有空闲',isSelected:true,},{name:'全时段开放',isSelected:false,},{name:'免费停车',isSelected:false,},{name:'地锁',isSelected:false,}]},{title:'充电方式',isMultiple:false,selectedIndex:null,list:[{name:'直流快充',isSelected:false,},{name:'交流快充',isSelected:false,},{name:'交流慢充',isSelected:false,}]}], // 侧边栏 - 重置的数据 
-            sidebarGroup: [ // 侧边栏 - 数据
+            sidebardefault: [ // 侧边栏 - 重置的数据 
                 {
                     title: '电站筛选',
                     isMultiple: true, // 多选
@@ -122,11 +233,24 @@ export default {
                         }
                     ]
                 }
+            ],
+            sidebarGroup: [], // 侧边栏 - 数据
+
+            list: [ // 充电站列表
+
             ]
         }
     },
 
-    computed: {
+    mounted: function () {
+        const _this = this;
+
+        // 将侧边的数据初始化进去
+        let initSidebar = () => {
+            _this.sidebarGroup = _this.sidebardefault.concat();
+        }
+
+        initSidebar();
     },
 
     methods: {
@@ -188,7 +312,7 @@ export default {
     background: #f5f5f5;
 }
 
-// 排序 and 筛选栏
+// 排序筛选按钮
 .list .filter {
     height: 40px;
     width: 100%;
@@ -339,4 +463,185 @@ export default {
         }
     }
 }
+
+// 列表
+.list .list-content {
+    // 列表下的一个项
+    .list-item {
+        padding-top: 5px;
+
+        .list-item-content {
+            padding-top: 15px;
+            padding-left: 15px;
+            background: #fff;
+        }
+
+        // 顶部
+        .list-item-top {
+            padding-bottom: 15px ;
+
+            // 顶部 -> 标题
+            .item-top-picture {
+                width: 80px;
+                height: 60px;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            // 顶部 -> 内容
+            .item-top-describe {
+
+                .top-describe-content {
+                    padding: 0px 15px;
+                }
+
+                .describe-top-row1 {
+                    padding-bottom: 7.5px;
+                    color: @black1;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+
+                .describe-top-row2 {
+                    font-size: 12px;
+                    color: @black3;
+                    padding-bottom: 5px;
+
+                    .item-top-address {
+                        overflow: hidden;
+                        text-overflow:ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+
+                .describe-top-row3 {
+                    font-size: 12px;
+                    color: @black2;
+                    padding-bottom: 10px;
+
+                    div {
+                        padding: 0.5px 1.5px;
+                        border-radius: 1.5px;
+                        color: #fff;
+                    }
+
+                    span {
+                        padding-left: 5px;
+                        padding-right: 15px;
+                    }
+                    
+                    .top-row3-fast {
+                        background: #00B90A;
+                    }
+                    
+                    .top-row3-slow {
+                        background: #FF8D18;
+                    }
+                }
+
+                .describe-top-row4 {
+                    display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+                    display: -moz-box;     /* 老版本语法: Firefox (buggy) */
+                    display: -ms-flexbox;  /* 混合版本语法: IE 10 */
+                    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+                    display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
+                    justify-content: flex-start;
+                    align-items: flex-end;
+                    font-size: 12px;
+
+                    .top-row4-price {
+                        font-size: 12px;
+                        color: @black3;
+
+                        span {
+                            padding-right: 1.5px;
+                            font-size: 18px;
+                            color: #5594FF;
+                        }
+                    }
+
+                    .top-row4-details {
+                        padding-left: 35px;
+
+                        .row4-details-icon {
+                            border: none;
+                            width: 14px;
+                            height: 14px;
+                        }
+
+                        span {
+                            color: #5594FF;
+                            padding-left: 1.5px;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 底部
+        .list-item-bottom {
+            border-top: 1px solid #ddd;
+            height: 50px;
+
+            // 底部 -> 列表
+            .item-bottom-list {
+                overflow-x: scroll;
+                overflow-y: hidden;
+                white-space: nowrap;
+                height: 23px; 
+
+                .bottom-list-content {
+                    float: left;
+                    height: 23px; 
+                }
+
+                .bottom-list-item {
+                    display: inline-block;
+                    height: 23px; 
+
+                    .bottom-item-content {
+                        font-size: 12px;
+                        color: #5594FF;
+                        padding-right: 5px;
+
+                        span {
+                            padding: 0px 7.5px;
+                            height: 20px;
+                            border-radius: 20px;
+                            border-width: 1px;
+                            border-style: solid;
+                            border-color: #5594FF;
+                            display: block;
+                            line-height: 20px;
+                        }
+                    }
+                }
+            }
+
+            // 底部 -> 按钮
+            .item-bottom-navigation {
+                padding-left: 15px;
+
+                .bottom-navigation-content {
+                    width: 80px;
+                    height: 30px;
+                    line-height: 30px;
+                    font-size: 14px;
+                    border-radius: 30px;
+                    border: 1px solid #5594FF;
+                    color: #5594FF;
+                }
+
+                span {
+                    padding-left: 1.5px;
+                }
+            }
+        }
+    }
+}
+
 </style>
