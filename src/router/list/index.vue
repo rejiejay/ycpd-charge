@@ -107,7 +107,7 @@
                             </div>
                             <div class="describe-top-row4">
                                 <div class="top-row4-price"><span>{{item.price}}</span>元/度</div>
-                                <div class="top-row4-details flex-start-center">
+                                <div class="top-row4-details flex-start-center"  @click="showCostModal">
                                     <div class="row4-details-icon" style="background-size: 14px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADuklEQVRoQ+2ZT2gcdRTHP2/StAQTL9ZEgoLFUrWCN6HHeFIjRAPuRGkvVo3tbnLQqzStEa8iZmcD8d9FD9kppA20tqfkWPAoLTa0WGgIbdVLEimt6TyZaWadnezO7szsulnJXH+/3/u973vf9+83Qpt/0ub6swOg1R6UkYK+5jjMAE+2WpnQ/cuGwehsVn6K0ksyeb25DZX3dV62x+Sp/zeAtqfQNuN9bHV20mhskzX4wI4H6jVopqi75U9exmFIlYMC/Sr0u+dFWVFYEeEKBvP6GAu2Kffrkd10D2QsfQJhQhwOKzxap1KravAjyqSdk1uRdaAegUn2jJ/XPbd/4xOUjxUeSSJD4C+EL/r28fnUoNyrJKMpHnCtLjCnyqEkiofPiHBJYbiSNxoO4J2CvrjhcK5Ke7IscFYMzrGL687frLjKGp30s8Ez6vC6whvVztLJoP2h/BIE2FAAHt+Vn8MKiBugBiedvXxvm/IgyiuZonYYf/CuOnyqPAzywLeM8FLQEw0DsMn5xQq0me/p4sh378laHDod/VZ71u7yAzBUZnHhUt8+BvyYaBgA09JJVU6ELvvqYJaPTok4cZT3955SNa5YfKkwHpL7WTEnE14KTtDMbenTvaBVroWyzfwLOYarKR+4l6i+3wVx2WIu6Ak3O6mw36VS0nmgrE83LZ1W5ZhvJZfz3V08F0Wb0BwS2fe7dFq/y69lMWEwbWclmxqAV2Hv8HuwSBkGH8xm5ZvIYM2rBtftMYmk80hB33ccvg4YaVV7eTw1hcxpfUUfcKEsU/TydM1sExOAm524w41ghpMOXk0dxKallirZgGWs4piM1QraTEwArjwzr3mFXOkuoZAaQCavC8CAL9QwGKw1iLt7kwDYDPzzAeMspgZg5vWqwoESgN08OzsqS83wwMiMHnDuczXg7aXUADKWrqF0lxQWeuycrMcFgPC2nZPZyMC3tBvl34IorLcSQPlzjuC2GIejQGxW59WAsdZSA0hKIbOgb6pyGqUjoFAkiOZQKGEQe4Fs6Qh4g0tdIJoTxAnTqG/1OCCakkaTFrJgsFYDIcJbxayc8bzVrEKWtJUIZ5uKIKDUI1VtJWqlu3rWMwUt4HA8TjNXSW4FEB6AyGauHgVr7UnSTleT6WUnhyl33W2znz/Oxch2OsE84N9dNhe0bKBJ+X+gxNGWjZSNArCZ1//7ob5RFPJ51dbPKoHi1L4PWz6Itn5aDFXZ9nzc3VJp2/V5vVYRTLueeh5Iq0Da8zsA0low7fl/AETYZ0QvyjTxAAAAAElFTkSuQmCC)"></div>
                                     <span>计费详情</span>
                                 </div>
@@ -121,22 +121,20 @@
                 <div class="list-item-bottom flex-start-center">
                     <div class="item-bottom-list"
                         :style="'width: ' + (clientWidth - 125 ) + 'px;'"
-
                     >
                         <div class="bottom-list-content">
 
                             <div class="bottom-list-item">
                                 <div class="bottom-item-content">
                                     <span
-                                        :style="isSpare ? 'border-color: #5594FF; color: #5594FF;' : 'border-color: #E50012; color: #E50012;'"
+                                        :style="item.isSpare ? 'border-color: #5594FF; color: #5594FF;' : 'border-color: #E50012; color: #E50012;'"
                                     >
-                                        {{isSpare ? '有空闲' : '无空闲'}}
+                                        {{item.isSpare ? '有空闲' : '无空闲'}}
                                     </span>
                                 </div>
                             </div>
 
                             <div class="bottom-list-item"
-                            
                                 v-for="(tag, tagkey) in item.tags" 
                                 :key="tagkey"
                             >
@@ -156,6 +154,61 @@
                                 </svg>
                                 <span>导航</span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 计费详情模态框 -->
+    <div class="list-cost-modal flex-center" v-if="costModal.isShow">
+        <div class="cost-modal-shade" @click="costModal.isShow = false"></div>
+
+        <div class="cost-modal-main">
+            <div class="modal-main-content">
+                <!-- 模态框 标题 -->
+                <div class="modal-main-title flex-start-center">
+                    <div class="flex-rest">计费详情</div>
+                    <div @click="costModal.isShow = false">
+                        <svg width="14" height="14" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表-计费详情" transform="translate(-591.000000, -519.000000)" fill="#666666" fill-rule="nonzero"><g id="Alert" transform="translate(0.000000, 128.000000)"><g id="Group" transform="translate(105.000000, 339.000000)"><g id="icon" transform="translate(30.000000, 52.000000)"><path d="M468,10.5857864 L478.292893,0.292893219 C478.683418,-0.0976310729 479.316582,-0.0976310729 479.707107,0.292893219 C480.097631,0.683417511 480.097631,1.31658249 479.707107,1.70710678 L469.414214,12 L479.707107,22.2928932 C480.097631,22.6834175 480.097631,23.3165825 479.707107,23.7071068 C479.316582,24.0976311 478.683418,24.0976311 478.292893,23.7071068 L468,13.4142136 L457.707107,23.7071068 C457.316582,24.0976311 456.683418,24.0976311 456.292893,23.7071068 C455.902369,23.3165825 455.902369,22.6834175 456.292893,22.2928932 L466.585786,12 L456.292893,1.70710678 C455.902369,1.31658249 455.902369,0.683417511 456.292893,0.292893219 C456.683418,-0.0976310729 457.316582,-0.0976310729 457.707107,0.292893219 L468,10.5857864 Z" id="icon_close"></path></g></g></g></g></g>
+                        </svg>
+                    </div>
+                </div>
+                <!-- 模态框 内容 -->
+                <div class="modal-main-describe">
+                    <div class="main-describe-row1 flex-start">
+                        <div class="describe-row-left flex-start-center">
+                            <svg width="16" height="16" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表-计费详情" transform="translate(-135.000000, -606.000000)" fill="#979797" fill-rule="nonzero"><g id="Alert" transform="translate(0.000000, 128.000000)"><g id="Group" transform="translate(105.000000, 339.000000)"><g id="icon" transform="translate(30.000000, 52.000000)"><path d="M4,87 L24,87 C26.209139,87 28,88.790861 28,91 L28,111 C28,113.209139 26.209139,115 24,115 L4,115 C1.790861,115 0,113.209139 0,111 L0,91 C0,88.790861 1.790861,87 4,87 Z M4,89 C2.8954305,89 2,89.8954305 2,91 L2,111 C2,112.104569 2.8954305,113 4,113 L24,113 C25.1045695,113 26,112.104569 26,111 L26,91 C26,89.8954305 25.1045695,89 24,89 L4,89 Z M9.5527864,100.906233 C8.94228822,100.635121 8.81025202,99.9124676 9.29289322,99.4838006 L16.2928932,93.2666173 C17.0714581,92.5751201 18.3528726,93.3456599 17.919145,94.2445146 L15.2905735,99.6919515 L18.4472136,101.093767 C19.0577118,101.364879 19.189748,102.087532 18.7071068,102.516199 L11.7071068,108.733383 C10.9285419,109.42488 9.64712736,108.65434 10.080855,107.755485 L12.7094265,102.308048 L9.5527864,100.906233 Z" id="icon_Ele"></path></g></g></g></g></g>
+                            </svg>
+                            <span>电费:</span>
+                        </div>
+                        <div class="describe-row-right">
+                            {{costModal.electricPrice}}
+                        </div>
+                    </div>
+                    <div class="main-describe-row2 flex-start">
+                        <div class="describe-row-left flex-start-center">
+                            <svg width="16" height="16" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表-计费详情" transform="translate(-135.000000, -664.000000)" fill="#979797" fill-rule="nonzero"><g id="Alert" transform="translate(0.000000, 128.000000)"><g id="Group" transform="translate(105.000000, 339.000000)"><g id="icon" transform="translate(30.000000, 52.000000)"><path d="M4,145 L24,145 C26.209139,145 28,146.790861 28,149 L28,169 C28,171.209139 26.209139,173 24,173 L4,173 C1.790861,173 0,171.209139 0,169 L0,149 C0,146.790861 1.790861,145 4,145 Z M4,147 C2.8954305,147 2,147.895431 2,149 L2,169 C2,170.104569 2.8954305,171 4,171 L24,171 C25.1045695,171 26,170.104569 26,169 L26,149 C26,147.895431 25.1045695,147 24,147 L4,147 Z M10,165.929742 C7.60879452,164.546505 6,161.961129 6,159 C6,154.581722 9.581722,151 14,151 C18.418278,151 22,154.581722 22,159 C22,161.961129 20.3912055,164.546505 18,165.929742 L18,167 C18,167.552285 17.5522847,168 17,168 L17,169 C17,169.552285 16.5522847,170 16,170 C16,170.552285 15.5522847,171 15,171 L13,171 C12.4477153,171 12,170.552285 12,170 C11.4477153,170 11,169.552285 11,169 L11,168 C10.4477153,168 10,167.552285 10,167 L10,165.929742 Z M14,165 C17.3137085,165 20,162.313708 20,159 C20,155.686292 17.3137085,153 14,153 C10.6862915,153 8,155.686292 8,159 C8,162.313708 10.6862915,165 14,165 Z M13,167 L13,168 L15,168 L15,167 L13,167 Z" id="icon_Servicefee"></path></g></g></g></g></g>
+                            </svg>
+                            <span>服务费:</span>
+                        </div>
+                        <div class="describe-row-right">
+                            {{costModal.servicePrice}}
+                        </div>
+                    </div>
+                    <div class="main-describe-row3 flex-start">
+                        <div class="describe-row-left flex-start-center">
+                            <svg width="16" height="16" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表-计费详情" transform="translate(-135.000000, -722.000000)" fill="#979797" fill-rule="nonzero"><g id="Alert" transform="translate(0.000000, 128.000000)"><g id="Group" transform="translate(105.000000, 339.000000)"><g id="icon" transform="translate(30.000000, 52.000000)"><path d="M4,203 L24,203 C26.209139,203 28,204.790861 28,207 L28,227 C28,229.209139 26.209139,231 24,231 L4,231 C1.790861,231 0,229.209139 0,227 L0,207 C0,204.790861 1.790861,203 4,203 Z M4,205 C2.8954305,205 2,205.895431 2,207 L2,227 C2,228.104569 2.8954305,229 4,229 L24,229 C25.1045695,229 26,228.104569 26,227 L26,207 C26,205.895431 25.1045695,205 24,205 L4,205 Z M8,209 L15.5,209 C18.5375661,209 21,211.462434 21,214.5 C21,217.537566 18.5375661,220 15.5,220 L10,220 L10,227 L8,227 L8,209 Z M10,218 L15.5,218 C17.4329966,218 19,216.432997 19,214.5 C19,212.567003 17.4329966,211 15.5,211 L10,211 L10,218 Z" id="icon_parking"></path></g></g></g></g></g>
+                            </svg>
+                            <span>停车费:</span>
+                        </div>
+                        <div class="describe-row-right">
+                            {{costModal.parkPrice}}
                         </div>
                     </div>
                 </div>
@@ -238,7 +291,14 @@ export default {
                         '免费停车',
                     ],
                 }
-            ]
+            ],
+
+            costModal: { // 计费详情 模态框
+                isShow: false, // 是否显示
+                electricPrice: '1.22元/度', // 电费
+                servicePrice: '0.6元/度', // 服务费
+                parkPrice: '半小时内免费，首小时10元，之后每小时5元，最高20元。', // 停车费
+            }
         }
     },
 
@@ -290,6 +350,14 @@ export default {
         sidebarAffirm: function() {
             this.isSidebarShow = false; // 隐藏侧边栏
         },
+
+        /**
+         * 计费详情 - 点击弹出模态框
+         * @param {Number} groupKey 分模块的下标
+         */
+        showCostModal: function(groupKey) {
+            this.costModal.isShow = true;
+        },
     },
 }
 
@@ -305,6 +373,10 @@ export default {
 @sidebar-shade-z-index: 1;
 // 筛选 侧边栏 主要部分 
 @sidebar-main-z-index: 2;
+// 计费详情 模态框 主要部分 
+@cost-modal-content-z-index: 1;
+@cost-modal-shade-z-index: 2;
+@cost-modal-main-z-index: 3;
 
 .list {
     width: 100%;
@@ -639,6 +711,82 @@ export default {
                 span {
                     padding-left: 1.5px;
                 }
+            }
+        }
+    }
+}
+
+// 计费详情 模态框
+.list .list-cost-modal {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: @cost-modal-content-z-index;
+
+    .cost-modal-shade {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.46);
+        z-index: @cost-modal-shade-z-index;
+    }
+
+    // 模态框 -> 内容区域
+    .cost-modal-main {
+        position: relative;
+        min-height: 185px;
+        width: 80%;
+        border-radius: 10px;
+        background: #fff;
+        z-index: @cost-modal-main-z-index;
+
+        .modal-main-content {
+            padding: 15px;
+        }
+
+        // 模态框 标题
+        .modal-main-title {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+
+            .flex-rest {
+                font-size: 14px;
+                color: @black1;
+                font-weight: bold;
+            }
+        }
+
+        // 模态框 内容
+        .modal-main-describe {
+            font-size: 14px;
+            padding-top: 15px;
+
+            > div {
+                display: -webkit-box;  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+                display: -moz-box;     /* 老版本语法: Firefox (buggy) */
+                display: -ms-flexbox;  /* 混合版本语法: IE 10 */
+                display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+                display: flex;         /* 新版本语法: Opera 12.1, Firefox 22+ */
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding-bottom: 10px;
+            }
+
+            .describe-row-left {
+                width: 75px;
+
+                span {
+                    padding-left: 5px;
+                }
+            }
+
+            .describe-row-right {
+                float: left;
+                width: 65%;
             }
         }
     }
