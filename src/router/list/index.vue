@@ -74,14 +74,17 @@
     <!-- 列表 -->
     <div class="list-content">
         <!-- 列表下的一个项 -->
-        <div class="list-item">
+        <div class="list-item"
+            v-for="(item, key) in list" 
+            :key="key"
+        >
             <div class="list-item-content">
 
                 <!-- 顶部 -->
                 <div class="list-item-top flex-start">
                     <!-- 顶部 标题 -->
                     <div class="item-top-picture">
-                        <img src="https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png" alt="充电站图片" />
+                        <img :src="item.picture" alt="充电站图片" />
                     </div>
 
                     <!-- 顶部 内容 -->
@@ -89,21 +92,21 @@
                         :style="'width: ' + (clientWidth - 95 ) + 'px;'"
                     >
                         <div class="top-describe-content">
-                            <div class="describe-top-row1">深圳信挚工业一期充电站</div>
+                            <div class="describe-top-row1">{{item.title}}</div>
                             
                             <div class="describe-top-row2 flex-start">
-                                <div class="item-top-address flex-rest">坂田街道中兴路信挚工业园</div>
-                                <div class="item-top-distance">0.39km</div>
+                                <div class="item-top-address flex-rest">{{item.address}}</div>
+                                <div class="item-top-distance">{{item.distance}}km</div>
                             </div>
 
                             <div class="describe-top-row3 flex-start-center">
                                 <div class="top-row3-fast">快</div>
-                                <span>空闲2/共3</span>
+                                <span>空闲{{item.fastSpare}}/共{{item.fastCount}}</span>
                                 <div class="top-row3-slow">慢</div>
-                                <span>空闲3/共3</span>
+                                <span>空闲{{item.slowSpare}}/共{{item.slowCount}}</span>
                             </div>
                             <div class="describe-top-row4">
-                                <div class="top-row4-price"><span>1.82</span>元/度</div>
+                                <div class="top-row4-price"><span>{{item.price}}</span>元/度</div>
                                 <div class="top-row4-details flex-start-center">
                                     <div class="row4-details-icon" style="background-size: 14px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADuklEQVRoQ+2ZT2gcdRTHP2/StAQTL9ZEgoLFUrWCN6HHeFIjRAPuRGkvVo3tbnLQqzStEa8iZmcD8d9FD9kppA20tqfkWPAoLTa0WGgIbdVLEimt6TyZaWadnezO7szsulnJXH+/3/u973vf9+83Qpt/0ub6swOg1R6UkYK+5jjMAE+2WpnQ/cuGwehsVn6K0ksyeb25DZX3dV62x+Sp/zeAtqfQNuN9bHV20mhskzX4wI4H6jVopqi75U9exmFIlYMC/Sr0u+dFWVFYEeEKBvP6GAu2Kffrkd10D2QsfQJhQhwOKzxap1KravAjyqSdk1uRdaAegUn2jJ/XPbd/4xOUjxUeSSJD4C+EL/r28fnUoNyrJKMpHnCtLjCnyqEkiofPiHBJYbiSNxoO4J2CvrjhcK5Ke7IscFYMzrGL687frLjKGp30s8Ez6vC6whvVztLJoP2h/BIE2FAAHt+Vn8MKiBugBiedvXxvm/IgyiuZonYYf/CuOnyqPAzywLeM8FLQEw0DsMn5xQq0me/p4sh378laHDod/VZ71u7yAzBUZnHhUt8+BvyYaBgA09JJVU6ELvvqYJaPTok4cZT3955SNa5YfKkwHpL7WTEnE14KTtDMbenTvaBVroWyzfwLOYarKR+4l6i+3wVx2WIu6Ak3O6mw36VS0nmgrE83LZ1W5ZhvJZfz3V08F0Wb0BwS2fe7dFq/y69lMWEwbWclmxqAV2Hv8HuwSBkGH8xm5ZvIYM2rBtftMYmk80hB33ccvg4YaVV7eTw1hcxpfUUfcKEsU/TydM1sExOAm524w41ghpMOXk0dxKallirZgGWs4piM1QraTEwArjwzr3mFXOkuoZAaQCavC8CAL9QwGKw1iLt7kwDYDPzzAeMspgZg5vWqwoESgN08OzsqS83wwMiMHnDuczXg7aXUADKWrqF0lxQWeuycrMcFgPC2nZPZyMC3tBvl34IorLcSQPlzjuC2GIejQGxW59WAsdZSA0hKIbOgb6pyGqUjoFAkiOZQKGEQe4Fs6Qh4g0tdIJoTxAnTqG/1OCCakkaTFrJgsFYDIcJbxayc8bzVrEKWtJUIZ5uKIKDUI1VtJWqlu3rWMwUt4HA8TjNXSW4FEB6AyGauHgVr7UnSTleT6WUnhyl33W2znz/Oxch2OsE84N9dNhe0bKBJ+X+gxNGWjZSNArCZ1//7ob5RFPJ51dbPKoHi1L4PWz6Itn5aDFXZ9nzc3VJp2/V5vVYRTLueeh5Iq0Da8zsA0low7fl/AETYZ0QvyjTxAAAAAElFTkSuQmCC)"></div>
                                     <span>计费详情</span>
@@ -118,48 +121,27 @@
                 <div class="list-item-bottom flex-start-center">
                     <div class="item-bottom-list"
                         :style="'width: ' + (clientWidth - 125 ) + 'px;'"
+
                     >
                         <div class="bottom-list-content">
 
                             <div class="bottom-list-item">
                                 <div class="bottom-item-content">
-                                    <span>有空闲</span>
+                                    <span
+                                        :style="isSpare ? 'border-color: #5594FF; color: #5594FF;' : 'border-color: #E50012; color: #E50012;'"
+                                    >
+                                        {{isSpare ? '有空闲' : '无空闲'}}
+                                    </span>
                                 </div>
                             </div>
 
-                            <div class="bottom-list-item">
+                            <div class="bottom-list-item"
+                            
+                                v-for="(tag, tagkey) in item.tags" 
+                                :key="tagkey"
+                            >
                                 <div class="bottom-item-content">
-                                    <span>有空闲</span>
-                                </div>
-                            </div>
-
-                            <div class="bottom-list-item">
-                                <div class="bottom-item-content">
-                                    <span>有空闲</span>
-                                </div>
-                            </div>
-
-                            <div class="bottom-list-item">
-                                <div class="bottom-item-content">
-                                    <span>有空闲</span>
-                                </div>
-                            </div>
-
-                            <div class="bottom-list-item">
-                                <div class="bottom-item-content">
-                                    <span>有空闲</span>
-                                </div>
-                            </div>
-
-                            <div class="bottom-list-item">
-                                <div class="bottom-item-content">
-                                    <span>有空闲</span>
-                                </div>
-                            </div>
-
-                            <div class="bottom-list-item">
-                                <div class="bottom-item-content">
-                                    <span>有空闲</span>
+                                    <span>{{tag}}</span>
                                 </div>
                             </div>
 
@@ -237,7 +219,25 @@ export default {
             sidebarGroup: [], // 侧边栏 - 数据
 
             list: [ // 充电站列表
-
+                {
+                    title: '深圳信挚工业一期充电站',
+                    picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
+                    address: '坂田街道中兴路信挚工业园',
+                    distance: 0.39, // 距离 单位km
+                    fastSpare: 2, // 快充设备 - 目前空闲
+                    fastCount: 3, // 快充设备 - 总数
+                    slowSpare: 2, // 慢充设备 - 目前空闲
+                    slowCount: 3, // 慢充设备 - 总数
+                    price: 1.82, // 价格 元/度
+                    longitude: '114.0595600000', // 充电桩所在 - 经度
+                    latitude: '22.5428600000', // 充电桩所在 - 维度
+                    isSpare: true, // 是否空闲
+                    tags: [ // 标签
+                        '全段时间开放',
+                        '含快充',
+                        '免费停车',
+                    ],
+                }
             ]
         }
     },
