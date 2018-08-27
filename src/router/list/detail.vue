@@ -105,6 +105,31 @@
                 </div>
             </div>
         </div>
+
+        <!-- 车型次数 -->
+        <div class="detail-type-count">
+            <div class="type-count-content">
+                <div class="type-count-car flex-start-center">
+                    <div class="type-count-main flex-rest">成功充电车型</div>
+                    <div class="type-count-lable flex-start-center">
+                        <div class="count-car-logo" ><img alt="车牌" src="https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png" /></div>
+                        <div class="count-car-logo" ><img alt="车牌" src="https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png" /></div>
+                        <svg width="18" height="18" t="1535190746466" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2105" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path fill="#606266" d="M330.56 247.68a32 32 0 0 1 42.88-47.36l320 288a32 32 0 0 1 0 47.36l-320 288a32 32 0 0 1-42.88-47.36L624.32 512z" p-id="2106"></path>
+                        </svg>
+                    </div>
+                </div>
+                <!-- <div class="type-count-charge flex-start-center">
+                    <div class="type-count-main flex-rest">近7天成功充电<span>999</span>次</div>
+                    <div class="type-count-lable flex-start-center">
+                        <span>查看详情</span>
+                        <svg width="18" height="18" t="1535190746466" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2105" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path fill="#606266" d="M330.56 247.68a32 32 0 0 1 42.88-47.36l320 288a32 32 0 0 1 0 47.36l-320 288a32 32 0 0 1-42.88-47.36L624.32 512z" p-id="2106"></path>
+                        </svg>
+                    </div>
+                </div> -->
+            </div>
+        </div>
     </div>
 </template>
 
@@ -335,7 +360,7 @@ export default {
     .cost-count-describe {
         padding: 15px 15px 5px 0px;
 
-        .count-describe-item {
+        .count-describe-item { 
             font-size: 14px;
             padding-bottom: 10px;
         }
@@ -348,6 +373,56 @@ export default {
         .describe-item-main {
             color: @black2;
         }
+    }
+}
+
+// 车型次数
+.detail .detail-type-count {
+    padding-bottom: 5px;
+
+    // 车型次数 -> 框架
+    .type-count-content {
+        padding-left: 15px;
+        background: #fff;
+        color: @black2;
+
+        > div {
+            height: 45px;
+            line-height: 45px;
+            font-size: 14px;
+        }
+
+        .type-count-main {
+
+        }
+
+        .type-count-lable {
+            padding-right: 15px;
+            
+        }
+    }
+
+    // 车型次数 -> 充电车型
+    .type-count-car {
+        // border-bottom: 1px solid #ddd;
+
+        // 充电车型 -> 车型的 logo
+        .count-car-logo {
+            padding-right: 7.5px;
+            width: 18px;
+            height: 18px;
+
+            img {
+                display: block;
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    // 车型次数 -> 充电次数
+    .type-count-charge {
+
     }
 }
 </style>
