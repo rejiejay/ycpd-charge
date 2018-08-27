@@ -111,9 +111,9 @@
             <div class="type-count-content">
                 <div class="type-count-car flex-start-center">
                     <div class="type-count-main flex-rest">成功充电车型</div>
-                    <div class="type-count-lable flex-start-center">
-                        <div class="count-car-logo" ><img alt="车牌" src="https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png" /></div>
-                        <div class="count-car-logo" ><img alt="车牌" src="https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png" /></div>
+                    <div class="type-count-lable flex-start-center"  @click="typeCarModal.isShow = true">
+                        <div class="count-car-logo" ><img alt="车牌" :src="typeCarModal.logo[0]" /></div>
+                        <div class="count-car-logo" ><img alt="车牌" :src="typeCarModal.logo[1]" /></div>
                         <svg width="18" height="18" t="1535190746466" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2105" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <path fill="#606266" d="M330.56 247.68a32 32 0 0 1 42.88-47.36l320 288a32 32 0 0 1 0 47.36l-320 288a32 32 0 0 1-42.88-47.36L624.32 512z" p-id="2106"></path>
                         </svg>
@@ -128,6 +128,34 @@
                         </svg>
                     </div>
                 </div> -->
+            </div>
+        </div>
+
+        <!-- 模态框 成功充电车型 -->
+        <div class="type-car-modal" v-if="typeCarModal.isShow">
+            <div class="car-modal-shade" @click="typeCarModal.isShow = false"></div>
+            <div class="car-modal-main">
+                <div class="car-modal-title flex-start-center">
+                    <div class="flex-rest">成功充电车型</div>
+                    <div @click="typeCarModal.isShow = false">
+                        <svg width="16" height="16" t="1535340058738" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1926" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path fill="#303133" d="M583.168 523.776L958.464 148.48c18.944-18.944 18.944-50.176 0-69.12l-2.048-2.048c-18.944-18.944-50.176-18.944-69.12 0L512 453.12 136.704 77.312c-18.944-18.944-50.176-18.944-69.12 0l-2.048 2.048c-19.456 18.944-19.456 50.176 0 69.12l375.296 375.296L65.536 899.072c-18.944 18.944-18.944 50.176 0 69.12l2.048 2.048c18.944 18.944 50.176 18.944 69.12 0L512 594.944 887.296 970.24c18.944 18.944 50.176 18.944 69.12 0l2.048-2.048c18.944-18.944 18.944-50.176 0-69.12L583.168 523.776z" p-id="1927"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="car-modal-list">
+                    <div class="car-list-content">
+                        <div class="modal-list-item"
+                            v-for="(item, key) in typeCarModal.list" 
+                            :key="key"
+                        >
+                            <div class="modal-item-content">
+                                <div class="modal-item-img"><img alt="车牌" :src="item.pictureUrl" /></div>
+                                <div class="modal-item-lable">{{item.name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -153,6 +181,27 @@ export default {
                 '含快充',
                 '免费停车',
             ],
+
+            // 模态框 成功充电车型 
+            typeCarModal: {
+                isShow: true, // 是否显示
+                logo: [ // 列表项上面的两个logo
+                    'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
+                    'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
+                ],
+                list: [
+                    {
+                        name: 'e5',
+                        pictureUrl: 'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
+                    }, {
+                        name: 'e5',
+                        pictureUrl: 'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
+                    }, {
+                        name: 'e5',
+                        pictureUrl: 'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
+                    },
+                ]
+            }
         }
     },
 
@@ -180,6 +229,11 @@ export default {
 @black2: #606266;
 @black3: #909399;
 @black4: #C0C4CC;
+
+// 模态框 成功充电车型
+@car-modal-z-index: 1;
+@car-modal-shade-z-index: 2;
+@car-modal-main-z-index: 3;
 
 .detail {
     width: 100%;
@@ -425,4 +479,82 @@ export default {
 
     }
 }
+
+// 模态框 成功充电车型
+.detail .type-car-modal {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: @car-modal-z-index;
+
+    // 整体框架
+    .car-modal-shade {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: @car-modal-shade-z-index;
+        background: rgba(0, 0, 0, 0.46);
+    }
+
+    .car-modal-main {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        background: #fff;
+        z-index: @car-modal-main-z-index;
+    }
+
+    // 标题
+    .car-modal-title {
+        height: 40px;
+        padding: 0px 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    // 成功充电车型列表
+    .car-modal-list {
+        padding: 15px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+
+        .modal-list-content {
+            float: left;
+            height: 23px; 
+        }
+
+        .modal-list-item {
+            display: inline-block;
+            height: 23px; 
+
+            .modal-item-content {
+                padding-right: 15px;
+                
+                .modal-item-img {
+                    width: 100px;
+                    height: 100px;
+
+                    img {
+                        display: block;
+                        width: 100px;
+                        height: 100px;
+                    }
+                }
+
+                .modal-item-lable {
+                    padding-top: 10px;
+                    font-size: 16px;
+                    color: @black1;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
 </style>
