@@ -35,7 +35,9 @@
                     <!-- 顶部 — 右边 -->
                     <div class="detail-banner-right">
                         <div class="bottom-navigation-content flex-center">
-                            <div class="bottom-navigation flex-start-center">
+                            <div class="bottom-navigation flex-start-center"
+                                @click="jumpToWxMap('22.542860', '114.059560', '测试', '测试')"
+                            >
                                 <svg width="18" height="18" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表" transform="translate(-599.000000, -495.000000)" stroke="#5594FF" stroke-width="2"><g id="电站1" transform="translate(0.000000, 218.000000)"><g id="导航btn" transform="translate(566.000000, 259.000000)"><rect id="Rectangle-Copy" x="1" y="1" width="152" height="62" rx="31"></rect><path d="M47,20.734838 L37.9369628,43.8043872 L47,38.8609124 L56.0630372,43.8043872 L47,20.734838 Z" id="Triangle-3"></path></g></g></g></g>
                                 </svg>
