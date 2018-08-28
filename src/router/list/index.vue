@@ -4,6 +4,18 @@
 <template>
 <div class="list">
 
+    <!-- 搜索框 -->
+    <div class="search-bar flex-center">
+        <div class="search-bar-content flex-start-center">
+            <div class="search-bar-icon">
+                <svg width="16" height="16" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="停车服务" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="停车场列表" transform="translate(-158.000000, -355.000000)" fill="#CCCCCC" fill-rule="nonzero"><g id="bar" transform="translate(0.000000, 328.000000)"><g id="search" transform="translate(30.000000, 12.000000)"><g id="icon" transform="translate(62.000000, 15.000000)"><path d="M80,26 C86.627417,26 92,20.627417 92,14 C92,7.372583 86.627417,2 80,2 C73.372583,2 68,7.372583 68,14 C68,20.627417 73.372583,26 80,26 Z M90.5814711,23.1672576 L97.7071068,30.2928932 C98.0976311,30.6834175 98.0976311,31.3165825 97.7071068,31.7071068 C97.3165825,32.0976311 96.6834175,32.0976311 96.2928932,31.7071068 L89.1672576,24.5814711 C86.7111356,26.7111846 83.5060773,28 80,28 C72.2680135,28 66,21.7319865 66,14 C66,6.2680135 72.2680135,0 80,0 C87.7319865,0 94,6.2680135 94,14 C94,17.5060773 92.7111846,20.7111356 90.5814711,23.1672576 Z" id="icon_search"></path></g></g></g></g></g>
+                </svg>
+            </div>
+            <input v-model="searchModel" />
+        </div>
+    </div>
+
     <!-- 排序 and 筛选栏 -->
     <div class="filter flex-start">
         <div class="filter-item flex-center"
@@ -437,6 +449,43 @@ export default {
     width: 100%;
     min-height: 100%;
     background: #f5f5f5;
+}
+
+// 搜索框
+.list .search-bar {
+    height: 45px;
+    padding: 0px 15px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+
+    .search-bar-content {
+        height: 30px;
+        width: 100%;
+        border: 1px solid #efefef;
+        border-radius: 2.5px;
+        background: #f5f5f5;
+    }
+
+    .search-bar-icon {
+        padding: 0px 10px;
+    }
+
+    input {
+        width: 95%;
+        padding: 0px 2.5px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: #909399;
+        background-color: transparent;
+    }
+    
+    input::-webkit-input-placeholder,
+    input::-moz-placeholder,   /* Mozilla Firefox 19+ */
+    input:-moz-placeholder,  /* Mozilla Firefox 4 to 18 */
+    input:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
+        color: #909399;
+    }
 }
 
 // 排序筛选按钮
