@@ -335,6 +335,13 @@ export default {
         jumpToMap: function () {
             this.$router.push({ path: '/list/map' });
         },
+
+        /**
+         * 跳转到微信导航页面
+         */
+        jumpToWxMap(latitude, longitude, name, address) {
+            window.location.href = `http://kf.szpiccxxjsb.cn/wxapi/map/map.html?lat=${latitude}&lng=${longitude}&type=bd&name=${name}&address=${address}`; 
+        },
     },
 }
 

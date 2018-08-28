@@ -6,7 +6,10 @@
 
     <!-- 排序 and 筛选栏 -->
     <div class="filter flex-start">
-        <div class="filter-item flex-center filter-activate-item">
+        <div class="filter-item flex-center"
+            v-bind:class="{'filter-activate-item' : (filterSelect === 'distance')}"
+            @click="filterHandle('distance')"
+        >
             <div class="filter-item-content">
                 <span>距离最近</span>
                 <svg width="10" height="10" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -17,7 +20,10 @@
             <div class="filter-item-line flex-center"><span></span></div>
         </div>
         
-        <div class="filter-item flex-center">
+        <div class="filter-item flex-center"
+            v-bind:class="{'filter-activate-item' : (filterSelect === 'price')}"
+            @click="filterHandle('price')"
+        >
             <div class="filter-item-content">
                 <span>价格最低</span>
                 <svg width="10" height="10" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -28,11 +34,17 @@
             <div class="filter-item-line flex-center"><span></span></div>
         </div>
         
-        <div class="filter-item flex-center"  @click="isSidebarShow = true">
+        <div class="filter-item flex-center"  
+            v-bind:class="{'filter-activate-item' : (filterSelect === 'filter')}"
+            @click="isSidebarShow = true"
+        >
             <div class="filter-item-content">
                 <span>筛选</span>
-                <svg t="1535012083571" class="filter-icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2135" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14">
-                    <path d="M576 940.8c-17.6 0-35.2-4.8-51.2-14.4l-128-80c-28.8-17.6-44.8-48-44.8-81.6V491.2L156.8 252.8A95.68 95.68 0 0 1 144 150.4c16-33.6 49.6-54.4 86.4-54.4H792c38.4 0 72 20.8 88 54.4 16 33.6 11.2 73.6-12.8 102.4L672 491.2v353.6c0 35.2-19.2 67.2-49.6 83.2-14.4 8-30.4 12.8-46.4 12.8zM230.4 160c-19.2 0-27.2 14.4-28.8 17.6s-8 19.2 4.8 33.6l203.2 248c4.8 6.4 8 12.8 8 20.8v284.8c0 11.2 6.4 20.8 14.4 27.2l128 80c14.4 9.6 27.2 3.2 32 1.6 4.8-3.2 16-11.2 16-27.2V480c0-8 3.2-14.4 8-20.8l203.2-248c11.2-14.4 6.4-30.4 4.8-33.6-1.6-4.8-9.6-17.6-28.8-17.6H230.4z" p-id="2136"></path>
+                <svg v-if="filterSelect === 'filter'" class="filter-icon" width="14" height="14" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表-筛选后" transform="translate(-646.000000, -158.000000)" fill="#5594FF" fill-rule="nonzero"><g id="bar" transform="translate(0.000000, 128.000000)"><g id="icon" transform="translate(177.000000, 30.000000)"><path d="M477.002731,11.1592214 L469.780331,4.31458533 C468.778163,3.36483537 468.73567,1.78249339 469.68542,0.780325585 C470.157527,0.282162901 470.813674,1.0658141e-14 471.500006,1.0658141e-14 L488.500586,3.55271368e-15 C489.881298,3.55271368e-15 491.000586,1.11928813 491.000586,2.5 C491.000586,3.1863313 490.718423,3.84247877 490.22026,4.31458533 L482.99787,11.1592124 L482.99787,21.1906896 C482.99787,21.466832 482.774012,21.6906896 482.49787,21.6906896 C482.420192,21.6906896 482.343583,21.6725915 482.274118,21.6378307 L477.278979,19.1382361 C477.109667,19.0535113 477.002731,18.8804227 477.002731,18.691095 L477.002731,11.1592214 Z M480.99787,10.299153 L488.844521,2.86291707 C488.944153,2.76849575 489.000586,2.63726626 489.000586,2.5 C489.000586,2.22385763 488.776728,2 488.500586,2 L471.500006,2 C471.362739,2 471.23151,2.05643258 471.137089,2.15606512 C470.947139,2.35649868 470.955637,2.67296707 471.156071,2.86291707 L479.002731,10.299162 L479.002731,17.7643801 L480.99787,18.7627584 L480.99787,10.299153 Z M475.968497,4.87164707 C475.86314,4.77682584 475.802979,4.64174325 475.802979,4.5 C475.802979,4.22385763 476.026837,4 476.302979,4 L483.697021,4 C483.838764,4 483.973847,4.0601607 484.068668,4.16551763 C484.253397,4.37077264 484.236758,4.68691756 484.031503,4.87164707 L480.334482,8.19896587 C480.14433,8.37010311 479.85567,8.37010311 479.665518,8.19896587 L475.968497,4.87164707 Z" id="筛选"></path></g></g></g></g>
+                </svg>
+                <svg v-else class="filter-icon" width="14" height="14" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表" transform="translate(-646.000000, -158.000000)" fill="#999999" fill-rule="nonzero"><g id="bar" transform="translate(0.000000, 128.000000)"><g id="icon" transform="translate(177.000000, 30.000000)"><path d="M480.99787,10.299153 L488.844521,2.86291707 C488.944153,2.76849575 489.000586,2.63726626 489.000586,2.5 C489.000586,2.22385763 488.776728,2 488.500586,2 L471.500006,2 C471.362739,2 471.23151,2.05643258 471.137089,2.15606512 C470.947139,2.35649868 470.955637,2.67296707 471.156071,2.86291707 L479.002731,10.299162 L479.002731,17.7643801 L480.99787,18.7627584 L480.99787,10.299153 Z M477.002731,11.1592214 L469.780331,4.31458533 C468.778163,3.36483537 468.73567,1.78249339 469.68542,0.780325585 C470.157527,0.282162901 470.813674,7.10542736e-15 471.500006,7.10542736e-15 L488.500586,0 C489.881298,0 491.000586,1.11928813 491.000586,2.5 C491.000586,3.1863313 490.718423,3.84247877 490.22026,4.31458533 L482.99787,11.1592124 L482.99787,21.1906896 C482.99787,21.466832 482.774012,21.6906896 482.49787,21.6906896 C482.420192,21.6906896 482.343583,21.6725915 482.274118,21.6378307 L477.278979,19.1382361 C477.109667,19.0535113 477.002731,18.8804227 477.002731,18.691095 L477.002731,11.1592214 Z" id="筛选"></path></g></g></g></g>
                 </svg>
             </div>
         </div>
@@ -40,7 +52,7 @@
 
     <!-- 侧边栏 筛选 -->
     <div class="sidebar-shade" v-if="isSidebarShow" @click="isSidebarShow = false"></div>
-    <div class="sidebar" v-bind:class="[isSidebarShow ? 'sidebar-show' : '']" >
+    <div class="sidebar" v-bind:class="{'sidebar-show' : isSidebarShow}">
         <div class="sidebar-content">
             <div class="sidebar-content-main">
                 <!-- 一个块部分 -->
@@ -150,7 +162,7 @@
                     <div class="item-bottom-navigation">
                         <div class="bottom-navigation-content flex-center">
                             <div class="bottom-navigation flex-start-center">
-                                <svg width="18" height="18" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <svg width="14" height="14" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表" transform="translate(-599.000000, -495.000000)" stroke="#5594FF" stroke-width="2"><g id="电站1" transform="translate(0.000000, 218.000000)"><g id="导航btn" transform="translate(566.000000, 259.000000)"><rect id="Rectangle-Copy" x="1" y="1" width="152" height="62" rx="31"></rect><path d="M47,20.734838 L37.9369628,43.8043872 L47,38.8609124 L56.0630372,43.8043872 L47,20.734838 Z" id="Triangle-3"></path></g></g></g></g>
                                 </svg>
                                 <span>导航</span>
@@ -230,6 +242,14 @@ export default {
     data () {
         return {
             clientWidth: document.body.offsetWidth || document.documentElement.clientWidth || window.innerWidth, // 设备的宽度
+
+            /**
+             * 排序筛选栏
+             * @param {String} distance 距离最近 默认
+             * @param {String} price 价格最低
+             * @param {String} filter 筛选
+             */
+            filterSelect: 'distance', 
 
             isSidebarShow: false, // 侧边栏 - 是否显示
             sidebardefault: [ // 侧边栏 - 重置的数据 
@@ -315,6 +335,23 @@ export default {
     },
 
     methods: {
+        
+        /**
+         * 排序 and 筛选栏
+         * @param {String} condition 排序的条件
+         */
+        filterHandle: function (condition) {
+            // 距离最近
+            if (condition === 'distance') {
+                this.filterSelect = 'distance';
+            }
+
+            // 价格最低
+            if (condition === 'price') {
+                this.filterSelect = 'price';
+            }
+        },
+
         /**
          * 侧边栏 - 点击 选中
          * @param {Number} groupKey 分模块的下标
@@ -349,6 +386,7 @@ export default {
          * 侧边栏 - 点击确认
          */
         sidebarAffirm: function() {
+            this.filterSelect = 'filter';
             this.isSidebarShow = false; // 隐藏侧边栏
         },
 
@@ -361,11 +399,20 @@ export default {
         },
 
         /**
+         * 跳转到微信导航页面
+         */
+        jumpToWxMap(latitude, longitude, name, address) {
+            window.location.href = `http://kf.szpiccxxjsb.cn/wxapi/map/map.html?lat=${latitude}&lng=${longitude}&type=bd&name=${name}&address=${address}`; 
+        },
+
+        /**
          * 跳转到详情页面
          */
         jumpToDetail() {
             this.$router.push({ path: '/list/detail' });
         },
+
+        
     },
 }
 
@@ -599,26 +646,28 @@ export default {
                 }
 
                 .describe-top-row3 {
-                    font-size: 12px;
+                    font-size: 13px;
                     color: @black2;
                     padding-bottom: 10px;
 
                     div {
-                        padding: 0.5px 1.5px;
+                        padding: 0px 1.5px;
                         border-radius: 1.5px;
                         color: #fff;
                     }
 
                     span {
-                        padding-left: 5px;
+                        padding-left: 2.5px;
                         padding-right: 15px;
                     }
                     
                     .top-row3-fast {
+                        font-size: 10px;
                         background: #00B90A;
                     }
                     
                     .top-row3-slow {
+                        font-size: 10px;
                         background: #FF8D18;
                     }
                 }
