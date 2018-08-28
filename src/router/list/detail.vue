@@ -6,16 +6,10 @@
 
         <!-- 详情预览图 全景地图 -->
         <div class="detail-panoramic-map">
-            <img v-if="isPanoramicShow === false" :src="picture" alt="详情预览图" />
+            <img :src="picture" alt="详情预览图" />
             <div class="panoramic-map-btn" 
-                v-if="isPanoramicShow === false"
-                @click="isPanoramicShow = true"
+                @click="jumpToMap"
             >全景地图</div>
-            <div class="panoramic-map-content" 
-                :style="isPanoramicShow ? '' : 'display: none;'"
-            >
-                <div id="panorama"></div>
-            </div>
         </div>
 
         <!-- banner 横幅栏 -->
@@ -264,7 +258,6 @@ export default {
         return {
             // 详情预览图
             picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/detail-test.png',
-            isPanoramicShow: false, // 是否显示全景地图
 
             isSpare: true, // 充电桩是否空闲
             tags: [ // 标签列表
@@ -335,20 +328,13 @@ export default {
         }
     },
 
-    mounted() {
-        this.initBaiduPanorama();
-    },
-
     methods: {
         /**
-         * 初始化百度全景地图
-         * 文档: http://lbsyun.baidu.com/jsdemo.htm#j1_0
+         * 跳转到百度全景地图
          */
-        initBaiduPanorama: function () {
-            let panorama = new BMap.Panorama('panorama'); 
-            panorama.setPov({heading: -40, pitch: 6});
-            panorama.setPosition(new BMap.Point(120.320032, 31.589666)); // 根据经纬度坐标展示全景图
-        }
+        jumpToMap: function () {
+            this.$router.push({ path: '/list/map' });
+        },
     },
 }
 

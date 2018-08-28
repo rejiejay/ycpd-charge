@@ -77,6 +77,7 @@
         <div class="list-item"
             v-for="(item, key) in list" 
             :key="key"
+            @click="jumpToDetail"
         >
             <div class="list-item-content">
 
@@ -357,6 +358,13 @@ export default {
          */
         showCostModal: function(groupKey) {
             this.costModal.isShow = true;
+        },
+
+        /**
+         * 跳转到详情页面
+         */
+        jumpToDetail() {
+            this.$router.push({ path: '/list/detail' });
         },
     },
 }
