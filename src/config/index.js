@@ -2,16 +2,18 @@ import common from './config.default.js';
 import local from './config.local.js';
 import prod from './config.prod.js';
 
-let isProduction = false; // 是否生产环境
-
 let main = () => {
     let config = common; // 共同配置
     let plugin = {};
 
-    if (isProduction) { // 生产环境
-        plugin = prod;
-    } else {
+    if ( // 测试环境
+        window.location.hostname === 'localhost' ||
+        window.location.host === 'store.demo.ichebaoyang.com' || 
+        process.env.NODE_ENV === 'development'
+    ) {
         plugin = local;
+    } else {
+        plugin = prod;
     }
 
     for (let key in plugin) { // 配置

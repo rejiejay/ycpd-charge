@@ -7,7 +7,8 @@ import store from './store/index';
 import router from './router';
 import Index from './index.vue';
 
-import './components/WeUI/weui.min.css'; // weui 样式
+import 'mint-ui/lib/style.min.css'; // mint-ui 样式
+// import './components/WeUI/weui.min.css'; // weui 样式
 import './index.less'; // 顶层样式
 
 Vue.config.productionTip = false;

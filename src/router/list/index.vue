@@ -247,6 +247,9 @@
 
 <script>
 
+import ajaxs from './ajaxs';
+import { Indicator } from 'mint-ui';
+
 export default {
     name: 'list',
 
@@ -256,6 +259,8 @@ export default {
     data () {
         return {
             clientWidth: document.body.offsetWidth || document.documentElement.clientWidth || window.innerWidth, // 设备的宽度
+
+            searchModel: '', // 搜索框
 
             /**
              * 排序筛选栏
@@ -346,9 +351,43 @@ export default {
         }
 
         initSidebar();
+        this.getStationList(117.351281, 31.877565)
     },
 
     methods: {
+        /**
+         * 获取充电桩列表
+         * @param {String || Number} longitude 经度
+         * @param {String || Number} latitude 纬度
+         * @param {Number} namekey 名称关键字筛选 非必填
+         * @param {Number} orderType 排序方式 非必填 0 : 是距离排序  1 : 电费价格排序
+         * @param {Number} pageIndex 显示的页码 非必填 默认 1
+         * @param {Number} pageSize 每页显示的数量 非必填 默认 20
+         */
+        getStationList: function getStationList(longitude, latitude, namekey, orderType, pageIndex, pageSize) {
+            const _this = this;
+            /**
+             * 将服务器的数据转换为列表数据
+             */
+            let transverter = function (value) {
+
+            }
+            let param = `?longitude=${longitude}&latitude=${latitude}&pageIndex=${pageIndex ? pageIndex : 1}&pageSize=${pageSize ? pageSize : 20}`;
+
+            namekey ? param += `&namekey=${namekey}` : null;
+            orderType ? param += `&orderType=${orderType}` : null;
+
+            Indicator.open('Loading...');
+            ajaxs.GetStationList(param)
+            .then(
+                val => {
+                    Indicator.close();
+                    transverter(val.Data);
+                }, error => {
+                    Indicator.close();
+                }
+            )
+        },
         
         /**
          * 排序 and 筛选栏
