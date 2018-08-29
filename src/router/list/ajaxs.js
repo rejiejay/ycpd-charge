@@ -31,7 +31,7 @@ const ajaxs = {
         //     Msg: ""
         // });
         $.ajax({
-            url: `${config.url.origin}/Charge/GetStationList${param}`,
+            url: `${config.url.origin}/Charge/GetStationList?${param}`,
             type: "GET",
             success(val) {
                 if (val.Code === 200) {

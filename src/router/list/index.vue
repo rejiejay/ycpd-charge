@@ -132,14 +132,13 @@
                             </div>
                             <div class="describe-top-row4">
                                 <div class="top-row4-price"><span>{{item.price}}</span>元/度</div>
-                                <div class="top-row4-details flex-start-center"  @click="showCostModal">
+                                <div class="top-row4-details flex-start-center"  @click="showCostModal($event, key)">
                                     <div class="row4-details-icon" style="background-size: 14px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADuklEQVRoQ+2ZT2gcdRTHP2/StAQTL9ZEgoLFUrWCN6HHeFIjRAPuRGkvVo3tbnLQqzStEa8iZmcD8d9FD9kppA20tqfkWPAoLTa0WGgIbdVLEimt6TyZaWadnezO7szsulnJXH+/3/u973vf9+83Qpt/0ub6swOg1R6UkYK+5jjMAE+2WpnQ/cuGwehsVn6K0ksyeb25DZX3dV62x+Sp/zeAtqfQNuN9bHV20mhskzX4wI4H6jVopqi75U9exmFIlYMC/Sr0u+dFWVFYEeEKBvP6GAu2Kffrkd10D2QsfQJhQhwOKzxap1KravAjyqSdk1uRdaAegUn2jJ/XPbd/4xOUjxUeSSJD4C+EL/r28fnUoNyrJKMpHnCtLjCnyqEkiofPiHBJYbiSNxoO4J2CvrjhcK5Ke7IscFYMzrGL687frLjKGp30s8Ez6vC6whvVztLJoP2h/BIE2FAAHt+Vn8MKiBugBiedvXxvm/IgyiuZonYYf/CuOnyqPAzywLeM8FLQEw0DsMn5xQq0me/p4sh378laHDod/VZ71u7yAzBUZnHhUt8+BvyYaBgA09JJVU6ELvvqYJaPTok4cZT3955SNa5YfKkwHpL7WTEnE14KTtDMbenTvaBVroWyzfwLOYarKR+4l6i+3wVx2WIu6Ak3O6mw36VS0nmgrE83LZ1W5ZhvJZfz3V08F0Wb0BwS2fe7dFq/y69lMWEwbWclmxqAV2Hv8HuwSBkGH8xm5ZvIYM2rBtftMYmk80hB33ccvg4YaVV7eTw1hcxpfUUfcKEsU/TydM1sExOAm524w41ghpMOXk0dxKallirZgGWs4piM1QraTEwArjwzr3mFXOkuoZAaQCavC8CAL9QwGKw1iLt7kwDYDPzzAeMspgZg5vWqwoESgN08OzsqS83wwMiMHnDuczXg7aXUADKWrqF0lxQWeuycrMcFgPC2nZPZyMC3tBvl34IorLcSQPlzjuC2GIejQGxW59WAsdZSA0hKIbOgb6pyGqUjoFAkiOZQKGEQe4Fs6Qh4g0tdIJoTxAnTqG/1OCCakkaTFrJgsFYDIcJbxayc8bzVrEKWtJUIZ5uKIKDUI1VtJWqlu3rWMwUt4HA8TjNXSW4FEB6AyGauHgVr7UnSTleT6WUnhyl33W2znz/Oxch2OsE84N9dNhe0bKBJ+X+gxNGWjZSNArCZ1//7ob5RFPJ51dbPKoHi1L4PWz6Itn5aDFXZ9nzc3VJp2/V5vVYRTLueeh5Iq0Da8zsA0low7fl/AETYZ0QvyjTxAAAAAElFTkSuQmCC)"></div>
                                     <span>计费详情</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- 底部 -->
@@ -174,7 +173,7 @@
                     <div class="item-bottom-navigation">
                         <div class="bottom-navigation-content flex-center">
                             <div class="bottom-navigation flex-start-center"
-                                @click="jumpToWxMap('22.542860', '114.059560', '测试', '测试')"
+                                @click="jumpToWxMap($event, key)"
                             >
                                 <svg width="14" height="14" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表" transform="translate(-599.000000, -495.000000)" stroke="#5594FF" stroke-width="2"><g id="电站1" transform="translate(0.000000, 218.000000)"><g id="导航btn" transform="translate(566.000000, 259.000000)"><rect id="Rectangle-Copy" x="1" y="1" width="152" height="62" rx="31"></rect><path d="M47,20.734838 L37.9369628,43.8043872 L47,38.8609124 L56.0630372,43.8043872 L47,20.734838 Z" id="Triangle-3"></path></g></g></g></g>
@@ -197,7 +196,7 @@
                 <!-- 模态框 标题 -->
                 <div class="modal-main-title flex-start-center">
                     <div class="flex-rest">计费详情</div>
-                    <div @click="costModal.isShow = false">
+                    <div class="main-title-close" @click="costModal.isShow = false">
                         <svg width="14" height="14" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表-计费详情" transform="translate(-591.000000, -519.000000)" fill="#666666" fill-rule="nonzero"><g id="Alert" transform="translate(0.000000, 128.000000)"><g id="Group" transform="translate(105.000000, 339.000000)"><g id="icon" transform="translate(30.000000, 52.000000)"><path d="M468,10.5857864 L478.292893,0.292893219 C478.683418,-0.0976310729 479.316582,-0.0976310729 479.707107,0.292893219 C480.097631,0.683417511 480.097631,1.31658249 479.707107,1.70710678 L469.414214,12 L479.707107,22.2928932 C480.097631,22.6834175 480.097631,23.3165825 479.707107,23.7071068 C479.316582,24.0976311 478.683418,24.0976311 478.292893,23.7071068 L468,13.4142136 L457.707107,23.7071068 C457.316582,24.0976311 456.683418,24.0976311 456.292893,23.7071068 C455.902369,23.3165825 455.902369,22.6834175 456.292893,22.2928932 L466.585786,12 L456.292893,1.70710678 C455.902369,1.31658249 455.902369,0.683417511 456.292893,0.292893219 C456.683418,-0.0976310729 457.316582,-0.0976310729 457.707107,0.292893219 L468,10.5857864 Z" id="icon_close"></path></g></g></g></g></g>
                         </svg>
@@ -262,6 +261,9 @@ export default {
         return {
             clientWidth: document.body.offsetWidth || document.documentElement.clientWidth || window.innerWidth, // 设备的宽度
 
+            longitude: 114.059560, // 经度
+            latitude: 22.542860, // 纬度
+
             searchModel: '', // 搜索框
 
             /**
@@ -313,6 +315,9 @@ export default {
             ],
             sidebarGroup: [], // 侧边栏 - 数据
 
+            pageIndex: 1, // 显示的页码 非必填 默认 1
+            pageSize: 20, // 每页显示的数量 非必填 默认 20
+            pageCount: 1, // 一共多少页
             list: [ // 充电站列表
                 {
                     title: '深圳信挚工业一期充电站',
@@ -332,6 +337,11 @@ export default {
                         '含快充',
                         '免费停车',
                     ],
+
+                    // 计费详情的字段
+                    electricPrice: '1.22元/度', // 电费
+                    servicePrice: '0.6元/度', // 服务费
+                    parkPrice: '半小时内免费，首小时10元，之后每小时5元，最高20元。', // 停车费
                 }
             ],
 
@@ -345,6 +355,7 @@ export default {
     },
 
     mounted: function () {
+        this.sidebarGroup = this.sidebardefault.concat();
         this.getLocation(); // 初始化位置信息
     },
 
@@ -360,19 +371,27 @@ export default {
             .then(
                 location => {
                     Indicator.close();
-                    _this.getStationList(location.longitude, location.latitude)
+                    _this.longitude = location.longitude; // 设置经度
+                    _this.latitude = location.latitude; // 设置纬度
+                    _this.getStationList({
+                        longitude: location.longitude, 
+                        latitude: location.latitude
+                    });
                 }, error => {
                     Indicator.close();
                     MessageBox.confirm('获取位置信息失败, 是否重新获取?')
                     .then(action => {
                         _this.getLocation();
                     }, error => {
-                        _this.getStationList(114.059560, 22.542860);
+                        // 使用中国广东省深圳市福田区的经纬度
+                        _this.getStationList({
+                            longitude: 114.059560, 
+                            latitude: 22.542860
+                        });
                     });
                 }
             );
         },
-
 
         /**
          * 获取充电桩列表
@@ -383,25 +402,57 @@ export default {
          * @param {Number} pageIndex 显示的页码 非必填 默认 1
          * @param {Number} pageSize 每页显示的数量 非必填 默认 20
          */
-        getStationList: function getStationList(longitude, latitude, namekey, orderType, pageIndex, pageSize) {
+        getStationList: function getStationList(parameter) {
             const _this = this;
             /**
              * 将服务器的数据转换为列表数据
              */
             let transverter = function (value) {
+                // 判断是否存在
+                if (value) {
+                    return value.map((val, key) => {
+                        let tags = [];
+                        // val.
 
+                        return {
+                            title: val.StationName,
+                            picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
+                            address: val.distance,
+                            distance: val.Address,
+                            fastSpare: val.FastChargeCountOff, // 快充设备 - 目前空闲
+                            fastCount: val.FastChargeCount, // 快充设备 - 总数
+                            slowSpare: val.FastChargeCountOff, // 慢充设备 - 目前空闲
+                            slowCount: val.FastChargeCount, // 慢充设备 - 总数
+                            price: 1.82, // 价格 元/度
+                            longitude: val.StationLng, // 充电桩所在 - 经度
+                            latitude: val.StationLat, // 充电桩所在 - 维度
+                            isSpare: val.IsOff === '1', // 是否空闲
+
+                            // 计费详情的字段
+                            electricPrice: '1.22元/度', // 电费
+                            servicePrice: '0.6元/度', // 服务费
+                            parkPrice: '半小时内免费，首小时10元，之后每小时5元，最高20元。', // 停车费
+                        }
+                    });
+                } else {
+                    return [];
+                }
             }
-            let param = `?longitude=${longitude}&latitude=${latitude}&pageIndex=${pageIndex ? pageIndex : 1}&pageSize=${pageSize ? pageSize : 20}`;
+            // 初始化请求参数
+            let param = `longitude=${parameter.longitude}&latitude=${parameter.latitude}&pageIndex=${parameter.pageIndex ? parameter.pageIndex : 1}&pageSize=${parameter.pageSize ? parameter.pageSize : 20}`;
 
-            namekey ? param += `&namekey=${namekey}` : null;
-            orderType ? param += `&orderType=${orderType}` : null;
+            parameter.namekey ? param += `&namekey=${parameter.namekey}` : null;
+            parameter.orderType ? param += `&orderType=${parameter.orderType}` : null;
 
             Indicator.open('获取充电桩列表...');
             ajaxs.GetStationList(param)
             .then(
                 val => {
                     Indicator.close();
-                    transverter(val.Data);
+                    // 初始化页数
+                    _this.pageCount = val.PageCount; 
+                    // 初始化充电站列表
+                    _this.list = transverter(val.Data);
                 }, error => {
                     Indicator.close();
                 }
@@ -471,17 +522,35 @@ export default {
 
         /**
          * 计费详情 - 点击弹出模态框
-         * @param {Number} groupKey 分模块的下标
+         * @param {Number} event 事件
+         * @param {Number} key 列表下的一个项的下标
          */
-        showCostModal: function(groupKey) {
-            this.costModal.isShow = true;
+        showCostModal: function(event, key) {
+            this.costModal = {
+                isShow: true,
+                electricPrice: this.list[key].electricPrice,
+                servicePrice: this.list[key].servicePrice,
+                parkPrice: this.list[key].parkPrice,
+            }
+
+            // 阻止事件冒泡以及阻止默认行为
+            event.stopPropagation();
+            event.preventDefault();
+            return false 
         },
 
         /**
          * 跳转到微信导航页面
+         * @param {Number} event 事件
+         * @param {Number} key 列表下的一个项的下标
          */
-        jumpToWxMap(latitude, longitude, name, address) {
+        jumpToWxMap(event, key) {
             window.location.href = `http://kf.szpiccxxjsb.cn/wxapi/map/map.html?lat=${latitude}&lng=${longitude}&type=bd&name=${name}&address=${address}`; 
+            
+            // 阻止事件冒泡以及阻止默认行为
+            event.stopPropagation();
+            event.preventDefault();
+            return false 
         },
 
         /**
@@ -490,8 +559,6 @@ export default {
         jumpToDetail() {
             this.$router.push({ path: '/list/detail' });
         },
-
-        
     },
 }
 
@@ -511,6 +578,7 @@ export default {
 @cost-modal-content-z-index: 1;
 @cost-modal-shade-z-index: 2;
 @cost-modal-main-z-index: 3;
+@cost-modal-main-close-z-index: 4;
 
 .list {
     width: 100%;
@@ -923,6 +991,7 @@ export default {
 
         // 模态框 标题
         .modal-main-title {
+            position: relative;
             padding-bottom: 10px;
             border-bottom: 1px solid #ddd;
 
@@ -930,6 +999,11 @@ export default {
                 font-size: 14px;
                 color: @black1;
                 font-weight: bold;
+            }
+
+            .main-title-close {
+                position: relative;
+                z-index: @cost-modal-main-close-z-index;
             }
         }
 
