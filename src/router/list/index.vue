@@ -89,7 +89,7 @@
 
             <!-- 底部按钮 -->
             <div class="sidebar-bottom flex-start">
-                <div class="sidebar-bottom-left" @click="sidebarGroup = sidebardefault">重置</div>
+                <div class="sidebar-bottom-left" @click="sidebarReset">重置</div>
                 <div class="sidebar-bottom-right" @click="sidebarAffirm">确定</div>
             </div>
         </div>
@@ -249,6 +249,8 @@
 
 import ajaxs from './ajaxs';
 import { Indicator } from 'mint-ui';
+import { MessageBox } from 'mint-ui';
+import initLocation from './../../components/initLocation';
 
 export default {
     name: 'list',
@@ -343,18 +345,35 @@ export default {
     },
 
     mounted: function () {
-        const _this = this;
-
-        // 将侧边的数据初始化进去
-        let initSidebar = () => {
-            _this.sidebarGroup = _this.sidebardefault.concat();
-        }
-
-        initSidebar();
-        this.getStationList(117.351281, 31.877565)
+        this.getLocation(); // 初始化位置信息
     },
 
     methods: {
+        /**
+         * 获取位置信息
+         */
+        getLocation: function () {
+            const _this = this;
+
+            Indicator.open('加载位置信息...');
+            initLocation()
+            .then(
+                location => {
+                    Indicator.close();
+                    _this.getStationList(location.longitude, location.latitude)
+                }, error => {
+                    Indicator.close();
+                    MessageBox.confirm('获取位置信息失败, 是否重新获取?')
+                    .then(action => {
+                        _this.getLocation();
+                    }, error => {
+                        _this.getStationList(114.059560, 22.542860);
+                    });
+                }
+            );
+        },
+
+
         /**
          * 获取充电桩列表
          * @param {String || Number} longitude 经度
@@ -377,7 +396,7 @@ export default {
             namekey ? param += `&namekey=${namekey}` : null;
             orderType ? param += `&orderType=${orderType}` : null;
 
-            Indicator.open('Loading...');
+            Indicator.open('获取充电桩列表...');
             ajaxs.GetStationList(param)
             .then(
                 val => {
@@ -433,6 +452,13 @@ export default {
                 // 当前的下标 和 模块的下标相等则 表示选中, 不相等就返回未选中
                 return targetIndex === selectedIndex
             }
+        },
+        /**
+         * 侧边栏 - 点击重置
+         */
+        sidebarReset: function() {
+            this.filterSelect = 'filter';
+            this.isSidebarShow = false; // 隐藏侧边栏
         },
 
         /**
