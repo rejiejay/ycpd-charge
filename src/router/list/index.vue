@@ -101,7 +101,7 @@
         <div class="list-item"
             v-for="(item, key) in list" 
             :key="key"
-            @click="jumpToDetail"
+            @click="jumpToDetail(item)"
         >
             <div class="list-item-content">
 
@@ -318,30 +318,29 @@ export default {
             pageSize: 20, // 每页显示的数量 非必填 默认 20
             pageCount: 1, // 一共多少页
             list: [ // 充电站列表
-                {
-                    title: '深圳信挚工业一期充电站',
-                    picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
-                    address: '坂田街道中兴路信挚工业园',
-                    distance: 0.39, // 距离 单位km
-                    fastSpare: 2, // 快充设备 - 目前空闲
-                    fastCount: 3, // 快充设备 - 总数
-                    slowSpare: 2, // 慢充设备 - 目前空闲
-                    slowCount: 3, // 慢充设备 - 总数
-                    price: 1.82, // 价格 元/度
-                    longitude: '114.0595600000', // 充电桩所在 - 经度
-                    latitude: '22.5428600000', // 充电桩所在 - 维度
-                    isSpare: true, // 是否空闲
-                    tags: [ // 标签
-                        '全段时间开放',
-                        '含快充',
-                        '免费停车',
-                    ],
-
-                    // 计费详情的字段
-                    electricPrice: '1.22元/度', // 电费
-                    servicePrice: '0.6元/度', // 服务费
-                    parkPrice: '半小时内免费，首小时10元，之后每小时5元，最高20元。', // 停车费
-                }
+                // {
+                //     title: '深圳信挚工业一期充电站',
+                //     picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
+                //     address: '坂田街道中兴路信挚工业园',
+                //     distance: 0.39, // 距离 单位km
+                //     fastSpare: 2, // 快充设备 - 目前空闲
+                //     fastCount: 3, // 快充设备 - 总数
+                //     slowSpare: 2, // 慢充设备 - 目前空闲
+                //     slowCount: 3, // 慢充设备 - 总数
+                //     price: 1.82, // 价格 元/度
+                //     longitude: '114.0595600000', // 充电桩所在 - 经度
+                //     latitude: '22.5428600000', // 充电桩所在 - 维度
+                //     isSpare: true, // 是否空闲
+                //     tags: [ // 标签
+                //         '全段时间开放',
+                //         '含快充',
+                //         '免费停车',
+                //     ],
+                //     // 计费详情的字段
+                //     electricPrice: '1.22元/度', // 电费
+                //     servicePrice: '0.6元/度', // 服务费
+                //     parkPrice: '半小时内免费，首小时10元，之后每小时5元，最高20元。', // 停车费
+                // }
             ],
 
             costModal: { // 计费详情 模态框
@@ -423,6 +422,7 @@ export default {
                         val.IsContainFastCharge === '1' ? tags.push('含快充') : null;
 
                         return {
+                            id: val.ID, // 充电桩的唯一标识
                             title: val.StationName,
                             picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
                             distance: val.distance,
@@ -623,9 +623,11 @@ export default {
 
         /**
          * 跳转到详情页面
+         * @param {Object} item 充电桩的一个列表
          */
-        jumpToDetail() {
-            this.$router.push({ path: '/list/detail' });
+        jumpToDetail(item) {
+
+            this.$router.push({ path: `/list/detail/${item.id}/${item.distance}` });
         },
     },
 

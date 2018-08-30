@@ -45,6 +45,48 @@ const ajaxs = {
             }
         });
     }),
+
+    /**
+     * 获取充电桩详情
+     * @param {Number} id 充电桩的id
+     */
+    GetStationById: (id) => new Promise((resolve, reject) => {
+        // resolve({
+        //     "Code": 200,
+        //     "Data": {
+        //         "StationID": "55BFD54BB32B4B62B30C",
+        //         "StationName": "子客户场站test",
+        //         "Address": "安徽省_合肥市_瑶海区-万达广场",
+        //         "StationLng": "117.350326",
+        //         "StationLat": "31.877353",
+        //         "ConnectorInfos": [{
+        //             "ConnectorID": "065500300",
+        //             "Power": 60.0,
+        //             "Status": 2
+        //         }, {
+        //             "ConnectorID": "065500301",
+        //             "Power": 60.0,
+        //             "Status": 1
+        //         }]
+        //     },
+        //     "Authorization": "",
+        //     "Msg": ""
+        // });
+        $.ajax({
+            url: `${config.url.origin}Charge/GetStationById?id=${id}`,
+            type: "GET",
+            success(val) {
+                if (val.Code === 200) {
+                    resolve(val);
+                } else {
+                    reject(`获取充电桩详情成功, 但是数据有误! 原因: ${val.Msg}`);
+                }
+            },
+            error(error) {
+                reject(`向服务器获取充电桩详情发生错误! 原因: ${JSON.stringify(error)}`);
+            }
+        });
+    }),
 }
 
 export default ajaxs;

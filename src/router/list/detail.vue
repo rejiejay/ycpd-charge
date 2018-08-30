@@ -21,13 +21,13 @@
                     
                     <!-- 顶部 — 左边 -->
                     <div class="detail-banner-left flex-rest">
-                        <div class="banner-left-title">深圳信挚工业一期充电站</div>
+                        <div class="banner-left-title">{{stationName}}</div>
                         <div class="banner-left-describe">
                             深圳市龙岗区坂田街道坂田街道坂田街道坂田街道中兴路信挚工业园
-                            <span class="left-describe-lable">0.39km</span>
+                            <span class="left-describe-lable">{{distance}}km</span>
                         </div>
                         <div class="banner-left-price flex-start-bottom">
-                            <div class="left-price-lable">1.25</div>
+                            <div class="left-price-lable">{{price}}</div>
                             <div class="left-price-subject">元/度</div>
                         </div>
                     </div>
@@ -250,6 +250,10 @@
 
 <script>
 
+import ajaxs from './ajaxs';
+import { Indicator } from 'mint-ui';
+import { MessageBox } from 'mint-ui';
+
 export default {
     name: 'listDetail',
 
@@ -258,6 +262,15 @@ export default {
 
     data () {
         return {
+
+            longitude: 114.059560, // 经度
+            latitude: 22.542860, // 纬度
+
+            stationName: '正在加载...', // 充电桩的名称
+            address: '正在加载...', // 充电桩的地址
+            distance: '', // 距离 单位km
+            price: '', // 价格
+
             // 详情预览图
             picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/detail-test.png',
 
@@ -312,6 +325,10 @@ export default {
             ]
         }
     },
+
+    mounted: function () {
+        this.getStationById();
+    },
     
     computed: {
         // 设备列表是否为空
@@ -331,11 +348,42 @@ export default {
     },
 
     methods: {
+        
+        /**
+         * 根据id获取充电桩详情
+         */
+        getStationById: function () {
+            const _this = this;
+            let loadPageId = this.$route.params.id; // 上个页面传值过来的id
+
+            Indicator.open('获取充电桩详情...');
+            ajaxs.GetStationById(loadPageId)
+            .then(
+                val => {
+                    Indicator.close();
+                    _this.longitude = val.StationLng; // 经度
+                    _this.latitude = val.StationLat; // 经度
+                    _this.stationName = val.StationName; // 门店名称
+                    _this.address = val.Address; // 门店地址
+                    _this.distance = this.$route.params.distance; // 上个页面传值过来的距离
+                }, error => {
+                    Indicator.close();
+                    MessageBox.confirm('获取充电桩详情, 是否重新获取?')
+                    .then(action => {
+                        _this.getStationById();
+                    });
+                }
+            )
+
+        },
+
         /**
          * 跳转到百度全景地图
          */
         jumpToMap: function () {
-            this.$router.push({ path: '/list/map' });
+            let longitude = this.longitude; // 经度
+            let latitude = this.latitude; // 纬度
+            this.$router.push({ path: `/list/map/${longitude}/${latitude}` });
         },
 
         /**
