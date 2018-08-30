@@ -412,13 +412,15 @@ export default {
                 if (value) {
                     return value.map((val, key) => {
                         let tags = [];
-                        // val.
+                        val.IsOpenAllHours === '1' ? tags.push('全时段开放') : null;
+                        val.IsFreeParking === '1' ? tags.push('免费停车') : null;
+                        val.IsContainFastCharge === '1' ? tags.push('含快充') : null;
 
                         return {
                             title: val.StationName,
                             picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
-                            address: val.distance,
-                            distance: val.Address,
+                            distance: val.distance,
+                            address: val.Address,
                             fastSpare: val.FastChargeCountOff, // 快充设备 - 目前空闲
                             fastCount: val.FastChargeCount, // 快充设备 - 总数
                             slowSpare: val.FastChargeCountOff, // 慢充设备 - 目前空闲
@@ -427,6 +429,7 @@ export default {
                             longitude: val.StationLng, // 充电桩所在 - 经度
                             latitude: val.StationLat, // 充电桩所在 - 维度
                             isSpare: val.IsOff === '1', // 是否空闲
+                            tags: tags,
 
                             // 计费详情的字段
                             electricPrice: '1.22元/度', // 电费
@@ -441,7 +444,12 @@ export default {
             // 初始化请求参数
             let param = `longitude=${parameter.longitude}&latitude=${parameter.latitude}&pageIndex=${parameter.pageIndex ? parameter.pageIndex : 1}&pageSize=${parameter.pageSize ? parameter.pageSize : 20}`;
 
+            // 关键字搜索 如果传值进来，优先使用传值 如果未传值
             parameter.namekey ? param += `&namekey=${parameter.namekey}` : null;
+            /**
+             * 排序方式 非必填 0 : 是距离排序  1 : 电费价格排序
+             * 注意不能传 0 值, 因为下面的语法会判断不出来
+             */
             parameter.orderType ? param += `&orderType=${parameter.orderType}` : null;
 
             Indicator.open('获取充电桩列表...');
@@ -464,13 +472,26 @@ export default {
          * @param {String} condition 排序的条件
          */
         filterHandle: function (condition) {
+            const _this = this;
             // 距离最近
             if (condition === 'distance') {
+                this.getStationList({
+                    longitude: this.longitude, // 使用页面初始化缓存的 经度 信息
+                    latitude: this.latitude, // 使用页面初始化缓存的 纬度 信息
+                    namekey: this.searchModel, // 搜索框的必须要保持
+                    orderType: "0", // 排序方式 0 : 是距离排序  1 : 电费价格排序
+                });
                 this.filterSelect = 'distance';
             }
 
             // 价格最低
             if (condition === 'price') {
+                this.getStationList({
+                    longitude: this.longitude, // 使用页面初始化缓存的 经度 信息
+                    latitude: this.latitude, // 使用页面初始化缓存的 纬度 信息
+                    namekey: this.searchModel, // 搜索框的必须要保持
+                    orderType: "1", // 排序方式 0 : 是距离排序  1 : 电费价格排序
+                });
                 this.filterSelect = 'price';
             }
         },
@@ -488,7 +509,7 @@ export default {
         },
 
         /**
-         * 侧边栏 - 判断是否 选中
+         * 侧边栏渲染 - 判断是否 选中
          * @param {Boolean} isSelected 当前 - 是否选中
          * @param {Number} targetIndex 当前 - 下标
          * @param {Boolean} isMultiple 模块 - 是否多选
@@ -504,6 +525,7 @@ export default {
                 return targetIndex === selectedIndex
             }
         },
+
         /**
          * 侧边栏 - 点击重置
          */
@@ -545,6 +567,10 @@ export default {
          * @param {Number} key 列表下的一个项的下标
          */
         jumpToWxMap(event, key) {
+            let longitude = this.list[key].longitude;
+            let latitude = this.list[key].latitude;
+            let name = this.list[key].title;
+            let address = this.list[key].address;
             window.location.href = `http://kf.szpiccxxjsb.cn/wxapi/map/map.html?lat=${latitude}&lng=${longitude}&type=bd&name=${name}&address=${address}`; 
             
             // 阻止事件冒泡以及阻止默认行为
