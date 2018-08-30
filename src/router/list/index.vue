@@ -2,7 +2,7 @@
   - 列表页面 
   -->
 <template>
-<div class="list">
+<div class="list" id="list">
 
     <!-- 搜索框 -->
     <div class="search-bar flex-center">
@@ -254,12 +254,11 @@ import initLocation from './../../components/initLocation';
 export default {
     name: 'list',
 
-    components: {
-    },
-
     data () {
         return {
             clientWidth: document.body.offsetWidth || document.documentElement.clientWidth || window.innerWidth, // 设备的宽度
+
+            isLoding: false, // 页面是否正在请求
 
             longitude: 114.059560, // 经度
             latitude: 22.542860, // 纬度
@@ -357,6 +356,12 @@ export default {
     mounted: function () {
         this.sidebarGroup = this.sidebardefault.concat();
         this.getLocation(); // 初始化位置信息
+
+		window.addEventListener('scroll', this.scrollBottom); // 添加滚动事件，检测滚动到页面底部
+    },
+
+    destroyed: function () {
+		window.removeEventListener('scroll', this.scrollBottom); // 移除滚动事件，检测滚动到页面底部
     },
 
     methods: {
@@ -399,10 +404,11 @@ export default {
          * @param {String || Number} latitude 纬度
          * @param {Number} namekey 名称关键字筛选 非必填
          * @param {Number} orderType 排序方式 非必填 0 : 是距离排序  1 : 电费价格排序
-         * @param {Number} pageIndex 显示的页码 非必填 默认 1
+         * @param {Number} pageIndex 请求的页码 非必填 默认 1
          * @param {Number} pageSize 每页显示的数量 非必填 默认 20
+         * @param {Boolean} isPageAdd 页面是否新增
          */
-        getStationList: function getStationList(parameter) {
+        getStationList: function getStationList(parameter, isPageAdd) {
             const _this = this;
             /**
              * 将服务器的数据转换为列表数据
@@ -456,16 +462,52 @@ export default {
             ajaxs.GetStationList(param)
             .then(
                 val => {
+				    _this.isLoding = false; // 页面退出加载状态
                     Indicator.close();
                     // 初始化页数
                     _this.pageCount = val.PageCount; 
                     // 初始化充电站列表
-                    _this.list = transverter(val.Data);
+                    
+                    if (isPageAdd) { // 判断是否新增
+                        _this.list = _this.list.concat(transverter(val.Data));
+                    } else {
+                        _this.list = transverter(val.Data);
+                    }
                 }, error => {
+				    _this.isLoding = false; // 页面退出加载状态
                     Indicator.close();
+                    alert(error);
                 }
             )
         },
+
+        /**
+         * 检测滚动到页面底部
+         */
+		scrollBottom: function scrollBottom(event) {
+			let screenHeight = window.screen.height; // 屏幕的高度
+			let clientHeight = document.getElementById('list').clientHeight; // 页面的总高度
+			let myScrollTop = document.documentElement.scrollTop || document.body.scrollTop; // 滚动的距离
+
+			if (
+				screenHeight + myScrollTop >= clientHeight - 50 && // (屏幕高度 + 滚动的距离) 必须 (大于整个页面的总高度 - 50像素的预留空间)
+				this.isLoding === false && // 并且页面不是请求状态
+				this.pageIndex < this.pageCount // 并且 目前的页码 必须小于 总页码
+			) {
+				this.isLoding = true; // 页面进入加载状态，防止重复加载
+                this.pageIndex = this.pageIndex + 1; // 请求的页码 加一
+                // 请求获取充电桩列表
+				this.getStationList(
+                    {
+                        longitude: this.longitude, // 使用页面初始化缓存的 经度 信息
+                        latitude: this.latitude, // 使用页面初始化缓存的 纬度 信息
+                        namekey: this.searchModel, // 搜索框的数据
+                        orderType: this.filterSelect === 'distance' ? '0' : '1', // 排序方式必须要保持 0 : 是距离排序  1 : 电费价格排序
+                        pageIndex: this.pageIndex, // 请求的页码
+                    }, true
+                ); // 开始请求 并且 该请求 设置为 新增stores列表
+			}
+		},
         
         /**
          * 排序 and 筛选栏
@@ -586,6 +628,18 @@ export default {
             this.$router.push({ path: '/list/detail' });
         },
     },
+
+    // 侦听器
+    watch: {
+        searchModel: function (newSearchModel, oldSearchModel) {
+            this.getStationList({
+                longitude: this.longitude, // 使用页面初始化缓存的 经度 信息
+                latitude: this.latitude, // 使用页面初始化缓存的 纬度 信息
+                namekey: newSearchModel, // 搜索框的数据
+                orderType: this.filterSelect = 'distance' ? '0' : '1', // 排序方式必须要保持 0 : 是距离排序  1 : 电费价格排序
+            });
+        },
+    }
 }
 
 </script>
