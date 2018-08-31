@@ -6,7 +6,12 @@
 
         <!-- 详情预览图 全景地图 -->
         <div class="detail-panoramic-map">
-            <img :src="picture" alt="详情预览图" />
+            <mt-swipe :auto="4000">
+                <mt-swipe-item 
+                    v-for="(item, key) in swiperList" 
+                    :key="key"
+                ><img :src="item" alt="详情预览图" /></mt-swipe-item>
+            </mt-swipe>
             <div class="panoramic-map-btn" 
                 @click="jumpToMap"
             >全景地图</div>
@@ -36,7 +41,7 @@
                     <div class="detail-banner-right">
                         <div class="bottom-navigation-content flex-center">
                             <div class="bottom-navigation flex-start-center"
-                                @click="jumpToWxMap('22.542860', '114.059560', '测试', '测试')"
+                                @click="jumpToWxMap"
                             >
                                 <svg width="18" height="18" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <g id="快速充电" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表" transform="translate(-599.000000, -495.000000)" stroke="#5594FF" stroke-width="2"><g id="电站1" transform="translate(0.000000, 218.000000)"><g id="导航btn" transform="translate(566.000000, 259.000000)"><rect id="Rectangle-Copy" x="1" y="1" width="152" height="62" rx="31"></rect><path d="M47,20.734838 L37.9369628,43.8043872 L47,38.8609124 L56.0630372,43.8043872 L47,20.734838 Z" id="Triangle-3"></path></g></g></g></g>
@@ -250,9 +255,14 @@
 
 <script>
 
+import Vue from 'vue';
 import ajaxs from './ajaxs';
+import config from './../../config/index';
 import { Indicator } from 'mint-ui';
 import { MessageBox } from 'mint-ui';
+import { Swipe, SwipeItem } from 'mint-ui';
+Vue.component('mt-swipe', Swipe);
+Vue.component('mt-swipe-item', SwipeItem);
 
 export default {
     name: 'listDetail',
@@ -271,8 +281,9 @@ export default {
             distance: '', // 距离 单位km
             price: '', // 价格
 
-            // 详情预览图
-            picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/detail-test.png',
+            // 轮播图
+            swiperList: [
+            ],
 
             isSpare: true, // 充电桩是否空闲
             tags: [ // 标签列表
@@ -301,6 +312,7 @@ export default {
                     },
                 ]
             },
+            
             fastSpare: 2, // 快充设备 - 目前空闲
             fastCount: 3, // 快充设备 - 总数
             slowSpare: 2, // 慢充设备 - 目前空闲
@@ -366,6 +378,67 @@ export default {
                     _this.stationName = val.StationName; // 门店名称
                     _this.address = val.Address; // 门店地址
                     _this.distance = this.$route.params.distance; // 上个页面传值过来的距离
+                    // 上个页面传值过来的 tags 标签
+                    if (this.$route.params.tags === 'false') {
+                        _this.tags = [];
+                    } else {
+                        _this.tags = this.$route.params.tags.split('-');;
+                    }
+                    // 充电桩是否空闲
+                    _this.isSpare = this.$route.params.isSpare === 'true' ? true : false;
+                    // 轮播图
+                    if (val.StationPicArr && val.StationPicArr instanceof Array && val.StationPicArr.length > 0) {
+                        _this.swiperList = val.StationPicArr.map(value => `${config.url.picture}${value}`);
+                    } else { // 使用默认图
+                        _this.swiperList = [ 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/detail-test.png' ];
+                    }
+
+                    // 设备列表
+                    let fastSpare = 0; // 快充设备 - 目前空闲
+                    let fastCount = 0; // 快充设备 - 总数
+                    let slowSpare = 0; // 慢充设备 - 目前空闲
+                    let slowCount = 0; // 慢充设备 - 总数
+                    let fastList = []; // 快充设备列表
+                    let slowList = []; // 慢充设备列表
+                    if (val.ConnectorInfos && val.ConnectorInfos instanceof Array && val.ConnectorInfos.length > 0) {
+                        val.ConnectorInfos.map(value => {
+                            if (value.Power == 60) { // 快充
+                                fastCount++; // 快充设备 - 总数 加一
+                                if (value.Power != 1) { // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
+                                    // 表示不空闲
+                                    fastList.push({
+                                        isFree: false,
+                                    });
+                                } else {
+                                    // 表示空闲
+                                    fastSpare++; // 快充设备 - 目前空闲 加一
+                                    fastList.push({
+                                        isFree: true,
+                                    });
+                                }
+                            } else { // 表示慢充
+                                slowCount++;
+                                if (value.Power != 1) { // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
+                                    // 表示不空闲
+                                    slowList.push({
+                                        isFree: false,
+                                    });
+                                } else {
+                                    // 表示空闲
+                                    slowSpare++; // 快充设备 - 目前空闲 加一
+                                    slowList.push({
+                                        isFree: true,
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    _this.fastSpare = fastSpare; // 快充设备 - 目前空闲
+                    _this.fastCount = fastCount; // 快充设备 - 总数
+                    _this.slowSpare = slowSpare; // 慢充设备 - 目前空闲
+                    _this.slowCount = slowCount; // 慢充设备 - 总数
+                    _this.fastList = fastList; // 快充设备列表
+                    _this.slowList = slowList; // 慢充设备列表
                 }, error => {
                     Indicator.close();
                     MessageBox.confirm('获取充电桩详情, 是否重新获取?')
@@ -389,7 +462,11 @@ export default {
         /**
          * 跳转到微信导航页面
          */
-        jumpToWxMap(latitude, longitude, name, address) {
+        jumpToWxMap() {
+            let longitude = this.longitude; // 经度
+            let latitude = this.latitude; // 纬度
+            let name = this.stationName; // 门店名称
+            let address = this.address; // 门店地址
             window.location.href = `http://kf.szpiccxxjsb.cn/wxapi/map/map.html?lat=${latitude}&lng=${longitude}&type=bd&name=${name}&address=${address}`; 
         },
     },
@@ -412,7 +489,6 @@ export default {
     width: 100%;
     min-height: 100%;
     background: #f5f5f5;
-    
 }
 
 // 详情预览图 全景地图
@@ -421,11 +497,12 @@ export default {
     width: 100%;
     height: 150px;
 
-    > img {
+    .mint-swipe-item img {
         display: block;
         width: 100%;
         height: 100%;
     }
+
 
     .panoramic-map-btn {
         position: absolute;

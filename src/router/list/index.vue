@@ -626,8 +626,12 @@ export default {
          * @param {Object} item 充电桩的一个列表
          */
         jumpToDetail(item) {
-
-            this.$router.push({ path: `/list/detail/${item.id}/${item.distance}` });
+            // 将标签页持久化带过去
+            let tags = 'false';
+            if (item.tags && item.tags.length > 0) {
+                tags = item.tags.join('-');
+            }
+            this.$router.push({ path: `/list/detail/${item.id}/${item.distance}/${tags}/${item.isSpare ? 'true' : 'false'}` });
         },
     },
 

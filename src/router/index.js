@@ -11,7 +11,7 @@ const routes = [
     component: () => import('@/router/list/index'), // 充电站列表
     meta: { title: '充电站列表' },
   }, {
-    path: '/list/detail/:id/:distance',
+    path: '/list/detail/:id/:distance/:tags/:isSpare',
     name: 'listDetail',
     component: () => import('@/router/list/detail'), // 充电站列表详情
     meta: { title: '充电站详情' },

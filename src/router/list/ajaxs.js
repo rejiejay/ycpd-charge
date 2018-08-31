@@ -31,7 +31,7 @@ const ajaxs = {
         //     Msg: ""
         // });
         $.ajax({
-            url: `${config.url.origin}Charge/GetStationList?${param}`,
+            url: `${config.url.origin}/Charge/GetStationList?${param}`,
             type: "GET",
             success(val) {
                 if (val.Code === 200) {
@@ -73,11 +73,11 @@ const ajaxs = {
         //     "Msg": ""
         // });
         $.ajax({
-            url: `${config.url.origin}Charge/GetStationById?id=${id}`,
+            url: `${config.url.origin}/Charge/GetStationById?id=${id}`,
             type: "GET",
             success(val) {
                 if (val.Code === 200) {
-                    resolve(val);
+                    resolve(val.Data);
                 } else {
                     reject(`获取充电桩详情成功, 但是数据有误! 原因: ${val.Msg}`);
                 }
