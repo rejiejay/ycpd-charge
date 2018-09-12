@@ -43,9 +43,12 @@ export default {
          * 文档: http://lbsyun.baidu.com/jsdemo.htm#j1_0
          */
         initBaiduPanorama: function () {
+            let longitude = this.$route.params.longitude; // 经度
+            let latitude = this.$route.params.latitude; // 纬度
+
             let panorama = new BMap.Panorama('panorama'); 
             panorama.setPov({heading: -40, pitch: 6});
-            panorama.setPosition(new BMap.Point(120.320032, 31.589666)); // 根据经纬度坐标展示全景图
+            panorama.setPosition(new BMap.Point(longitude, latitude)); // 根据经纬度坐标展示全景图
         },
 
         goBack: function () {

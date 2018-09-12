@@ -131,7 +131,7 @@
                                 <span>空闲{{item.slowSpare}}/共{{item.slowCount}}</span>
                             </div>
                             <div class="describe-top-row4">
-                                <div class="top-row4-price"><span>{{item.price}}</span>元/度</div>
+                                <!-- <div class="top-row4-price"><span>{{item.price}}</span>元/度</div> -->
                                 <div class="top-row4-details flex-start-center"  @click="showCostModal($event, key)">
                                     <div class="row4-details-icon" style="background-size: 14px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADuklEQVRoQ+2ZT2gcdRTHP2/StAQTL9ZEgoLFUrWCN6HHeFIjRAPuRGkvVo3tbnLQqzStEa8iZmcD8d9FD9kppA20tqfkWPAoLTa0WGgIbdVLEimt6TyZaWadnezO7szsulnJXH+/3/u973vf9+83Qpt/0ub6swOg1R6UkYK+5jjMAE+2WpnQ/cuGwehsVn6K0ksyeb25DZX3dV62x+Sp/zeAtqfQNuN9bHV20mhskzX4wI4H6jVopqi75U9exmFIlYMC/Sr0u+dFWVFYEeEKBvP6GAu2Kffrkd10D2QsfQJhQhwOKzxap1KravAjyqSdk1uRdaAegUn2jJ/XPbd/4xOUjxUeSSJD4C+EL/r28fnUoNyrJKMpHnCtLjCnyqEkiofPiHBJYbiSNxoO4J2CvrjhcK5Ke7IscFYMzrGL687frLjKGp30s8Ez6vC6whvVztLJoP2h/BIE2FAAHt+Vn8MKiBugBiedvXxvm/IgyiuZonYYf/CuOnyqPAzywLeM8FLQEw0DsMn5xQq0me/p4sh378laHDod/VZ71u7yAzBUZnHhUt8+BvyYaBgA09JJVU6ELvvqYJaPTok4cZT3955SNa5YfKkwHpL7WTEnE14KTtDMbenTvaBVroWyzfwLOYarKR+4l6i+3wVx2WIu6Ak3O6mw36VS0nmgrE83LZ1W5ZhvJZfz3V08F0Wb0BwS2fe7dFq/y69lMWEwbWclmxqAV2Hv8HuwSBkGH8xm5ZvIYM2rBtftMYmk80hB33ccvg4YaVV7eTw1hcxpfUUfcKEsU/TydM1sExOAm524w41ghpMOXk0dxKallirZgGWs4piM1QraTEwArjwzr3mFXOkuoZAaQCavC8CAL9QwGKw1iLt7kwDYDPzzAeMspgZg5vWqwoESgN08OzsqS83wwMiMHnDuczXg7aXUADKWrqF0lxQWeuycrMcFgPC2nZPZyMC3tBvl34IorLcSQPlzjuC2GIejQGxW59WAsdZSA0hKIbOgb6pyGqUjoFAkiOZQKGEQe4Fs6Qh4g0tdIJoTxAnTqG/1OCCakkaTFrJgsFYDIcJbxayc8bzVrEKWtJUIZ5uKIKDUI1VtJWqlu3rWMwUt4HA8TjNXSW4FEB6AyGauHgVr7UnSTleT6WUnhyl33W2znz/Oxch2OsE84N9dNhe0bKBJ+X+gxNGWjZSNArCZ1//7ob5RFPJ51dbPKoHi1L4PWz6Itn5aDFXZ9nzc3VJp2/V5vVYRTLueeh5Iq0Da8zsA0low7fl/AETYZ0QvyjTxAAAAAElFTkSuQmCC)"></div>
                                     <span>计费详情</span>
@@ -303,9 +303,6 @@ export default {
                             name: '直流快充',
                             isSelected: false, // 是否选中
                         }, {
-                            name: '交流快充',
-                            isSelected: false, // 是否选中
-                        }, {
                             name: '交流慢充',
                             isSelected: false, // 是否选中
                         }
@@ -438,9 +435,9 @@ export default {
                             tags: tags,
 
                             // 计费详情的字段
-                            electricPrice: '1.22元/度', // 电费
-                            servicePrice: '0.6元/度', // 服务费
-                            parkPrice: '半小时内免费，首小时10元，之后每小时5元，最高20元。', // 停车费
+                            electricPrice: val.ElectricityFee, // 电费
+                            servicePrice: val.ServiceFee, // 服务费
+                            parkPrice: val.ParkFee, // 停车费
                         }
                     });
                 } else {
@@ -631,7 +628,9 @@ export default {
             if (item.tags && item.tags.length > 0) {
                 tags = item.tags.join('-');
             }
-            this.$router.push({ path: `/list/detail/${item.id}/${item.distance}/${tags}/${item.isSpare ? 'true' : 'false'}` });
+            this.$router.push({ path: `/list/detail/${item.id}`, query: item });
+
+            // this.$router.push({ path: `/list/detail/${item.id}/${item.distance}/${tags}/${item.isSpare ? 'true' : 'false'}` });
         },
     },
 
@@ -955,6 +954,7 @@ export default {
                     .top-row4-price {
                         font-size: 12px;
                         color: @black3;
+                        padding-right: 35px;
 
                         span {
                             padding-right: 1.5px;
@@ -964,7 +964,6 @@ export default {
                     }
 
                     .top-row4-details {
-                        padding-left: 35px;
 
                         .row4-details-icon {
                             border: none;

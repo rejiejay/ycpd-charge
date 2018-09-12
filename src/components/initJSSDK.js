@@ -13,15 +13,17 @@ if ( // 测试环境
 }
 
 function getWxConfig() {
-    $.ajax({
-        url: `${config.getWxConfig}?action=WxConfig&url=${encodeURIComponent(window.location.href)}`,
-        type: "get",
-        success(wxConfig) {
-            resolve(wxConfig)
-        },
-        error(error) {
-            reject(`向服务器获取权限验证配置信息发生错误!, 原因: ${error}`);
-        }
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `${config.getWxConfig}?action=WxConfig&url=${encodeURIComponent(window.location.href)}`,
+            type: "get",
+            success(wxConfig) {
+                resolve(wxConfig)
+            },
+            error(error) {
+                reject(`向服务器获取权限验证配置信息发生错误!, 原因: ${error}`);
+            }
+        });
     });
 }
 

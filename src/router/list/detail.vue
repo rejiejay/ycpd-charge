@@ -31,10 +31,10 @@
                             深圳市龙岗区坂田街道坂田街道坂田街道坂田街道中兴路信挚工业园
                             <span class="left-describe-lable">{{distance}}km</span>
                         </div>
-                        <div class="banner-left-price flex-start-bottom">
+                        <!-- <div class="banner-left-price flex-start-bottom">
                             <div class="left-price-lable">{{price}}</div>
                             <div class="left-price-subject">元/度</div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- 顶部 — 右边 -->
@@ -93,22 +93,22 @@
                 <div class="cost-count-describe">
                     <div class="count-describe-item flex-start">
                         <div class="describe-item-lable">电费:</div>
-                        <div class="describe-item-main flex-rest">1.22元/度</div>
+                        <div class="describe-item-main flex-rest">{{electricPrice}}</div>
                     </div>
                     <div class="count-describe-item flex-start">
                         <div class="describe-item-lable">服务费:</div>
-                        <div class="describe-item-main flex-rest">0.6元/度</div>
+                        <div class="describe-item-main flex-rest">{{servicePrice}}</div>
                     </div>
                     <div class="count-describe-item flex-start">
                         <div class="describe-item-lable">停车费:</div>
-                        <div class="describe-item-main flex-rest">半小时内免费，首小时5元，之后每小时3元，最高20元。</div>
+                        <div class="describe-item-main flex-rest">{{parkPrice}}</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 车型次数 -->
-        <div class="detail-type-count">
+        <!-- 车型次数 - 这一整块都不需要了 -->
+        <!-- <div class="detail-type-count">
             <div class="type-count-content">
                 <div class="type-count-car flex-start-center">
                     <div class="type-count-main flex-rest">成功充电车型</div>
@@ -120,7 +120,7 @@
                         </svg>
                     </div>
                 </div>
-                <!-- <div class="type-count-charge flex-start-center">
+                <div class="type-count-charge flex-start-center">
                     <div class="type-count-main flex-rest">近7天成功充电<span>999</span>次</div>
                     <div class="type-count-lable flex-start-center">
                         <span>查看详情</span>
@@ -128,9 +128,9 @@
                             <path fill="#606266" d="M330.56 247.68a32 32 0 0 1 42.88-47.36l320 288a32 32 0 0 1 0 47.36l-320 288a32 32 0 0 1-42.88-47.36L624.32 512z" p-id="2106"></path>
                         </svg>
                     </div>
-                </div> -->
+                </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- 模态框 成功充电车型 -->
         <div class="type-car-modal" v-if="typeCarModal.isShow">
@@ -291,6 +291,11 @@ export default {
                 '含快充',
                 '免费停车',
             ],
+            
+            // 计费详情的字段
+            electricPrice: '1.22元/度', // 电费
+            servicePrice: '0.6元/度', // 服务费
+            parkPrice: '半小时内免费，首小时10元，之后每小时5元，最高20元。', // 停车费
 
             // 模态框 成功充电车型 
             typeCarModal: {
@@ -373,25 +378,28 @@ export default {
             .then(
                 val => {
                     Indicator.close();
+                    let query = this.$route.query;
+
                     _this.longitude = val.StationLng; // 经度
                     _this.latitude = val.StationLat; // 经度
                     _this.stationName = val.StationName; // 门店名称
                     _this.address = val.Address; // 门店地址
-                    _this.distance = this.$route.params.distance; // 上个页面传值过来的距离
-                    // 上个页面传值过来的 tags 标签
-                    if (this.$route.params.tags === 'false') {
-                        _this.tags = [];
-                    } else {
-                        _this.tags = this.$route.params.tags.split('-');;
-                    }
+                    _this.distance = query.distance; // 上个页面传值过来的距离
+                    _this.tags = query.tags; // 上个页面传值过来的 tags 标签
+                   
                     // 充电桩是否空闲
-                    _this.isSpare = this.$route.params.isSpare === 'true' ? true : false;
+                    _this.isSpare = query.isSpare;
                     // 轮播图
                     if (val.StationPicArr && val.StationPicArr instanceof Array && val.StationPicArr.length > 0) {
                         _this.swiperList = val.StationPicArr.map(value => `${config.url.picture}${value}`);
                     } else { // 使用默认图
                         _this.swiperList = [ 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/detail-test.png' ];
                     }
+
+                    // 计费详情的字段
+                    _this.electricPrice = val.ElectricityFee; // 电费
+                    _this.servicePrice = val.ServiceFee; // 服务费
+                    _this.parkPrice = val.ParkFee; // 停车费
 
                     // 设备列表
                     let fastSpare = 0; // 快充设备 - 目前空闲
