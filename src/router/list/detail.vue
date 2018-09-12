@@ -28,7 +28,7 @@
                     <div class="detail-banner-left flex-rest">
                         <div class="banner-left-title">{{stationName}}</div>
                         <div class="banner-left-describe">
-                            深圳市龙岗区坂田街道坂田街道坂田街道坂田街道中兴路信挚工业园
+                            {{address}}
                             <span class="left-describe-lable">{{distance}}km</span>
                         </div>
                         <!-- <div class="banner-left-price flex-start-bottom">
@@ -704,9 +704,8 @@ export default {
             font-size: 14px;
         }
 
-        .type-count-main {
-
-        }
+        // .type-count-main {
+        // }
 
         .type-count-lable {
             padding-right: 15px;
@@ -733,9 +732,8 @@ export default {
     }
 
     // 车型次数 -> 充电次数
-    .type-count-charge {
-
-    }
+    // .type-count-charge {
+    // }
 }
 
 // 模态框 成功充电车型

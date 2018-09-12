@@ -286,13 +286,7 @@ export default {
                         }, {
                             name: '全时段开放',
                             isSelected: false, // 是否选中
-                        }, {
-                            name: '免费停车',
-                            isSelected: false, // 是否选中
-                        }, {
-                            name: '地锁',
-                            isSelected: false, // 是否选中
-                        }
+                        },
                     ]
                 }, {
                     title: '充电方式',
@@ -561,7 +555,7 @@ export default {
                 return isSelected;
             } else { // 单选
                 // 当前的下标 和 模块的下标相等则 表示选中, 不相等就返回未选中
-                return targetIndex === selectedIndex
+                return targetIndex === selectedIndex;
             }
         },
 
@@ -569,7 +563,12 @@ export default {
          * 侧边栏 - 点击重置
          */
         sidebarReset: function() {
-            this.filterSelect = 'filter';
+            this.sidebarGroup = this.sidebardefault.concat(); // 重置渲染数据
+            this.filterSelect = 'distance'; // 排序筛选栏 设置为 距离排序
+            this.getStationList({
+                longitude: this.longitude, // 使用页面初始化缓存的 经度 信息
+                latitude: this.latitude, // 使用页面初始化缓存的 纬度 信息
+            });
             this.isSidebarShow = false; // 隐藏侧边栏
         },
 
@@ -577,6 +576,12 @@ export default {
          * 侧边栏 - 点击确认
          */
         sidebarAffirm: function() {
+            this.getStationList({
+                longitude: this.longitude, // 使用页面初始化缓存的 经度 信息
+                latitude: this.latitude, // 使用页面初始化缓存的 纬度 信息
+                namekey: newSearchModel, // 搜索框的数据
+                orderType: this.filterSelect = 'distance' ? '0' : '1', // 排序方式必须要保持 0 : 是距离排序  1 : 电费价格排序
+            });
             this.filterSelect = 'filter';
             this.isSidebarShow = false; // 隐藏侧边栏
         },
@@ -629,8 +634,6 @@ export default {
                 tags = item.tags.join('-');
             }
             this.$router.push({ path: `/list/detail/${item.id}`, query: item });
-
-            // this.$router.push({ path: `/list/detail/${item.id}/${item.distance}/${tags}/${item.isSpare ? 'true' : 'false'}` });
         },
     },
 
@@ -659,6 +662,7 @@ export default {
 @sidebar-shade-z-index: 1;
 // 筛选 侧边栏 主要部分 
 @sidebar-main-z-index: 2;
+@sidebar-bottom-z-index: 3;
 // 计费详情 模态框 主要部分 
 @cost-modal-content-z-index: 1;
 @cost-modal-shade-z-index: 2;
@@ -841,6 +845,7 @@ export default {
         bottom: 0px;
         height: 45px;
         width: 100%;
+        z-index: @sidebar-bottom-z-index;
 
         > div {
             font-size: 14px;
