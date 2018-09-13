@@ -65,8 +65,8 @@
     <!-- 侧边栏 筛选 -->
     <div class="sidebar-shade" v-if="isSidebarShow" @click="isSidebarShow = false"></div>
     <div class="sidebar" v-bind:class="{'sidebar-show' : isSidebarShow}">
-        <div class="sidebar-content">
-            <div class="sidebar-content-main">
+        <div class="sidebar-content-main">
+            <div class="content-main-content">
                 <!-- 一个块部分 -->
                 <div 
                     class="sidebar-main-block"
@@ -86,12 +86,12 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- 底部按钮 -->
-            <div class="sidebar-bottom flex-start">
-                <div class="sidebar-bottom-left" @click="sidebarReset">重置</div>
-                <div class="sidebar-bottom-right" @click="sidebarAffirm">确定</div>
-            </div>
+        <!-- 底部按钮 -->
+        <div class="sidebar-bottom flex-start">
+            <div class="sidebar-bottom-left" @click="sidebarReset">重置</div>
+            <div class="sidebar-bottom-right" @click="sidebarAffirm">确定</div>
         </div>
     </div>
 
@@ -415,7 +415,7 @@ export default {
                         return {
                             id: val.ID, // 充电桩的唯一标识
                             title: val.StationName,
-                            picture: 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
+                            picture: val.Pictures ? val.Pictures : 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
                             distance: val.distance,
                             address: val.Address,
                             fastSpare: val.FastChargeCountOff, // 快充设备 - 目前空闲
@@ -448,6 +448,16 @@ export default {
              * 注意不能传 0 值, 因为下面的语法会判断不出来
              */
             parameter.orderType ? param += `&orderType=${parameter.orderType}` : null;
+
+            /**
+             * 侧边栏 筛选 有空闲 1 表示有空闲 0 表示没有
+             */
+            if (parameter.IsOff && parameter.IsOpenAllHours && parameter.IsContainFastCharge && parameter.IsContainSlowCharge) {
+                parameter.IsOff ? param += `&IsOff=${parameter.IsOff}` : null;
+                parameter.IsOpenAllHours ? param += `&IsOpenAllHours=${parameter.IsOpenAllHours}` : null;
+                parameter.IsContainFastCharge ? param += `&IsContainFastCharge=${parameter.IsContainFastCharge}` : null;
+                parameter.IsContainSlowCharge ? param += `&IsContainSlowCharge=${parameter.IsContainSlowCharge}` : null;
+            }
 
             Indicator.open('获取充电桩列表...');
             ajaxs.GetStationList(param)
@@ -576,14 +586,19 @@ export default {
          * 侧边栏 - 点击确认
          */
         sidebarAffirm: function() {
+            
+            this.filterSelect = 'filter'; // 排序筛选栏 设置为 筛选排序
+            this.isSidebarShow = false; // 隐藏侧边栏
+
             this.getStationList({
                 longitude: this.longitude, // 使用页面初始化缓存的 经度 信息
                 latitude: this.latitude, // 使用页面初始化缓存的 纬度 信息
-                namekey: newSearchModel, // 搜索框的数据
-                orderType: this.filterSelect = 'distance' ? '0' : '1', // 排序方式必须要保持 0 : 是距离排序  1 : 电费价格排序
+                
+                IsOff: this.sidebarGroup[0].list[0].isSelected ? '1' : '0' , // 有空闲 1 表示有空闲 0 表示没有
+                IsOpenAllHours: this.sidebarGroup[0].list[1].isSelected ? '1' : '0' , // 全时段开放 1 表示有空闲 0 表示没有
+                IsContainFastCharge: this.sidebarGroup[1].selectedIndex === 0 ? '1' : '0' , // 全时段开放 1 表示有空闲 0 表示没有
+                IsContainSlowCharge: this.sidebarGroup[1].selectedIndex === 1 ? '1' : '0' , // 全时段开放 1 表示有空闲 0 表示没有
             });
-            this.filterSelect = 'filter';
-            this.isSidebarShow = false; // 隐藏侧边栏
         },
 
         /**
@@ -797,7 +812,10 @@ export default {
 
     // 主要内容区域
     .sidebar .sidebar-content-main {
-        padding: 15px 15px 65px 15px;
+
+        .content-main-content {
+            padding: 15px 15px 65px 15px;
+        }
 
         // 一个块部分
         .sidebar-main-block {
