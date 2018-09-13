@@ -112,17 +112,17 @@
         <!-- 选项头 -->
         <div class="detail-list-navbar flex-start-center">
             <div class="list-navbar-item flex-center"
-                @click="1"
+                @click="listSelected = 'charging'"
             >
                 <div class="navbar-item-content flex-start-center"
-                    v-bind:class="{'list-navbar-selected': true}"
+                    v-bind:class="{'list-navbar-selected': (listSelected  === 'charging')}"
                 >充电桩</div>
             </div>
             <div class="list-navbar-item flex-center"
-                @click="1"
+                @click="listSelected = 'details'"
             >
                 <div class="navbar-item-content flex-start-center"
-                    v-bind:class="{'list-navbar-selected': false}"
+                    v-bind:class="{'list-navbar-selected': (listSelected  === 'details')}"
                 >计费详情</div>
             </div>
         </div>
@@ -131,13 +131,18 @@
         <div class="list-content">
 
             <!-- 充电桩 -->
-            <div class="list-tab-charging" v-if="true">
+            <div class="list-tab-charging" v-if="listSelected  === 'charging'">
                 <div class="list-item-content">
 
                     <!-- 一个项 -->
-                    <div class="charging-item-float">
+                    <div class="charging-item-float"
+                        v-for="(item, key) in chargingList" 
+                        :key="key"
+                    >
                         <div class="charging-item-content">
-                            <div class="list-charging-item charging-item-leisure flex-start-center">
+                            <div class="list-charging-item charging-item-leisure flex-start-center"
+                                v-bind:class="{ 'charging-item-leisure': (item.state === 'leisure'), 'charging-item-offline': (item.state === 'offline'), 'charging-item-insert': (item.state === 'insert'), 'charging-item-pull': (item.state === 'pull') }"
+                            >
 
                                 <!-- ICON -->
                                 <div class="charging-item-icon">
@@ -148,11 +153,12 @@
                                     </div>
                                 </div>
 
+                                <!-- 标题 标签 -->
                                 <div class="charging-item-other flex-rest">
-                                    <div class="item-other-title">1号枪</div>
+                                    <div class="item-other-title">{{key + 1}}号枪</div>
                                     <div class="item-other-tag flex-start-center">
-                                        <div class="tag-item-left">空闲</div>
-                                        <div>直流</div>
+                                        <div class="tag-item-left">{{rendertagName(item.state)}}</div>
+                                        <div>{{item.isDirectCurrent ? '直流' : '交流'}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -162,11 +168,71 @@
                 </div>
 
                 <!-- 充电桩为空 -->
-                <div class="list-null" v-if="false">暂时还没有充电枪</div>
+                <div class="list-null" v-if="chargingList.length === 0">暂时还没有充电枪</div>
             </div>
             
             <!-- 计费详情 -->
-            <div class="list-tab-details" v-if="false">
+            <div class="list-tab-details" v-if="listSelected  === 'details'">
+                <div class="tab-details-content">
+
+                    <!-- 标题 直流 -->
+                    <div class="tab-details-title flex-start-center">
+                        <div class="details-title-icon">
+                            <svg width="14" height="14" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="快速充电二期" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站详情-计费详情" transform="translate(-30.000000, -859.000000)" fill="#00B90A" fill-rule="nonzero"><g id="计费详情" transform="translate(0.000000, 738.000000)"><g id="直流计费" transform="translate(30.000000, 121.000000)">
+                                <path d="M24,12.1269746 C23.6767873,12.0435068 23.34109,12 23,12 C20.790861,12 19,13.790861 19,16 L19,18 C19,20.209139 20.790861,22 23,22 C24.2590292,22 25.4445825,21.4072234 26.2,20.4 C26.5313708,19.9581722 27.1581722,19.8686292 27.6,20.2 C28.0418278,20.5313708 28.1313708,21.1581722 27.8,21.6 C26.6668737,23.1108351 24.8885438,24 23,24 C19.6862915,24 17,21.3137085 17,18 L17,16 C17,12.6862915 19.6862915,10 23,10 C23.3378825,10 23.6722371,10.0284616 24,10.0838529 L24,12.1269746 Z M25.8965852,13.2413659 L27.8434073,12.4626371 C28.1223047,12.8993481 28.0213309,13.4840018 27.6,13.8 C27.1581722,14.1313708 26.5313708,14.0418278 26.2,13.6 C26.1053769,13.4738358 26.004005,13.3541743 25.8965852,13.2413659 Z M25.1035204,1.55431223e-15 L23.3105613,2 L4,2 C2.8954305,2 2,2.8954305 2,4 L2,28 C2,29.1045695 2.8954305,30 4,30 L28,30 C29.1045695,30 30,29.1045695 30,28 L30,12 L32,10 L32,28 C32,30.209139 30.209139,32 28,32 L4,32 C1.790861,32 0,30.209139 0,28 L0,4 C0,1.790861 1.790861,0 4,0 L25.1035204,0 Z M6,12 L6,22 L9,22 C11.209139,22 13,20.209139 13,18 L13,16 C13,13.790861 11.209139,12 9,12 L6,12 Z M4,23 L4,11 C4,10.4477153 4.44771525,10 5,10 L9,10 C12.3137085,10 15,12.6862915 15,16 L15,18 C15,21.3137085 12.3137085,24 9,24 L5,24 C4.44771525,24 4,23.5522847 4,23 Z M23.8122251,7.0045662 C23.5968096,7.0045662 23.390217,6.91989587 23.2378952,6.7691817 C22.9207016,6.4553357 22.9207016,5.94649079 23.2378952,5.63264478 L28.7521813,0.176555983 C28.9283159,0.0022802977 29.1939405,-0.0483344389 29.4228921,0.0487521081 C29.7321243,0.179881523 29.8753713,0.534219502 29.7428432,0.840188136 L28.1249855,4.57534853 C28.1087368,4.6128621 28.1003583,4.65325039 28.1003583,4.69406394 C28.1003583,4.86050592 28.2367254,4.9954338 28.4049427,4.9954338 L31.2791502,4.9954338 C31.4703315,4.9954338 31.6536824,5.07057872 31.788868,5.20433754 C32.0703773,5.48287587 32.0703773,5.93447573 31.788868,6.21301406 L26.1185945,11.823444 C25.9424599,11.9977197 25.6768353,12.0483344 25.4478837,11.9512479 C25.1386514,11.8201185 24.9954044,11.4657805 25.1279325,11.1598119 L26.7457903,7.42465147 C26.762039,7.3871379 26.7704175,7.34674961 26.7704175,7.30593606 C26.7704175,7.13949408 26.6340504,7.0045662 26.465833,7.0045662 L23.8122251,7.0045662 Z" id="icon_dc"></path></g></g></g></g>
+                            </svg>
+                        </div>
+                        <div class="details-title-describe">直流</div>
+                    </div>
+                    
+                    <div class="tab-details-describe">
+                        <div class="tab-details-row details-row-title flex-start-center">
+                            <div class="details-row-1">时间段</div>
+                            <div class="details-row-2">充电费</div>
+                            <div class="details-row-3">延时费</div>
+                        </div>
+
+                        <div class="tab-details-row details-row-describe flex-start-center">
+                            <div class="details-row-1">00:00-07:00</div>
+                            <div class="details-row-2">0.9元/度</div>
+                            <div class="details-row-3">0.00元/分钟</div>
+                        </div>
+                        <div class="tab-details-row details-row-describe flex-start-center">
+                            <div class="details-row-1">00:00-07:00</div>
+                            <div class="details-row-2">0.9元/度</div>
+                            <div class="details-row-3">0.00元/分钟</div>
+                        </div>
+                    </div>
+
+                    <!-- 标题 交流 -->
+                    <div class="tab-details-title flex-start-center">
+                        <div class="details-title-icon">
+                            <svg width="14" height="14" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="快速充电二期" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站详情-计费详情" transform="translate(-30.000000, -1365.000000)" fill="#FF8D18" fill-rule="nonzero"><g id="计费详情" transform="translate(0.000000, 738.000000)"><g id="交流计费" transform="translate(30.000000, 627.000000)">
+                                <path d="M24,12.1269746 C23.6767873,12.0435068 23.34109,12 23,12 C20.790861,12 19,13.790861 19,16 L19,18 C19,20.209139 20.790861,22 23,22 C24.2590292,22 25.4445825,21.4072234 26.2,20.4 C26.5313708,19.9581722 27.1581722,19.8686292 27.6,20.2 C28.0418278,20.5313708 28.1313708,21.1581722 27.8,21.6 C26.6668737,23.1108351 24.8885438,24 23,24 C19.6862915,24 17,21.3137085 17,18 L17,16 C17,12.6862915 19.6862915,10 23,10 C23.3378825,10 23.6722371,10.0284616 24,10.0838529 L24,12.1269746 Z M25.8965852,13.2413659 L27.8434073,12.4626371 C28.1223047,12.8993481 28.0213309,13.4840018 27.6,13.8 C27.1581722,14.1313708 26.5313708,14.0418278 26.2,13.6 C26.1053769,13.4738358 26.004005,13.3541743 25.8965852,13.2413659 Z M25.1035204,1.55431223e-15 L23.3105613,2 L4,2 C2.8954305,2 2,2.8954305 2,4 L2,28 C2,29.1045695 2.8954305,30 4,30 L28,30 C29.1045695,30 30,29.1045695 30,28 L30,12 L32,10 L32,28 C32,30.209139 30.209139,32 28,32 L4,32 C1.790861,32 0,30.209139 0,28 L0,4 C0,1.790861 1.790861,0 4,0 L25.1035204,0 Z M8.16666667,18 L11.8333333,18 L10,13.6 L8.16666667,18 Z M7.33333333,20 L5.92307692,23.3846154 C5.71065971,23.8944167 5.12518592,24.1354941 4.61538462,23.9230769 C4.10558331,23.7106597 3.86450587,23.1251859 4.07692308,22.6153846 L9.07692308,10.6153846 C9.41880342,9.79487179 10.5811966,9.79487179 10.9230769,10.6153846 L15.9230769,22.6153846 C16.1354941,23.1251859 15.8944167,23.7106597 15.3846154,23.9230769 C14.8748141,24.1354941 14.2893403,23.8944167 14.0769231,23.3846154 L12.6666667,20 L7.33333333,20 Z M23.8122251,7.0045662 C23.5968096,7.0045662 23.390217,6.91989587 23.2378952,6.7691817 C22.9207016,6.4553357 22.9207016,5.94649079 23.2378952,5.63264478 L28.7521813,0.176555983 C28.9283159,0.0022802977 29.1939405,-0.0483344389 29.4228921,0.0487521081 C29.7321243,0.179881523 29.8753713,0.534219502 29.7428432,0.840188136 L28.1249855,4.57534853 C28.1087368,4.6128621 28.1003583,4.65325039 28.1003583,4.69406394 C28.1003583,4.86050592 28.2367254,4.9954338 28.4049427,4.9954338 L31.2791502,4.9954338 C31.4703315,4.9954338 31.6536824,5.07057872 31.788868,5.20433754 C32.0703773,5.48287587 32.0703773,5.93447573 31.788868,6.21301406 L26.1185945,11.823444 C25.9424599,11.9977197 25.6768353,12.0483344 25.4478837,11.9512479 C25.1386514,11.8201185 24.9954044,11.4657805 25.1279325,11.1598119 L26.7457903,7.42465147 C26.762039,7.3871379 26.7704175,7.34674961 26.7704175,7.30593606 C26.7704175,7.13949408 26.6340504,7.0045662 26.465833,7.0045662 L23.8122251,7.0045662 Z" id="icon_dc"></path></g></g></g></g>
+                            </svg>
+                        </div>
+                        <div class="details-title-describe">交流</div>
+                    </div>
+                    
+                    <div class="tab-details-describe">
+                        <div class="tab-details-row details-row-title flex-start-center">
+                            <div class="details-row-1">时间段</div>
+                            <div class="details-row-2">充电费</div>
+                            <div class="details-row-3">延时费</div>
+                        </div>
+
+                        <div class="tab-details-row details-row-describe flex-start-center">
+                            <div class="details-row-1">00:00-07:00</div>
+                            <div class="details-row-2">0.9元/度</div>
+                            <div class="details-row-3">0.00元/分钟</div>
+                        </div>
+                        <div class="tab-details-row details-row-describe flex-start-center">
+                            <div class="details-row-1">00:00-07:00</div>
+                            <div class="details-row-2">0.9元/度</div>
+                            <div class="details-row-3">0.00元/分钟</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -219,74 +285,50 @@ export default {
             servicePrice: '0.6元/度', // 服务费
             parkPrice: '半小时内免费，首小时10元，之后每小时5元，最高20元。', // 停车费
 
-            // 模态框 成功充电车型 
-            typeCarModal: {
-                isShow: false, // 是否显示
-                logo: [ // 列表项上面的两个logo
-                    'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
-                    'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
-                ],
-                list: [
-                    {
-                        name: 'e5',
-                        pictureUrl: 'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
-                    }, {
-                        name: 'e5',
-                        pictureUrl: 'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
-                    }, {
-                        name: 'e5',
-                        pictureUrl: 'https://ycpduser.oss-cn-shenzhen.aliyuncs.com/wx20/user/car/BWM.png',
-                    },
-                ]
-            },
+            listSelected: 'charging', // 选中的列表充电桩 charging 或者 计费详情 details
             
-            fastSpare: 2, // 快充设备 - 目前空闲
-            fastCount: 3, // 快充设备 - 总数
-            slowSpare: 2, // 慢充设备 - 目前空闲
-            slowCount: 3, // 慢充设备 - 总数
-
-            listSelected: 'fast', // 选中的列表 或者 slow
-
-            fastList: [ // 快充设备列表
+            chargingList: [
                 {
-                    isFree: true, // 是否空闲
+                    isDirectCurrent: true, // 是否直流设备
+                    state: 'leisure', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
                 }, {
-                    isFree: false, // 是否空闲
-                }
-            ], 
-
-            slowList: [ // 慢充设备列表
-                {
-                    isFree: true, // 是否空闲
+                    isDirectCurrent: true, // 是否直流设备
+                    state: 'offline', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
                 }, {
-                    isFree: false, // 是否空闲
-                }
-            ]
+                    isDirectCurrent: false, // 是否直流设备
+                    state: 'insert', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
+                }, {
+                    isDirectCurrent: false, // 是否直流设备
+                    state: 'pull', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
+                }, 
+            ],
+            
         }
     },
 
     mounted: function () {
         this.getStationById();
     },
-    
-    computed: {
-        // 设备列表是否为空
-        // 用于判断渲染选项列表
-        isEquipmentNull: function () {
-            // 选中是 快充设备列表 并且列表为空
-            if (this.listSelected === 'fast' && this.fastList.length === 0) {
-                return true
-            }
-            // 选中是 慢充设备列表 并且列表为空
-            if (this.listSelected === 'slow' && this.slowList.length === 0) {
-                return true
-            }
-
-            return false
-        }
-    },
 
     methods: {
+        /**
+         * 渲染 充电桩 设备状态 标签 status
+         * @param {string} leisure 空闲
+         * @param {string} offline 离线
+         * @param {string} insert 待插枪
+         * @param {string} pull 待拨枪
+         */
+        rendertagName: function (status) {
+            if (status === 'leisure') {
+                return '空闲'
+            } else if (status === 'offline') {
+                return '离线'
+            } else if (status === 'insert') {
+                return '待插枪'
+            } else if (status === 'pull') {
+                return '待拨枪'
+            }
+        },
         
         /**
          * 根据id获取充电桩详情
@@ -324,51 +366,46 @@ export default {
                     _this.parkPrice = val.ParkFee; // 停车费
 
                     // 设备列表
-                    let fastSpare = 0; // 快充设备 - 目前空闲
-                    let fastCount = 0; // 快充设备 - 总数
-                    let slowSpare = 0; // 慢充设备 - 目前空闲
-                    let slowCount = 0; // 慢充设备 - 总数
-                    let fastList = []; // 快充设备列表
-                    let slowList = []; // 慢充设备列表
                     if (val.ConnectorInfos && val.ConnectorInfos instanceof Array && val.ConnectorInfos.length > 0) {
+                        
                         val.ConnectorInfos.map(value => {
+                            let isDirectCurrent = true; // 是否直流设备
+                            /**
+                             * 设备状态 status
+                             * @param {string} leisure 空闲
+                             * @param {string} offline 离线
+                             * @param {string} insert 待插枪
+                             * @param {string} pull 待拨枪
+                             */
+                            let state = 'offline'; // 默认离线
+
                             if (value.Power == 60) { // 快充
-                                fastCount++; // 快充设备 - 总数 加一
-                                if (value.Power != 1) { // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
-                                    // 表示不空闲
-                                    fastList.push({
-                                        isFree: false,
-                                    });
-                                } else {
-                                    // 表示空闲
-                                    fastSpare++; // 快充设备 - 目前空闲 加一
-                                    fastList.push({
-                                        isFree: true,
-                                    });
-                                }
+                                isDirectCurrent = true; // 快充设备 - 直流设备
+                                
                             } else { // 表示慢充
-                                slowCount++;
-                                if (value.Power != 1) { // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
-                                    // 表示不空闲
-                                    slowList.push({
-                                        isFree: false,
-                                    });
-                                } else {
-                                    // 表示空闲
-                                    slowSpare++; // 快充设备 - 目前空闲 加一
-                                    slowList.push({
-                                        isFree: true,
-                                    });
-                                }
+                                isDirectCurrent = false; // 慢充设备 - 交流设备
+                            }
+
+                            // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
+                            if (value.Power === '1') {
+                                state = 'leisure';
+                            } else if (value.Power === '2') {
+                                state = 'insert';
+                            } else if (value.Power === '3') {
+                                state = 'insert';
+                            } else if (value.Power === '4') {
+                                state = 'pull';
+                            } else {
+                                state = 'offline';
+                            }
+
+                            return {
+                                isDirectCurrent: isDirectCurrent,
+                                state: state,
                             }
                         });
                     }
-                    _this.fastSpare = fastSpare; // 快充设备 - 目前空闲
-                    _this.fastCount = fastCount; // 快充设备 - 总数
-                    _this.slowSpare = slowSpare; // 慢充设备 - 目前空闲
-                    _this.slowCount = slowCount; // 慢充设备 - 总数
-                    _this.fastList = fastList; // 快充设备列表
-                    _this.slowList = slowList; // 慢充设备列表
+
                 }, error => {
                     Indicator.close();
                     MessageBox.confirm('获取充电桩详情, 是否重新获取?')
@@ -628,11 +665,11 @@ export default {
                 color: @black3;
                 height: 45px;
             }
-        }
 
-        .list-navbar-selected {
-            color: #5594FF;
-            border-bottom: 2px solid #5594FF;
+            .list-navbar-selected {
+                color: #5594FF;
+                border-bottom: 2px solid #5594FF;
+            }
         }
     }
 
@@ -772,7 +809,7 @@ export default {
                     }
                 } 
 
-                // 待插枪
+                // 待拨枪
                 .charging-item-pull {
                     .item-icon-content {
                         background-color: #fff2e3;
@@ -800,6 +837,55 @@ export default {
 
         // 选项列表 ->  计费详情
         .list-tab-details {
+            font-size: 14px;
+            padding-bottom: 15px;
+
+            .tab-details-content {
+                padding: 15px;
+                background: #fff;
+            }
+
+            .tab-details-title {
+                color: @black2;
+                font-size: 14px;
+                padding-bottom: 12px;
+
+                .details-title-icon {
+                    padding-right: 10px;
+                    
+                }
+            }
+
+            .tab-details-describe {
+                font-size: 12px;
+                padding-bottom: 15px;
+            }
+
+            // 复用部分
+            .tab-details-row {
+
+                > div {
+                    width: 33.33%;
+                }
+
+                .details-row-2 {
+                    text-align: center;
+                }
+
+                .details-row-3 {
+                    text-align: right;
+                }
+            }
+
+            .details-row-title {
+                color: @black3;
+                padding-bottom: 10px;
+            }
+
+            .details-row-describe {
+                color: @black2;
+                padding-bottom: 5px;
+            }
         }
     }
 }
