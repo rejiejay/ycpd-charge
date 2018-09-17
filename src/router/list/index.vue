@@ -187,6 +187,16 @@
         </div>
     </div>
 
+    <!-- 扫码充电 -->
+    <div class="scan flex-center">
+        <div class="flex-start-center">
+            <svg width="16" height="16" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="快速充电二期" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="充电站列表" transform="translate(-295.000000, -1258.000000)" fill="#FFFFFF" fill-rule="nonzero"><g id="扫码充电" transform="translate(215.000000, 1234.000000)"><g id="Group-2" transform="translate(80.000000, 24.000000)">
+                <path d="M2,9 L2,4 C2,2.34314575 3.34314575,1 5,1 L10,1 C10.5522847,1 11,1.44771525 11,2 L11,2 C11,2.55228475 10.5522847,3 10,3 L5,3 C4.44771525,3 4,3.44771525 4,4 L4,9 C4,9.55228475 3.55228475,10 3,10 L3,10 C2.44771525,10 2,9.55228475 2,9 Z M3,22 L3,22 C3.55228475,22 4,22.4477153 4,23 L4,28 C4,28.5522847 4.44771525,29 5,29 L10,29 C10.5522847,29 11,29.4477153 11,30 L11,30 C11,30.5522847 10.5522847,31 10,31 L5,31 C3.34314575,31 2,29.6568542 2,28 L2,23 C2,22.4477153 2.44771525,22 3,22 Z M31,10 L31,10 C30.4477153,10 30,9.55228475 30,9 L30,4 C30,3.44771525 29.5522847,3 29,3 L24,3 C23.4477153,3 23,2.55228475 23,2 L23,2 C23,1.44771525 23.4477153,1 24,1 L29,1 C30.6568542,1 32,2.34314575 32,4 L32,9 C32,9.55228475 31.5522847,10 31,10 Z M32,23 L32,28 C32,29.6568542 30.6568542,31 29,31 L24,31 C23.4477153,31 23,30.5522847 23,30 C23,29.4477153 23.4477153,29 24,29 L29,29 C29.5522847,29 30,28.5522847 30,28 L30,23 C30,22.4477153 30.4477153,22 31,22 C31.5522847,22 32,22.4477153 32,23 Z M3,15 L31,15 C31.5522847,15 32,15.4477153 32,16 C32,16.5522847 31.5522847,17 31,17 L3,17 C2.44771525,17 2,16.5522847 2,16 C2,15.4477153 2.44771525,15 3,15 Z" id="Combined-Shape"></path></g></g></g></g>
+            </svg>
+            <span>扫码充电</span>
+        </div>
+    </div>
+
     <!-- 计费详情模态框 -->
     <div class="list-cost-modal flex-center" v-if="costModal.isShow">
         <div class="cost-modal-shade" @click="costModal.isShow = false"></div>
@@ -1164,6 +1174,28 @@ export default {
                 width: 65%;
             }
         }
+    }
+}
+
+// 扫码充电
+.list .scan {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -80px;
+    width: 160px;
+    height: 40px;
+    border-radius: 40px;
+    
+    background: -webkit-linear-gradient(top, #61ADFF, #5594FF); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(top, #61ADFF, #5594FF); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(top, #61ADFF, #5594FF); /* Firefox 3.6 - 15 */
+    background: linear-gradient(top, #61ADFF, #5594FF); /* 标准的语法 */
+
+    span {
+        padding-left: 5px;
+        font-size: 14px;
+        color: #fff;
     }
 }
 
