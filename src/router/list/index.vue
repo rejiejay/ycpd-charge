@@ -509,6 +509,26 @@ export default {
                 ); // 开始请求 并且 该请求 设置为 新增stores列表
 			}
 		},
+
+        /**
+         * 订单检测提醒
+         * @param {number} orderCount 订单数量
+         */
+        orderRemind: function (orderCount) {
+            MessageBox({
+                message: `您有${orderCount}个正在充电的订单`,
+                showCancelButton: true, // 是否显示取消按钮
+                confirmButtonText: '查看',  // 确认按钮的文本
+                cancelButtonText: '继续预约',  // 取消按钮的文本
+            })
+            .then(action => {
+                if (action === 'confirm') {
+
+                } else {
+
+                }
+            });
+        },
         
         /**
          * 排序 and 筛选栏
