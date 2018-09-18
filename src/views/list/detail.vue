@@ -174,11 +174,10 @@
 <script>
 
 import Vue from 'vue';
-import ajaxs from './ajaxs';
-import config from './../../config/index';
-import { Indicator } from 'mint-ui';
-import { MessageBox } from 'mint-ui';
-import { Swipe, SwipeItem } from 'mint-ui';
+import ajaxs from '@/api/list/index';
+import config from '@/config/index';
+import { Indicator, MessageBox, Swipe, SwipeItem } from 'mint-ui';
+
 Vue.component('mt-swipe', Swipe);
 Vue.component('mt-swipe-item', SwipeItem);
 

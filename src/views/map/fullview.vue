@@ -20,9 +20,8 @@
 
 import Vue from 'vue';
 import { Header } from 'mint-ui';
+
 Vue.component(Header.name, Header);
-import 'mint-ui/lib/header/style.css';
-import 'mint-ui/lib/font/style.css';
 
 export default {
     name: 'fullview-map',

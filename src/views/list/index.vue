@@ -249,10 +249,10 @@
 
 <script>
 
-import ajaxs from './ajaxs';
+import ajaxs from '@/api/list/index';
+import initLocation from '@/components/initLocation';
 import { Indicator } from 'mint-ui';
 import { MessageBox } from 'mint-ui';
-import initLocation from './../../components/initLocation';
 
 export default {
     name: 'list',

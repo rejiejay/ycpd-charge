@@ -1,6 +1,6 @@
-import config from './../../config/index';
+import config from "@/config/index";
 
-const ajaxs = {
+export default {
     /**
      * 获取充电桩列表
      * @param {String || Number} longitude 经度
@@ -88,5 +88,3 @@ const ajaxs = {
         });
     }),
 }
-
-export default ajaxs;
