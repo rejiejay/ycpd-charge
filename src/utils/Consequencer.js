@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     /**
      * 请求成功
      * @param {any} data 返回成功的数据封装

@@ -1,4 +1,4 @@
-module.exports = function(sVar) {
+export default function(sVar) {
     return decodeURI(
         window.location.search.replace(
             new RegExp(

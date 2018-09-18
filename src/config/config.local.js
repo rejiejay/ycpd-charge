@@ -1,7 +1,14 @@
 // 测试环境配置
 module.exports = {
-    url: { // url链接相关
-        origin: 'http://api.demo.hotgz.com', // 请求源
-        picture: 'http://api.demo.hotgz.com', // 图片的请求源地址
+
+    url: {
+        // 请求源
+        origin: 'http://api.demo.hotgz.com',
+
+        // 图片的请求源地址 (将来可能会有变动)
+        picture: 'http://api.demo.hotgz.com', 
+        
+        // 初始化微信JS-SDK
+        getWxConfig: 'http://store.demo.ichebaoyang.com/wx/apiHandler.ashx',
     }
 };

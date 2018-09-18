@@ -4,8 +4,6 @@
 
 <script>
 
-import loadPageVar from './utils/loadPageVar.js';
-
 export default {
   name: 'Index',
 }

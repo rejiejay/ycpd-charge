@@ -4,48 +4,39 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 const routes = [
-  {
-    path: '/index',
-    alias: ['/list', '/'],
-    name: 'list',
-    component: () => import('@/router/list/index'), // 充电站列表
-    meta: { title: '充电站列表' },
-  }, {
-    path: '/list/detail/:id',
-    name: 'listDetail',
-    component: () => import('@/router/list/detail'), // 充电站列表详情
-    meta: { title: '充电站详情' },
-  }, {
-    path: '/list/map/:longitude/:latitude',
-    name: 'panoramic-map',
-    component: () => import('@/router/list/panoramic-map'), // 充电站列表详情 全景地图
-    meta: { title: '充电站详情' },
-  },
+    {
+        path: '/index',
+        alias: ['/list', '/'],
+        name: 'list',
+        component: () => import('@/views/list/index'),
+        meta: { title: '充电站列表' },
+    }, {
+        path: '/list/detail/:id',
+        name: 'list-detail',
+        component: () => import('@/views/list/detail'),
+        meta: { title: '充电站详情' },
+    },
 
-  { // 第一版的UI
-    path: '/index2',
-    name: 'list1',
-    component: () => import('@/router/list1/index'), // 列表
-    meta: { title: '充电桩' },
-  }, {
-    path: '/list2/detail',
-    name: 'listDetail1',
-    component: () => import('@/router/list1/detail'), // 列表详情
-    meta: { title: '列表详情' },
-  },
+    // 全景地图
+    {
+        path: '/map/fullview',
+        name: 'fullview-map',
+        component: () => import('@/views/map/fullview'),
+        meta: { title: '充电站详情' },
+    },
 ];
 
 let router = new Router({
-  // mode: 'history',
-  routes
+    // mode: 'history',
+    routes
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.title) { // 路由发生变化修改页面 title
-    document.title = to.meta.title;
-  }
+    if (to.meta.title) { // 路由发生变化修改页面 title
+        document.title = to.meta.title;
+    }
 
-  next();
+    next();
 });
 
 export default router;
