@@ -423,8 +423,8 @@ export default {
                             address: val.Address,
                             fastSpare: val.FastChargeCountOff, // 快充设备 - 目前空闲
                             fastCount: val.FastChargeCount, // 快充设备 - 总数
-                            slowSpare: val.FastChargeCountOff, // 慢充设备 - 目前空闲
-                            slowCount: val.FastChargeCount, // 慢充设备 - 总数
+                            slowSpare: val.SlowChargeCountOff, // 慢充设备 - 目前空闲
+                            slowCount: val.SlowChargeCount, // 慢充设备 - 总数
                             price: 1.82, // 价格 元/度
                             longitude: val.StationLng, // 充电桩所在 - 经度
                             latitude: val.StationLat, // 充电桩所在 - 维度
@@ -569,8 +569,18 @@ export default {
          */
         sidebarHandle: function(groupKey, listKey) {
             let newSidebarGroup = this.sidebarGroup.concat(); // 复制一个新的数组
-            newSidebarGroup[groupKey].selectedIndex = listKey; // 设置选中的下标
-            newSidebarGroup[groupKey].list[listKey].isSelected = !newSidebarGroup[groupKey].list[listKey].isSelected; // 是否选中 设置为相反
+
+            // 是否选中 设置为相反
+            newSidebarGroup[groupKey].list[listKey].isSelected = !newSidebarGroup[groupKey].list[listKey].isSelected; 
+            
+            // 设置选中的下标
+            if (newSidebarGroup[groupKey].selectedIndex === listKey) {
+                // 如果选中的下标就是当前的下标
+                newSidebarGroup[groupKey].selectedIndex = false; // 
+            } else {
+                newSidebarGroup[groupKey].selectedIndex = listKey; 
+            }
+            
             this.sidebarGroup = newSidebarGroup; // 新数组赋值进去
         },
 
@@ -666,11 +676,6 @@ export default {
          * @param {Object} item 充电桩的一个列表
          */
         jumpToDetail(item) {
-            // 将标签页持久化带过去
-            let tags = 'false';
-            if (item.tags && item.tags.length > 0) {
-                tags = item.tags.join('-');
-            }
             this.$router.push({ path: `/list/detail/${item.id}`, query: item });
         },
     },

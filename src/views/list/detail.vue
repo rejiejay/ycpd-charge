@@ -215,19 +215,19 @@ export default {
             listSelected: 'charging', // 选中的列表充电桩 charging 或者 计费详情 details
             
             chargingList: [
-                {
-                    isDirectCurrent: true, // 是否直流设备
-                    state: 'leisure', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
-                }, {
-                    isDirectCurrent: true, // 是否直流设备
-                    state: 'offline', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
-                }, {
-                    isDirectCurrent: false, // 是否直流设备
-                    state: 'insert', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
-                }, {
-                    isDirectCurrent: false, // 是否直流设备
-                    state: 'pull', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
-                }, 
+                // {
+                //     isDirectCurrent: true, // 是否直流设备
+                //     state: 'leisure', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
+                // }, {
+                //     isDirectCurrent: true, // 是否直流设备
+                //     state: 'offline', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
+                // }, {
+                //     isDirectCurrent: false, // 是否直流设备
+                //     state: 'insert', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
+                // }, {
+                //     isDirectCurrent: false, // 是否直流设备
+                //     state: 'pull', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
+                // }, 
             ],
             
             // 计费详情
@@ -302,8 +302,7 @@ export default {
 
                     // 设备列表
                     if (val.ConnectorInfos && val.ConnectorInfos instanceof Array && val.ConnectorInfos.length > 0) {
-                        
-                        val.ConnectorInfos.map(value => {
+                        _this.chargingList = val.ConnectorInfos.map(value => {
                             let isDirectCurrent = true; // 是否直流设备
                             /**
                              * 设备状态 status
@@ -322,13 +321,13 @@ export default {
                             }
 
                             // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
-                            if (value.Power === '1') {
+                            if (value.Status === 1) {
                                 state = 'leisure';
-                            } else if (value.Power === '2') {
+                            } else if (value.Status === 2) {
                                 state = 'insert';
-                            } else if (value.Power === '3') {
+                            } else if (value.Status === 3) {
                                 state = 'insert';
-                            } else if (value.Power === '4') {
+                            } else if (value.Status === 4) {
                                 state = 'pull';
                             } else {
                                 state = 'offline';
