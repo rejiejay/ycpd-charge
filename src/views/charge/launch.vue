@@ -49,7 +49,16 @@
         <div v-if="pageState === 'bootfailed'" class="tips-bootfailed">充电枪连接失败</div>
         <div v-if="pageState === 'bootfailed'" class="tips-bootfailed">请重新开启充电或联系场站管理员协助处理</div>
     </div>
+
     <!-- button -->
+    <div class="button" v-if="pageState !== 'booting'">
+        <div v-if="pageState === 'notfree' || pageState === 'offline'" class="button-content button-failure">启动充电</div>
+        
+        <div v-if="pageState === 'leisure'" class="button-content button-start">启动充电</div>
+
+        <div v-if="pageState === 'bootfailed'" class="button-content button-bootfailed">重新启动充电</div>
+    </div>
+
     <!-- price -->
 </div>
 </template>
@@ -183,6 +192,36 @@ export default {
         padding-bottom: 10px;
         font-size: 16px;
         color: #FF8D18;
+    }
+}
+
+// 按钮
+.button {
+    padding: 25px;
+
+    .button-content {
+        height: 45px;
+        width: 100%;
+        line-height: 45px;
+        border-radius: 4px;
+        font-size: 14px;
+        text-align: center;
+        color: #fff;
+    }
+
+    // 非空闲 离线
+    .button-failure {
+        background: #cccccc;
+    }
+
+    // 空闲
+    .button-start {
+        background: #5594FF;
+    }
+
+    // 重新启动
+    .button-bootfailed {
+        background: #5594FF;
     }
 }
 
