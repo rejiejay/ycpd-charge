@@ -36,9 +36,18 @@
     <!-- tips -->
     <div class="tips flex-column-center">
         <div v-if="pageState === 'notfree'" class="tips-notfree">该电枪正在充电中，请选择其它空闲充电枪进行充电</div>
+
         <div v-if="pageState === 'offline'" class="tips-offline">该电枪已离线，请选择其它空闲充电枪进行充电</div>
+
         <div v-if="pageState === 'leisure'" class="tips-leisure">启动充电后，请在90秒内插枪</div>
         <div v-if="pageState === 'leisure'" class="tips-leisure">请确保车辆已就位后开始充电，避免给您带来不变和损失</div>
+
+        <div v-if="pageState === 'booting'" class="tips-booting-main">充电启动中...</div>
+        <div v-if="pageState === 'booting'" class="tips-booting">启动大约需要2分钟，请确保充电枪已插好</div>
+
+        <div v-if="pageState === 'bootfailed'" class="tips-bootfailed-main">充电启动失败...</div>
+        <div v-if="pageState === 'bootfailed'" class="tips-bootfailed">充电枪连接失败</div>
+        <div v-if="pageState === 'bootfailed'" class="tips-bootfailed">请重新开启充电或联系场站管理员协助处理</div>
     </div>
     <!-- button -->
     <!-- price -->
@@ -155,11 +164,25 @@ export default {
     font-size: 12px;
 
    
-    .tips-notfree // 非空闲/充电中
-    .tips-offline // 离线
-    .tips-leisure // 空闲
+    .tips-notfree, // 非空闲/充电中
+    .tips-offline, // 离线
+    .tips-leisure, // 空闲
+    .tips-booting, // 启动
+    .tips-bootfailed, // 启动失败
     {
         color: @black3;
+    }
+
+    .tips-booting-main {
+        padding-bottom: 10px;
+        font-size: 16px;
+        color: #5594FF;
+    }
+
+    .tips-bootfailed-main {
+        padding-bottom: 10px;
+        font-size: 16px;
+        color: #FF8D18;
     }
 }
 
