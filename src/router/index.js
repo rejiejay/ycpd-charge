@@ -24,6 +24,14 @@ const routes = [
         component: () => import('@/views/map/fullview'),
         meta: { title: '充电站详情' },
     },
+
+    // 启动充电 扫码充电
+    {
+        path: '/launch/:pageState',
+        name: 'launch',
+        component: () => import('@/views/launch/index'),
+        meta: { title: '启动充电' },
+    },
 ];
 
 let router = new Router({
