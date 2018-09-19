@@ -59,7 +59,10 @@
         <div v-if="pageState === 'bootfailed'" class="button-content button-bootfailed">重新启动充电</div>
     </div>
 
-    <!-- price -->
+    <!-- 账户余额 -->
+    <div class="wallet" v-if="pageState !== 'booting'">
+        账户余额<span>￥{{wallet}}</span>
+    </div>
 </div>
 </template>
 
@@ -85,6 +88,8 @@ export default {
             StationName: '深圳信挚工业一期充电站', // 充电站名称
             
             GunName: '1号枪', // 充电枪名
+
+            wallet: '8.00', // 账户余额
         }
     },
 
@@ -222,6 +227,18 @@ export default {
     // 重新启动
     .button-bootfailed {
         background: #5594FF;
+    }
+}
+
+// 账户余额
+.wallet {
+    font-size: 14px;
+    text-align: center;
+    color: @black3;
+
+    span {
+        padding-left: 10px;
+        color: #E50012;
     }
 }
 
