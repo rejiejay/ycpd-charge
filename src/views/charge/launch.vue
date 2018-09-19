@@ -32,6 +32,16 @@
             </div>
         </div>
     </div>
+
+    <!-- tips -->
+    <div class="tips flex-column-center">
+        <div v-if="pageState === 'notfree'" class="tips-notfree">该电枪正在充电中，请选择其它空闲充电枪进行充电</div>
+        <div v-if="pageState === 'offline'" class="tips-offline">该电枪已离线，请选择其它空闲充电枪进行充电</div>
+        <div v-if="pageState === 'leisure'" class="tips-leisure">启动充电后，请在90秒内插枪</div>
+        <div v-if="pageState === 'leisure'" class="tips-leisure">请确保车辆已就位后开始充电，避免给您带来不变和损失</div>
+    </div>
+    <!-- button -->
+    <!-- price -->
 </div>
 </template>
 
@@ -137,6 +147,19 @@ export default {
                 padding-left: 5px;
             }
         }
+    }
+}
+
+// 提示
+.tips {
+    font-size: 12px;
+
+   
+    .tips-notfree // 非空闲/充电中
+    .tips-offline // 离线
+    .tips-leisure // 空闲
+    {
+        color: @black3;
     }
 }
 

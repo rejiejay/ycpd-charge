@@ -29,7 +29,7 @@ const routes = [
     {
         path: '/launch/:pageState',
         name: 'launch',
-        component: () => import('@/views/launch/index'),
+        component: () => import('@/views/charge/launch'),
         meta: { title: '启动充电' },
     },
 ];
