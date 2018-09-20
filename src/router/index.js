@@ -31,6 +31,11 @@ const routes = [
         name: 'launch',
         component: () => import('@/views/charge/launch'),
         meta: { title: '启动充电' },
+    },{
+        path: '/process/:pageState',
+        name: 'process',
+        component: () => import('@/views/charge/process'),
+        meta: { title: '启动充电' },
     },
 ];
 
