@@ -48,13 +48,23 @@
 
     <!-- 提示信息 -->
     <div class="tip flex-column-center">
-    <div class="tip-describe" v-if="pageState === 'connectFailed'">充电桩通信延迟，这不影响您正常充电</div>
-    <div class="tip-describe" v-if="pageState === 'connectFailed'">结束充电后您即可离场，订单信息稍后将推送给您</div>
-    <div class="tip-describe" v-if="pageState === 'finished'">停止充电通信失败...请联系场站管理人员处理</div>
-    <div class="tip-describe" v-if="pageState === 'finished'">订单信息稍后将推送给您</div>
-        
+        <div class="tip-describe" v-if="pageState === 'connectFailed'">充电桩通信延迟，这不影响您正常充电</div>
+        <div class="tip-describe" v-if="pageState === 'connectFailed'">结束充电后您即可离场，订单信息稍后将推送给您</div>
+        <div class="tip-describe" v-if="pageState === 'finished'">停止充电通信失败...请联系场站管理人员处理</div>
+        <div class="tip-describe" v-if="pageState === 'finished'">订单信息稍后将推送给您</div>
     </div>
 
+    <!-- 按钮 -->
+    <div class="submit flex-center">
+        <div class="submit-content" v-if="pageState === 'finishing'">正在结束充电...</div>
+        <div class="submit-content" v-else>手动结束充电</div>
+    </div>
+
+    <!-- 底部提示信息 -->
+    <div class="tip-2 flex-column-center">
+        <div class="tip-2-content" v-if="pageState === 'finishing'">结束充电大约需要2分钟，请耐心等候</div>
+        <div class="tip-2-content" v-else>电池充满后会自动结束充电</div>
+    </div>
 </div>
 </template>
 
@@ -247,6 +257,30 @@ export default {
     .tip-describe {
         padding-bottom: 2.5px;
     }
+}
+
+
+// 按钮
+.submit {
+    padding-top: 25px;
+
+    .submit-content {
+        width: 200px;
+        height: 45px;
+        line-height: 45px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-align: center;
+        color: #fff;
+        background: #AAAAAA;
+    }
+}
+
+// 底部提示信息
+.tip-2 {
+    padding-top: 15px;
+    font-size: 12px;
+    color: @black3;
 }
 
 </style>
