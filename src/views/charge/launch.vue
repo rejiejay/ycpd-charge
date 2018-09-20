@@ -63,6 +63,34 @@
     <div class="wallet" v-if="pageState !== 'booting'">
         账户余额<span>￥{{wallet}}</span>
     </div>
+
+    <!-- 余额不足模态框 -->
+    <div class="insufficient-modal flex-center" v-if="isuInsufficientShow">
+        <div class="insufficient-modal-shade"></div>
+        <div class="insufficient-modal-main">
+
+            <!-- 主要内容 -->
+            <div class="modal-main-content">
+                <div class="main-content-icon">
+                    <svg width="36" height="36" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="快速充电二期" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="启动充电-余额不足" transform="translate(-340.000000, -528.000000)"><g id="Alert" transform="translate(0.000000, 128.000000)"><g id="Group" transform="translate(105.000000, 360.000000)"><g id="face" transform="translate(235.000000, 40.000000)"><circle id="Oval-3" fill="#FFEFDE" cx="36" cy="36" r="35"></circle>
+                        <path d="M36,72 C16.117749,72 0,55.882251 0,36 C0,16.117749 16.117749,0 36,0 C55.882251,0 72,16.117749 72,36 C72,55.882251 55.882251,72 36,72 Z M36,70 C54.7776815,70 70,54.7776815 70,36 C70,17.2223185 54.7776815,2 36,2 C17.2223185,2 2,17.2223185 2,36 C2,54.7776815 17.2223185,70 36,70 Z M20.1120126,54.0189837 C20.2860708,53.8610316 20.4422394,53.7240294 20.5805184,53.6079771 C24.751018,50.107834 30.1293535,48 36,48 C41.8805745,48 47.2671716,50.1149693 51.4406298,53.6257466 C51.5296204,53.7006069 51.6268478,53.7848622 51.732312,53.8785125 L51.7323454,53.8784749 C52.5197649,54.577689 52.5912695,55.7828437 51.8920554,56.5702632 C51.8587677,56.6077501 51.8240145,56.6439096 51.7878768,56.6786574 L51.7120598,56.7515545 C50.9621173,57.4726531 49.7845757,57.4983634 49.0038741,56.8106848 C48.8542865,56.6789211 48.7195837,56.5643834 48.5997656,56.4670717 C45.1606167,53.6739271 40.7757916,52 36,52 C31.2418296,52 26.871746,53.6615973 23.4383413,56.4361999 C23.271239,56.5712386 23.0785178,56.7369095 22.8601776,56.9332128 C22.080695,57.6340285 20.8923731,57.6141275 20.1367915,56.8876067 L20.0715216,56.8248473 C19.3071549,56.0898792 19.2833225,54.8744282 20.0182905,54.1100614 C20.0484925,54.0786513 20.0797549,54.0482786 20.1120236,54.0189958 L20.1120126,54.0189837 Z M22,34 C18.6862915,34 16,31.3137085 16,28 C16,24.6862915 18.6862915,22 22,22 C25.3137085,22 28,24.6862915 28,28 C28,31.3137085 25.3137085,34 22,34 Z M50,34 C46.6862915,34 44,31.3137085 44,28 C44,24.6862915 46.6862915,22 50,22 C53.3137085,22 56,24.6862915 56,28 C56,31.3137085 53.3137085,34 50,34 Z" id="Oval" fill="#FF8D18" fill-rule="nonzero"></path></g></g></g></g></g>
+                    </svg>
+                </div>
+                <div class="main-content-describe">账户余额不足20元，无法启动充电，请充值</div>
+                <div class="main-content-wallet flex-center">
+                    <div class="content-wallet-main">账户余额:<span>￥{{wallet}}</span></div>
+                </div>
+                <div class="main-content-bottom">立即充值</div>
+            </div>
+
+            <!-- 关闭按钮 -->
+            <div class="modal-main-close">
+                <svg width="25px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="快速充电二期" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="启动充电-余额不足" transform="translate(-351.000000, -933.000000)"><g id="Alert" transform="translate(0.000000, 128.000000)"><g id="icon_close" transform="translate(351.000000, 805.000000)"><circle id="Oval-4" fill="#000000" opacity="0.25" cx="24" cy="24" r="23"></circle>
+                    <path d="M24,22.5857864 L32.2928932,14.2928932 C32.6834175,13.9023689 33.3165825,13.9023689 33.7071068,14.2928932 C34.0976311,14.6834175 34.0976311,15.3165825 33.7071068,15.7071068 L25.4142136,24 L33.7071068,32.2928932 C34.0976311,32.6834175 34.0976311,33.3165825 33.7071068,33.7071068 C33.3165825,34.0976311 32.6834175,34.0976311 32.2928932,33.7071068 L24,25.4142136 L15.7071068,33.7071068 C15.3165825,34.0976311 14.6834175,34.0976311 14.2928932,33.7071068 C13.9023689,33.3165825 13.9023689,32.6834175 14.2928932,32.2928932 L22.5857864,24 L14.2928932,15.7071068 C13.9023689,15.3165825 13.9023689,14.6834175 14.2928932,14.2928932 C14.6834175,13.9023689 15.3165825,13.9023689 15.7071068,14.2928932 L24,22.5857864 Z M24,48 C10.745166,48 0,37.254834 0,24 C0,10.745166 10.745166,0 24,0 C37.254834,0 48,10.745166 48,24 C48,37.254834 37.254834,48 24,48 Z M24,46 C36.1502645,46 46,36.1502645 46,24 C46,11.8497355 36.1502645,2 24,2 C11.8497355,2 2,11.8497355 2,24 C2,36.1502645 11.8497355,46 24,46 Z" fill="#BBBBBB"></path></g></g></g></g>
+                </svg>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -90,6 +118,8 @@ export default {
             GunName: '1号枪', // 充电枪名
 
             wallet: '8.00', // 账户余额
+
+            isuInsufficientShow: false, // 余额不足模态框
         }
     },
 
@@ -239,6 +269,88 @@ export default {
     span {
         padding-left: 10px;
         color: #E50012;
+    }
+}
+
+@insufficient-modal-z-index: 2;
+@insufficient-modal-shade-z-index: 3;
+@insufficient-modal-main-z-index: 4;
+// 余额不足模态框
+.insufficient-modal {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: @insufficient-modal-z-index;
+
+    // 遮罩层
+    .insufficient-modal-shade {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.46);
+        z-index: @insufficient-modal-shade-z-index;
+    }
+
+    // 主要 框架部分
+    .insufficient-modal-main {
+        position: relative;
+        width: 270px;
+        z-index: @insufficient-modal-main-z-index;
+
+        .modal-main-content {
+            border-radius: 10px;
+            min-height: 110px;
+            width: 270px;
+            background-color: #fff;
+        }
+
+        .modal-main-close {
+            padding-top: 15px;
+            text-align: center;
+        }
+    }
+
+    // 顶部头像部分
+    .main-content-icon {
+        padding-top: 15px;
+        text-align: center;
+    }
+
+    // 文字
+    .main-content-describe {
+        padding: 15px 35px 15px 35px;
+        font-size: 14px;
+        color: @black2;
+        text-align: center;
+    }
+
+    // 钱包
+    .main-content-wallet {
+        padding-bottom: 15px;
+        font-size: 14px;
+
+        .content-wallet-main {
+            padding: 0px 15px;
+            height: 35px;
+            font-weight: 400;
+            line-height: 35px;
+            border-radius: 4px;
+            color: @black1;
+            background: #f0f0f0;
+        }
+    }
+
+    // 底部按钮
+    .main-content-bottom {
+        height: 45px;
+        font-size: 14px;
+        line-height: 45px;
+        border-top: 1px solid #ddd;
+        text-align: center;
     }
 }
 

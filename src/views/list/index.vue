@@ -285,7 +285,7 @@ export default {
                     list: [
                         {
                             name: '有空闲',
-                            isSelected: true, // 是否选中
+                            isSelected: false, // 是否选中
                         }, {
                             name: '全时段开放',
                             isSelected: false, // 是否选中
