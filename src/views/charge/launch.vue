@@ -23,10 +23,10 @@
                     </svg>
                 </div>
                 
-                <div class="central-title">{{StationName}}</div>
+                <div class="central-title">{{stationName}}</div>
                 
                 <div class="central-lable flex-center">
-                    {{GunName}}
+                    {{gunName}}
                     <span v-if="pageState === 'leisure' || pageState === 'notfree' || pageState === 'offline'"  :style="'color: ' + pageStateColor">{{pageStateName}}</span>
                 </div>
             </div>
@@ -113,9 +113,9 @@ export default {
              */
             pageState: 'leisure',
 
-            StationName: '深圳信挚工业一期充电站', // 充电站名称
+            stationName: '深圳信挚工业一期充电站', // 充电站名称
             
-            GunName: '1号枪', // 充电枪名
+            gunName: '1号枪', // 充电枪名
 
             wallet: '8.00', // 账户余额
 

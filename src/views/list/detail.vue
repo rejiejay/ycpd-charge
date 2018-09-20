@@ -127,7 +127,7 @@
 
                                 <!-- 标题 标签 -->
                                 <div class="charging-item-other flex-rest">
-                                    <div class="item-other-title">{{key + 1}}号枪</div>
+                                    <div class="item-other-title">{{item.gunName}}枪</div>
                                     <div class="item-other-tag flex-start-center">
                                         <div class="tag-item-left">{{rendertagName(item.state)}}</div>
                                         <div>{{item.isDirectCurrent ? '直流' : '交流'}}</div>
@@ -216,15 +216,19 @@ export default {
             
             chargingList: [
                 // {
+                //     gunName: '快充5号-P1', // 枪名称
                 //     isDirectCurrent: true, // 是否直流设备
                 //     state: 'leisure', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
                 // }, {
+                //     gunName: '快充5号-P1', // 枪名称
                 //     isDirectCurrent: true, // 是否直流设备
                 //     state: 'offline', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
                 // }, {
+                //     gunName: '快充5号-P1', // 枪名称
                 //     isDirectCurrent: false, // 是否直流设备
                 //     state: 'insert', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
                 // }, {
+                //     gunName: '快充5号-P1', // 枪名称
                 //     isDirectCurrent: false, // 是否直流设备
                 //     state: 'pull', // leisure 空闲 offline 离线 insert 待插枪 pull 待拨枪
                 // }, 
@@ -334,6 +338,7 @@ export default {
                             }
 
                             return {
+                                gunName: value.Name,
                                 isDirectCurrent: isDirectCurrent,
                                 state: state,
                             }
@@ -688,8 +693,11 @@ export default {
                         // 标题部分
                         .item-other-title {
                             color: @black1;
-                            font-size: 16px;
+                            font-size: 14px;
                             padding-bottom: 7.5px;
+                            overflow: hidden;  
+                            text-overflow: ellipsis;  
+                            white-space: nowrap; 
                         }
 
                         // 标签页
