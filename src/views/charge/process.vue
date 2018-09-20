@@ -46,6 +46,15 @@
         </div>
     </div>
 
+    <!-- 提示信息 -->
+    <div class="tip flex-column-center">
+    <div class="tip-describe" v-if="pageState === 'connectFailed'">充电桩通信延迟，这不影响您正常充电</div>
+    <div class="tip-describe" v-if="pageState === 'connectFailed'">结束充电后您即可离场，订单信息稍后将推送给您</div>
+    <div class="tip-describe" v-if="pageState === 'finished'">停止充电通信失败...请联系场站管理人员处理</div>
+    <div class="tip-describe" v-if="pageState === 'finished'">订单信息稍后将推送给您</div>
+        
+    </div>
+
 </div>
 </template>
 
@@ -216,7 +225,6 @@ export default {
 
 // 描述
 .describe {
-    padding-bottom: 25px;
     font-size: 14px;
     color: @black1;
 
@@ -227,6 +235,17 @@ export default {
     span {
         padding-right: 5px;
         color: @black3;
+    }
+}
+
+// 提示信息
+.tip {
+    padding-top: 15px;
+    font-size: 12px;
+    color: #FF8D18;
+
+    .tip-describe {
+        padding-bottom: 2.5px;
     }
 }
 
