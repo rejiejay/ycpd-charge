@@ -27,6 +27,25 @@
             </div>
         </div>
     </div>
+
+    <!-- 描述 -->
+    <div class="describe flex-center">
+        <div class="describe-content">
+            <div class="describe-accomplish">
+                <span>充满时间:</span>
+                {{accomplishTime}}分钟
+            </div>
+            <div class="describe-electricityFee">
+                <span>费&emsp;&emsp;用:</span>
+                {{electricityFee}}元
+            </div>
+            <div class="describe-power">
+                <span>电&emsp;&emsp;量:</span>
+                {{electricityPower}}度
+            </div>
+        </div>
+    </div>
+
 </div>
 </template>
 
@@ -65,6 +84,10 @@ export default {
             chargingPercentage: 74, // 充电百分比
 
             chargingTimestamp: 0, // 充电时间戳
+
+            accomplishTime: '90', // 充满时间(分钟)
+
+            electricityPower: '55', // 电量(度)
         }
     },
 
@@ -189,6 +212,22 @@ export default {
         }
     }
 
+}
+
+// 描述
+.describe {
+    padding-bottom: 25px;
+    font-size: 14px;
+    color: @black1;
+
+    .describe-content > div {
+        padding: 3.5px 0px;
+    }
+
+    span {
+        padding-right: 5px;
+        color: @black3;
+    }
 }
 
 </style>
