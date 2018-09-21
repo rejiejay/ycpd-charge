@@ -171,6 +171,11 @@ export default {
 @black3: #909399;
 @black4: #C0C4CC;
 
+// 余额不足模态框
+@insufficient-modal-z-index: 2;
+@insufficient-modal-shade-z-index: 3;
+@insufficient-modal-main-z-index: 4;
+
 .launch {
     width: 100%;
     min-height: 100%;
@@ -272,9 +277,6 @@ export default {
     }
 }
 
-@insufficient-modal-z-index: 2;
-@insufficient-modal-shade-z-index: 3;
-@insufficient-modal-main-z-index: 4;
 // 余额不足模态框
 .insufficient-modal {
     position: fixed;
