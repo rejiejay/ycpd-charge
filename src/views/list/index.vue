@@ -347,7 +347,7 @@ export default {
     },
 
     mounted: function () {
-        this.sidebarGroup = this.sidebardefault.concat();
+        this.sidebarGroup = JSON.parse(JSON.stringify(this.sidebardefault));
         this.getLocation(); // 初始化位置信息
 
 		window.addEventListener('scroll', this.scrollBottom); // 添加滚动事件，检测滚动到页面底部
@@ -606,7 +606,7 @@ export default {
          * 侧边栏 - 点击重置
          */
         sidebarReset: function() {
-            this.sidebarGroup = this.sidebardefault.concat(); // 重置渲染数据
+            this.sidebarGroup = JSON.parse(JSON.stringify(this.sidebardefault)); // 重置渲染数据
             this.filterSelect = 'distance'; // 排序筛选栏 设置为 距离排序
             this.getStationList({
                 longitude: this.longitude, // 使用页面初始化缓存的 经度 信息

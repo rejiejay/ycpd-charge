@@ -288,7 +288,11 @@ export default {
                     _this.stationName = val.StationName; // 门店名称
                     _this.address = val.Address; // 门店地址
                     _this.distance = query.distance; // 上个页面传值过来的距离
-                    _this.tags = query.tags; // 上个页面传值过来的 tags 标签
+                    if (query.tags instanceof Array) {// 上个页面传值过来的 tags 标签是数组
+                        _this.tags = query.tags; 
+                    } else { // 字符串的情况
+                        _this.tags = [query.tags];
+                    }
                    
                     // 充电桩是否空闲
                     _this.isSpare = query.isSpare;
@@ -317,7 +321,7 @@ export default {
                              */
                             let state = 'offline'; // 默认离线
 
-                            if (value.Power == 60) { // 快充
+                            if (value.ConnectorType === '4') { // 直流设备
                                 isDirectCurrent = true; // 快充设备 - 直流设备
                                 
                             } else { // 表示慢充
@@ -384,6 +388,7 @@ export default {
          */
         jumpToMap: function () {
             let query = {
+                stationName: this.stationName, // 充电桩的名称
                 longitude: this.longitude, // 经度
                 latitude: this.latitude, // 纬度
             }

@@ -3,7 +3,7 @@
   -->
 <template>
     <div class="panoramic-map">
-        <mt-header title="车商名称">
+        <mt-header :title="stationName">
             <div @click="goBack" slot="left">
                 <span class="mint-button-icon"><i class="mintui mintui-back"></i></span>
             </div>
@@ -29,10 +29,13 @@ export default {
     data () {
         return {
             clientHeight: document.body.offsetHeight || document.documentElement.clientHeight || window.innerHeight, // 设备的宽度
+            
+            stationName: '充电桩名称',
         }
     },
 
     mounted() {
+        this.stationName = this.$route.query.stationName; // 初始化车商名称
         this.initBaiduPanorama();
     },
 
