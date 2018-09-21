@@ -1,6 +1,6 @@
-<!-- 启动充电 -->
+<!-- 充电订单详情 -->
 <template>
-<div class="finished" id="finished">
+<div class="order-result" id="order-result">
 
 </div>
 </template>
@@ -8,7 +8,7 @@
 <script>
 
 export default {
-    name: 'finished',
+    name: 'order-result',
 
     data () {
         return {
@@ -30,7 +30,7 @@ export default {
 @black3: #909399;
 @black4: #C0C4CC;
 
-.finished {
+.order-result {
     width: 100%;
     min-height: 100%;
     background: #f5f5f5;

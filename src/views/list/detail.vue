@@ -129,7 +129,7 @@
                                 <div class="charging-item-other flex-rest">
                                     <div class="item-other-title">{{item.gunName}}枪</div>
                                     <div class="item-other-tag flex-start-center">
-                                        <div class="tag-item-left">{{rendertagName(item.state)}}</div>
+                                        <div class="tag-item-left">{{item.tagName}}</div>
                                         <div>{{item.isDirectCurrent ? '直流' : '交流'}}</div>
                                     </div>
                                 </div>
@@ -329,22 +329,45 @@ export default {
                             }
 
                             // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
-                            if (value.Status === 1) {
+                            if (value.Status === 0) {
+                                state = 'offline';
+                            } else if (value.Status === 1) {
                                 state = 'leisure';
                             } else if (value.Status === 2) {
                                 state = 'insert';
                             } else if (value.Status === 3) {
-                                state = 'insert';
-                            } else if (value.Status === 4) {
                                 state = 'pull';
+                            } else if (value.Status === 4) {
+                                state = 'insert';
                             } else {
                                 state = 'offline';
+                            }
+
+                            /**
+                             * 设备标签名称 tagName
+                             */
+                            let tagName = '故障'; // 默认故障
+                        
+                            // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
+                            if (value.Status === 0) {
+                                tagName = '离网';
+                            } else if (value.Status === 1) {
+                                tagName = '空闲';
+                            } else if (value.Status === 2) {
+                                tagName = '未充电';
+                            } else if (value.Status === 3) {
+                                tagName = '充电中';
+                            } else if (value.Status === 4) {
+                                tagName = '预约锁定';
+                            } else {
+                                tagName = '故障';
                             }
 
                             return {
                                 gunName: value.Name,
                                 isDirectCurrent: isDirectCurrent,
                                 state: state,
+                                tagName: tagName,
                             }
                         });
                     }
@@ -726,7 +749,7 @@ export default {
                     }
                 }
 
-                // 空闲部分
+                // 空闲 - 1 - 绿色
                 .charging-item-leisure {
                     .item-icon-content {
                         background-color: #e4ffe5;
@@ -741,7 +764,7 @@ export default {
                     }
                 }
 
-                // 离线部分
+                // 离线 - 0 - 灰色
                 .charging-item-offline {
                     .item-icon-content {
                         background-color: #eeeeee;
@@ -761,7 +784,7 @@ export default {
                     }
                 } 
 
-                // 待插枪
+                // 待插枪 - 2 - 4 - 未充电 - 预约锁定
                 .charging-item-insert {
                     .item-icon-content {
                         background-color: #e1ecff;
@@ -781,7 +804,7 @@ export default {
                     }
                 } 
 
-                // 待拨枪
+                // 待拨枪 - 3 充电中
                 .charging-item-pull {
                     .item-icon-content {
                         background-color: #fff2e3;

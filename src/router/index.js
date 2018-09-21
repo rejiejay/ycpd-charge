@@ -31,11 +31,24 @@ const routes = [
         name: 'launch',
         component: () => import('@/views/charge/launch'),
         meta: { title: '启动充电' },
-    },{
+    }, {
         path: '/process/:pageState',
         name: 'process',
         component: () => import('@/views/charge/process'),
         meta: { title: '启动充电' },
+    },
+
+    // 充电记录
+    {
+        path: '/order/list',
+        name: 'launch',
+        component: () => import('@/views/order/list'),
+        meta: { title: '充电记录' },
+    }, {
+        path: '/order/detail/:id',
+        name: 'order-result',
+        component: () => import('@/views/order/detail'),
+        meta: { title: '充电详情' },
     },
 ];
 
