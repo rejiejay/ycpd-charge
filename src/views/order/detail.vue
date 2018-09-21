@@ -1,6 +1,7 @@
 <!-- 充电订单详情 -->
 <template>
 <div class="order-result" id="order-result">
+    <!-- 主要部分 -->
     <div class="order-result-main">
         <div class="result-main-content flex-column-center">
             <div class="main-content-title">订单完成</div>
@@ -41,6 +42,30 @@
         </div>
     </div>
 
+    <!-- 订单信息 -->
+    <div class="order-result-infor">
+        <div class="result-infor-content">
+            <div class="infor-content-item flex-start-center">
+                <div class="content-item-label">订&nbsp;&nbsp;单&nbsp;&nbsp;号:</div>
+                <div class="content-item-main">3123124134354353</div>
+            </div>
+            <div class="infor-content-line"></div>
+            <div class="infor-content-item flex-start-center">
+                <div class="content-item-label">订&nbsp;&nbsp;单&nbsp;&nbsp;号:</div>
+                <div class="content-item-main">深圳信挚工业一期充电站 1号桩B口</div>
+            </div>
+            <div class="infor-content-line"></div>
+            <div class="infor-content-item flex-start-center">
+                <div class="content-item-label">充电时间:</div>
+                <div class="content-item-main">2018-09-05 11:21:12</div>
+            </div>
+            <div class="infor-content-line"></div>
+            <div class="infor-content-item flex-start-center">
+                <div class="content-item-label">支付方式:</div>
+                <div class="content-item-main">账户余额扣款</div>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -158,6 +183,37 @@ export default {
             font-size: 12px;
             color: @black3;
         }
+    }
+}
+
+// 订单信息
+.order-result-infor {
+    font-size: 14px;
+
+    // 框架部分
+    .result-infor-content {
+        background: #fff;
+        padding-left: 15px;
+    }
+
+    .infor-content-item {
+        height: 45px;
+        line-height: 45px;
+    }
+
+    .infor-content-line {
+        width: 100%;
+        height: 1px;
+        background: #ddd;
+    }
+
+    .content-item-label {
+        color: @black3;
+        padding-right: 10px;
+    }
+
+    .content-item-main {
+        color: @black1;
     }
 }
 
