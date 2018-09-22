@@ -6,12 +6,7 @@
 
     <!-- 详情预览图 全景地图 -->
     <div class="detail-panoramic-map">
-        <mt-swipe :auto="4000">
-            <mt-swipe-item 
-                v-for="(item, key) in swiperList" 
-                :key="key"
-            ><img :src="item" alt="详情预览图" /></mt-swipe-item>
-        </mt-swipe>
+        <div class="baidumap" id="allmap"></div>
         <div class="panoramic-map-btn" 
             @click="jumpToMap"
         >全景地图</div>
@@ -155,6 +150,7 @@
                         </div>
 
                         <div class="tab-details-row details-row-describe flex-start-center"
+                            :class="{'details-row-marking': item.isNowTime}"
                             v-for="(item, key) in chargingDetails" 
                             :key="key"
                         >
@@ -176,6 +172,7 @@
 import Vue from 'vue';
 import ajaxs from '@/api/list/index';
 import config from '@/config/index';
+import TimeConver from '@/utils/TimeConver';
 import { Indicator, MessageBox, Swipe, SwipeItem } from 'mint-ui';
 
 Vue.component('mt-swipe', Swipe);
@@ -374,27 +371,41 @@ export default {
 
                     // 计费详情
                     if (val.policyinfo_data && val.policyinfo_data.length > 0) {
+                        let nowHoursMinuteStamp = TimeConver.getHoursMinuteStamp();
                         let myChargingDetails = [];
+
                         for (let i = 0; i < val.policyinfo_data.length; i++) {
-                            // 最后一个的情况下
-                            if (i === (val.policyinfo_data.length - 1)) {
-                                myChargingDetails.push({
-                                    time: `${val.policyinfo_data[i].StartTime} - 24:00`, // 时间段
-                                    fees: val.policyinfo_data[i].ElecPrice, // 充电费
-                                    service: val.policyinfo_data[i].SevicePrice, // 服务费
-                                });
-                            } else {
-                                myChargingDetails.push({
-                                    time: `${val.policyinfo_data[i].StartTime} - ${val.policyinfo_data[(i + 1)].StartTime}`, // 时间段
-                                    fees: val.policyinfo_data[i].ElecPrice, // 充电费
-                                    service: val.policyinfo_data[i].SevicePrice, // 服务费
-                                });
+                            let isNowTime = false;
+                            // 是否处于当前时间段
+                            if (
+                                nowHoursMinuteStamp > TimeConver.dateToYYYYmmDDhhMMss(val.policyinfo_data[i].StartTime) && 
+                                nowHoursMinuteStamp < TimeConver.dateToYYYYmmDDhhMMss(val.policyinfo_data[(i + 1)].StartTime)
+                            ) {
+                                isNowTime = true;
                             }
+
+                            // 时间段
+                            let timeSpan = '';
+                            if (i === (val.policyinfo_data.length - 1)) {
+                                timeSpan = `${val.policyinfo_data[i].StartTime} - 24:00`;
+                            } else {
+                                timeSpan = `${val.policyinfo_data[i].StartTime} - ${val.policyinfo_data[(i + 1)].StartTime}`;
+                            }
+
+                            myChargingDetails.push({
+                                isNowTime: isNowTime, // 是否处于当前时间段
+                                time: timeSpan, // 时间段
+                                fees: val.policyinfo_data[i].ElecPrice.toFixed(2), // 充电费
+                                service: val.policyinfo_data[i].SevicePrice.toFixed(2), // 服务费
+                            });
                         }
                         
                         _this.chargingDetails = myChargingDetails;
-
                     }
+
+                    // 初始化百度地图
+                    _this.initBaiduMap(); // 初始化百度地图
+
                 }, error => {
                     Indicator.close();
                     MessageBox.confirm('获取充电桩详情, 是否重新获取?')
@@ -404,6 +415,17 @@ export default {
                 }
             )
 
+        },
+        
+        /**
+         * 初始化百度地图
+         */
+        initBaiduMap: function () {
+            var map = new BMap.Map('allmap')
+            var point = new BMap.Point(this.longitude,this.latitude)
+            map.centerAndZoom(point, 16)
+            var marker = new BMap.Marker(point)  // 创建标注
+            map.addOverlay(marker)              // 将标注添加到地图中
         },
 
         /**
@@ -462,6 +484,10 @@ export default {
         height: 100%;
     }
 
+    .baidumap {
+        width: 100%;
+        height: 150px;
+    }
 
     .panoramic-map-btn {
         position: absolute;
@@ -853,7 +879,6 @@ export default {
 
             .tab-details-describe {
                 font-size: 12px;
-                padding-bottom: 15px;
             }
 
             // 复用部分
@@ -880,6 +905,10 @@ export default {
             .details-row-describe {
                 color: @black2;
                 padding-bottom: 5px;
+            }
+
+            .details-row-marking {
+                color: #5594FF;
             }
         }
     }

@@ -51,7 +51,7 @@ var wxLocation = {
 
         return new Promise(function (resolve, reject) {
             $.ajax({
-                url: config.url.getWxConfig + '?action=WxConfig&url=' + window.encodeURIComponent(window.location.href),
+                url: config.url.getWxConfig + '?action=WxConfig&url=' + (window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) ? encodeURIComponent(window.location.href.split('#')[0]) : encodeURIComponent(window.location.href)),
                 type: "get",
                 success: function success(wxConfig) {
                     resolve(wxConfig);

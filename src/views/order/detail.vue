@@ -48,6 +48,11 @@
             <div class="infor-content-item flex-start-center">
                 <div class="content-item-label">订&nbsp;&nbsp;单&nbsp;&nbsp;号:</div>
                 <div class="content-item-main">3123124134354353</div>
+                <div class="content-item-icon">
+                    <svg width="16" height="16" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="快速充电二期" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="结束充电" transform="translate(-463.000000, -773.000000)" fill="#5594FF" fill-rule="nonzero"><g id="list" transform="translate(0.000000, 743.000000)"><g id="copy" transform="translate(463.000000, 30.000000)">
+                        <path d="M6,2 L6,0 L26,0 L26,24 L24,24 L24,2 L6,2 Z M2,4 L22,4 L22,28 L2,28 L2,4 Z M4,6 L4,26 L20,26 L20,6 L4,6 Z M6,10 L14,10 L14,12 L6,12 L6,10 Z M6,16 L18,16 L18,18 L6,18 L6,16 Z" id="icon_copy"></path></g></g></g></g>
+                    </svg>
+                </div>
             </div>
             <div class="infor-content-line"></div>
             <div class="infor-content-item flex-start-center">
@@ -214,6 +219,12 @@ export default {
 
     .content-item-main {
         color: @black1;
+    }
+
+    .content-item-icon {
+        position: relative;
+        top: 2.5px;
+        padding-left: 5px;
     }
 }
 

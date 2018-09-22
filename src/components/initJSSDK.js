@@ -15,7 +15,7 @@ if ( // 测试环境
 function getWxConfig() {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `${config.getWxConfig}?action=WxConfig&url=${encodeURIComponent(window.location.href)}`,
+            url: `${config.getWxConfig}?action=WxConfig&url=${window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) ? encodeURIComponent(window.location.href.split('#')[0]) : encodeURIComponent(window.location.href)}`,
             type: "get",
             success(wxConfig) {
                 resolve(wxConfig)
