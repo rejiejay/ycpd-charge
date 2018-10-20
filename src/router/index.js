@@ -36,6 +36,11 @@ const routes = [
         name: 'process',
         component: () => import('@/views/charge/process'),
         meta: { title: '启动充电' },
+    }, {
+        path: '/pay',
+        name: 'pay-select',
+        component: () => import('@/views/charge/pay'),
+        meta: { title: '启动充电' },
     },
 
     // 充电记录
