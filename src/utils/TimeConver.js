@@ -21,8 +21,7 @@ export default {
      * @param {Date} myDate 要转换的日期
      * @return {string} 日期字符串 20180102
      */
-    dateToYYYYmmNumber: function dateToYYYYmmNumber(myDate) {
-
+    dateToYYYYmmNumber: myDate => {
         let yyyy = myDate.getFullYear();
 
         let mm = myDate.getMonth() + 1;
@@ -104,29 +103,26 @@ export default {
     },
 
     /**
-     * xx:xx 转换 时间戳
-     * @param {Date} HoursMinutes 要转换的日期
-     * @return {Number} 时间戳 1231
+     * xxxx-xx-xx xx:xx:xx 字符串 转换 为时间戳
+     * @param {string} YYYYmmDDhhMMss xxxx-xx-xx xx:xx:xx 字符串
+     * @return {number} 为时间戳 1539051630549
      */
-    dateToYYYYmmDDhhMMss: HoursMinutes => {
-        let splitHoursMinutes = HoursMinutes.split(':');
-
-        let HourStamp = parseInt(splitHoursMinutes[0]) * 1000 * 60 * 60;
-        let MinuteStamp = parseInt(splitHoursMinutes[1]) * 1000 * 60;
-
-        return HourStamp + MinuteStamp;
+    YYYYmmDDhhMMssToTimestamp: YYYYmmDDhhMMss => {
+        let YDArray = YYYYmmDDhhMMss.split(' ');
+        let YYYYmmDDarray = YDArray[0].split('-');
+        let hhMMssArray = YDArray[1].split(':');
+        return new Date(YYYYmmDDarray[0], (YYYYmmDDarray[1] - 1), YYYYmmDDarray[2], hhMMssArray[0], hhMMssArray[1], hhMMssArray[2]).getTime();
     },
 
     /**
-     * 获取当前 小时与分钟 的时间戳
-     * @return {Number} 时间戳 1231
+     * xxxx-xx-xx字符串 转换 为时间戳
+     * @param {string} YYYYmmDD xxxx-xx-xx xx:xx:xx 字符串
+     * @return {number} 为时间戳 1539051630549
      */
-    getHoursMinuteStamp: () => {
-        let nowDate = new Date();
-
-        let HourStamp = nowDate.getHours() * 1000 * 60 * 60;
-        let MinuteStamp = nowDate.getMinutes() * 1000 * 60;
+    YYYYmmDDToTimestamp: YYYYmmDD => {
+        let YDArray = YYYYmmDD.split(' ');
+        let YYYYmmDDarray = YDArray[0].split('-');
         
-        return HourStamp + MinuteStamp;
+        return new Date(YYYYmmDDarray[0], (YYYYmmDDarray[1] - 1), YYYYmmDDarray[2]).getTime();
     },
 }

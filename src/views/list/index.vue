@@ -251,8 +251,7 @@
 
 import ajaxs from '@/api/list/index';
 import initLocation from '@/components/initLocation';
-import { Indicator } from 'mint-ui';
-import { MessageBox } from 'mint-ui';
+import { Indicator, MessageBox } from 'mint-ui';
 
 export default {
     name: 'list',
