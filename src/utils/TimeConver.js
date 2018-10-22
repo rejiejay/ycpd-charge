@@ -125,4 +125,31 @@ export default {
         
         return new Date(YYYYmmDDarray[0], (YYYYmmDDarray[1] - 1), YYYYmmDDarray[2]).getTime();
     },
+
+    /**
+     * xx:xx 转换 时间戳
+     * @param {Date} HoursMinutes 要转换的日期
+     * @return {Number} 时间戳 1231
+     */
+    dateToYYYYmmDDhhMMssTimestamp: HoursMinutes => {
+        let splitHoursMinutes = HoursMinutes.split(':');
+
+        let HourStamp = parseInt(splitHoursMinutes[0]) * 1000 * 60 * 60;
+        let MinuteStamp = parseInt(splitHoursMinutes[1]) * 1000 * 60;
+
+        return HourStamp + MinuteStamp;
+    },
+
+    /**
+     * 获取当前 小时与分钟 的时间戳
+     * @return {Number} 时间戳 1231
+     */
+    getHoursMinuteStamp: () => {
+        let nowDate = new Date();
+
+        let HourStamp = nowDate.getHours() * 1000 * 60 * 60;
+        let MinuteStamp = nowDate.getMinutes() * 1000 * 60;
+        
+        return HourStamp + MinuteStamp;
+    },
 }

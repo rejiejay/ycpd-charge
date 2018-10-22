@@ -85,7 +85,19 @@ export default {
             ajaxs.WxPay(this.out_trade_no)
             .then(
                 res => {
-                    window.location.href = `http://picc.hotgz.com/WxPay.aspx?project=${res.project}&out_trade_no=${res.out_trade_no}&total_fee=${res.total_fee}&body=${window.encodeURIComponent('充电预付款')}&attach=${window.encodeURIComponent('充电预付款')}&returnurl=${window.encodeURIComponent(window.localStorage.ycpd_charge_returnurl)}&notifyurl=${window.encodeURIComponent(res.notifyurl)}&sign=${res.sign}`;
+                    let myTotal_fee = amount;
+                    // 判断是否小于1，因为因为小于1就有小数点
+                    if (res.total_fee < 1) {
+                        myTotal_fee = res.total_fee;
+                    } else {
+                        if (/.*\..*/.test(res.total_fee)) {
+                            myTotal_fee = res.total_fee;
+                        } else {
+                            myTotal_fee = `${res.total_fee}.0`;
+                        }
+                    }
+
+                    window.location.href = `http://picc.hotgz.com/WxPay.aspx?project=${res.project}&out_trade_no=${res.out_trade_no}&total_fee=${myTotal_fee}&body=${window.encodeURIComponent('充电预付款')}&attach=${window.encodeURIComponent('充电预付款')}&returnurl=${window.encodeURIComponent(window.localStorage.ycpd_charge_returnurl)}&notifyurl=${window.encodeURIComponent(res.notifyurl)}&sign=${res.sign}`;
                 }, error => {
                     alert(error);
                 }

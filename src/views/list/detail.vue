@@ -399,13 +399,17 @@ export default {
                         let myChargingDetails = [];
 
                         for (let i = 0; i < val.policyinfo_data.length; i++) {
+                            /**
+                             * 是否处于当前时间段
+                             */
                             let isNowTime = false;
-                            // 是否处于当前时间段
-                            if (
-                                nowHoursMinuteStamp > TimeConver.dateToYYYYmmDDhhMMss(val.policyinfo_data[i].StartTime) && 
-                                nowHoursMinuteStamp < TimeConver.dateToYYYYmmDDhhMMss(val.policyinfo_data[(i + 1)].StartTime)
-                            ) {
-                                isNowTime = true;
+                            if (val.policyinfo_data[(i + 1)] && val.policyinfo_data[(i + 1)].StartTime) { // 先判断有没有下一位
+                                if (
+                                    nowHoursMinuteStamp > TimeConver.dateToYYYYmmDDhhMMssTimestamp(val.policyinfo_data[i].StartTime) && 
+                                    nowHoursMinuteStamp < TimeConver.dateToYYYYmmDDhhMMssTimestamp(val.policyinfo_data[(i + 1)].StartTime)
+                                ) {
+                                    isNowTime = true;
+                                }
                             }
 
                             // 时间段

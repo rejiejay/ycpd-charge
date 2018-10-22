@@ -162,6 +162,11 @@ export default {
     },
 
     methods: {
+        /**
+         * 启动充电
+         */
+        startCharging: function startCharging() {
+        },
 
         /**
          * 跳转到路由
