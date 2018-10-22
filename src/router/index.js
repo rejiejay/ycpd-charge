@@ -46,7 +46,7 @@ const routes = [
     // 充电记录
     {
         path: '/order/list',
-        name: 'launch',
+        name: 'order-list',
         component: () => import('@/views/order/list'),
         meta: { title: '充电记录' },
     }, {

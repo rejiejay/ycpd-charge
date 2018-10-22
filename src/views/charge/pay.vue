@@ -36,7 +36,7 @@
     
     <!-- 立即充值 -->
     <div class="pay-submit">
-        <div class="pay-submit-content">立即充值</div>
+        <div class="pay-submit-content" @click="paySubmit">立即充值</div>
     </div>
     
     <!-- 提示信息 -->
@@ -49,6 +49,9 @@
 </template>
 
 <script>
+
+// 请求类
+import ajaxs from "@/api/charge/pay";
 
 export default {
     name: 'pay-select',
@@ -73,6 +76,20 @@ export default {
          */
         selectedAmount: function selectedAmount(amount) {
             this.out_trade_no = amount;
+        },
+
+        /**
+         * 立即充值
+         */
+        paySubmit: function paySubmit(amount) {
+            ajaxs.WxPay(this.out_trade_no)
+            .then(
+                res => {
+                    window.location.href = `http://picc.hotgz.com/WxPay.aspx?project=${res.project}&out_trade_no=${res.out_trade_no}&total_fee=${res.total_fee}&body=${window.encodeURIComponent('充电预付款')}&attach=${window.encodeURIComponent('充电预付款')}&returnurl=${window.encodeURIComponent(window.localStorage.ycpd_charge_returnurl)}&notifyurl=${window.encodeURIComponent(res.notifyurl)}&sign=${res.sign}`;
+                }, error => {
+                    alert(error);
+                }
+            )
         },
     },
 }

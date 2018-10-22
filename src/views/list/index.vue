@@ -346,6 +346,7 @@ export default {
     },
 
     mounted: function () {
+        this.saveRouteQuery(); // 存储页面顶部数据
         this.sidebarGroup = JSON.parse(JSON.stringify(this.sidebardefault));
         this.getLocation(); // 初始化位置信息
 
@@ -357,6 +358,20 @@ export default {
     },
 
     methods: {
+        /**
+         * 存储页面顶部数据
+         */
+        saveRouteQuery: function saveRouteQuery() {
+            // 判断参数是否携带进来，否则报错
+            if (this.$route.query && this.$route.query.openid && this.$route.query.CarNo && this.$route.query.CustomerID) {
+                window.localStorage.setItem('ycpd_charge_openid', this.$route.query.openid);
+                window.localStorage.setItem('ycpd_charge_carno', this.$route.query.CarNo);
+                window.localStorage.setItem('ycpd_charge_customerid', this.$route.query.CustomerID);
+            } else {
+                location.hostname === 'localhost' ? '本地环境就别给我BB' : console.error('页面初始化参数不完整', this.$route.query);
+            }
+        },
+
         /**
          * 获取位置信息
          */

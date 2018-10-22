@@ -446,7 +446,7 @@ export default {
          */
         initBaiduMap: function () {
             var map = new BMap.Map('allmap')
-            var point = new BMap.Point(this.longitude,this.latitude)
+            var point = new BMap.Point(this.longitude, this.latitude)
             map.centerAndZoom(point, 16)
             var marker = new BMap.Marker(point)  // 创建标注
             map.addOverlay(marker)              // 将标注添加到地图中

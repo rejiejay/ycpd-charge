@@ -54,7 +54,7 @@
     <div class="button" v-if="pageState !== 'booting'">
         <div v-if="pageState === 'notfree' || pageState === 'offline'" class="button-content button-failure">启动充电</div>
         
-        <div v-if="pageState === 'leisure'" class="button-content button-start">启动充电</div>
+        <div v-if="pageState === 'leisure'" class="button-content button-start" @click="jumpToRouter('/pay')">启动充电</div>
 
         <div v-if="pageState === 'bootfailed'" class="button-content button-bootfailed">重新启动充电</div>
     </div>
@@ -158,9 +158,25 @@ export default {
     mounted: function () {
         // 初始化页面状态
         this.pageState = this.$route.params.pageState;
+        window.localStorage.setItem('ycpd_charge_returnurl', window.location.href);
     },
 
-    methods: {},
+    methods: {
+
+        /**
+         * 跳转到路由
+         * @param {object} query 携带的参数 非必填
+         */
+        jumpToRouter: function jumpToRouter(url, query) {
+            let routerConfig = {
+                path: url,
+            }
+
+            query ? routerConfig.query = query : null; // 初始化携带的参数 非必填
+
+            this.$router.push(routerConfig);
+        },
+    },
 }
 
 </script>
