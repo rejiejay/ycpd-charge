@@ -105,7 +105,7 @@
                     <div class="charging-item-float"
                         v-for="(item, key) in chargingList" 
                         :key="key"
-                        @click="jumpToRouter(`/launch/${stateToLaunchState(item.state)}`, item)"
+                        @click="jumpToLaunchRouter(`/launch/${stateToLaunchState(item.state)}`, item)"
                     >
                         <div class="charging-item-content">
                             <div class="list-charging-item charging-item-leisure flex-start-center"
@@ -385,6 +385,7 @@ export default {
                             }
 
                             return {
+                                ConnectorID: value.ConnectorID, // 运营商唯一标识id  唯一
                                 gunName: value.Name,
                                 isDirectCurrent: isDirectCurrent,
                                 state: state,
@@ -480,6 +481,18 @@ export default {
         },
 
         /**
+         * 跳转到启动充电 
+         * @param {object} query 携带的参数 非必填
+         */
+        jumpToLaunchRouter: function jumpToLaunchRouter(url, query) {
+            window.localStorage.setItem('ycpd_charge_connectorid', query.ConnectorID);
+
+            // 初始化充电桩名称进去
+            query.stationName = this.stationName;
+            this.$router.push({path: url, query: query});
+        },
+
+        /**
          * 跳转到路由
          * @param {object} query 携带的参数 非必填
          */
@@ -492,7 +505,6 @@ export default {
 
             this.$router.push(routerConfig);
         },
-
     },
 }
 

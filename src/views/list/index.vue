@@ -432,6 +432,7 @@ export default {
                         return {
                             id: val.ID, // 充电桩的唯一标识
                             title: val.StationName,
+                            OperatorID: val.OperatorID,
                             picture: val.Pictures ? val.Pictures : 'https://ycpd-assets.oss-cn-shenzhen.aliyuncs.com/picc-charge/list-test.png',
                             distance: val.distance,
                             address: val.Address,
@@ -690,6 +691,9 @@ export default {
          * @param {Object} item 充电桩的一个列表
          */
         jumpToDetail(item) {
+            // 每次跳转都要初始化 运营商唯一标识id  唯一
+            window.localStorage.setItem('ycpd_charge_operatorid', item.OperatorID);
+            
             this.$router.push({ path: `/list/detail/${item.id}`, query: item });
         },
     },

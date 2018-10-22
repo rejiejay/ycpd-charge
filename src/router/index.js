@@ -35,7 +35,7 @@ const routes = [
         path: '/process/:pageState',
         name: 'process',
         component: () => import('@/views/charge/process'),
-        meta: { title: '启动充电' },
+        meta: { title: '充电中' },
     }, {
         path: '/pay',
         name: 'pay-select',

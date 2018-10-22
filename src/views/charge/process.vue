@@ -70,6 +70,10 @@
 
 <script>
 
+// 请求类
+import ajaxs from "@/api/charge/process";
+
+// 组件类
 import RadialProgressBar from '@/components/RadialProgressBar'; // 充电百分比的圈圈
 
 export default {
@@ -132,6 +136,8 @@ export default {
     mounted: function () {
         // 初始化页面状态
         this.pageState = this.$route.params.pageState;
+
+        this.initPageData(); // 初始化页面数据
     },
 
     destroyed: function () {
@@ -141,6 +147,15 @@ export default {
     },
 
     methods: {
+        /**
+         * 初始化页面数据
+         */
+        initPageData: function initPageData() {
+            let query = this.$route.query;
+            
+            
+        },
+
         /**
          * 开始充电计时
          */
