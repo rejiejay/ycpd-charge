@@ -104,8 +104,8 @@ export default {
             clientWidth: document.body.offsetWidth || document.documentElement.clientWidth || window.innerWidth, // 设备的宽度
 
             /**
-             * 页面状态
-             * @param {string} leisure 空闲
+             * 页面状态 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
+             * @param {string} leisure 空闲 
              * @param {string} notfree 非空闲/充电中
              * @param {string} offline 离线
              * @param {string} booting 启动中

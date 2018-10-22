@@ -25,7 +25,7 @@ const routes = [
         meta: { title: '充电站详情' },
     },
 
-    // 启动充电 扫码充电
+    // 启动充电 （扫码充电）
     {
         path: '/launch/:pageState',
         name: 'launch',

@@ -105,6 +105,7 @@
                     <div class="charging-item-float"
                         v-for="(item, key) in chargingList" 
                         :key="key"
+                        @click="jumpToRouter(`/launch/${stateToLaunchState(item.state)}`, item)"
                     >
                         <div class="charging-item-content">
                             <div class="list-charging-item charging-item-leisure flex-start-center"
@@ -263,6 +264,29 @@ export default {
                 return '待插枪'
             } else if (status === 'pull') {
                 return '待拨枪'
+            }
+        },
+
+        /**
+         * 设备状态 status 转换为 启动充电页面状态
+         */
+        stateToLaunchState: function stateToLaunchState(status) {
+            /**
+             * 设备状态 status
+             * @param {string} leisure 空闲
+             * @param {string} offline 离线
+             * @param {string} insert 待插枪
+             * @param {string} pull 待拨枪
+             */
+            if (status === 'leisure') {
+                // 空闲
+                return 'leisure';
+            } else if (status === 'insert' || status === 'pull') {
+                // 充电中
+                return 'notfree';
+            } else {
+                // 其他状态都是离线
+                return 'offline';
             }
         },
         
@@ -450,6 +474,21 @@ export default {
             let address = this.address; // 门店地址
             window.location.href = `http://kf.szpiccxxjsb.cn/wxapi/map/map.html?lat=${latitude}&lng=${longitude}&type=bd&name=${name}&address=${address}`; 
         },
+
+        /**
+         * 跳转到路由
+         * @param {object} query 携带的参数 非必填
+         */
+        jumpToRouter: function jumpToRouter(url, query) {
+            let routerConfig = {
+                path: url,
+            }
+
+            query ? routerConfig.query = query : null; // 初始化携带的参数 非必填
+
+            this.$router.push(routerConfig);
+        },
+
     },
 }
 
