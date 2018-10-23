@@ -54,14 +54,18 @@
     <div class="button" v-if="pageState !== 'booting'">
         <div v-if="pageState === 'notfree' || pageState === 'offline'" class="button-content button-failure">启动充电</div>
         
-        <div v-if="pageState === 'leisure'" class="button-content button-start"  @click="startCharging">启动充电</div>
+        <div v-if="pageState === 'leisure'" class="button-content button-start" @click="startCharging">启动充电</div>
 
         <div v-if="pageState === 'bootfailed'" class="button-content button-bootfailed">重新启动充电</div>
     </div>
 
     <!-- 账户余额 -->
-    <div class="wallet" v-if="pageState !== 'booting'">
-        账户余额<span>￥{{wallet}}</span>
+    <div class="wallet flex-center" v-if="pageState !== 'booting'">
+        <div class="flex-start-center">
+            <div>账户余额</div>
+            <span>￥{{wallet}}</span>
+            <div class="wallet-WxRefund" @click="walletWxRefund">退款</div>
+        </div>
     </div>
 
     <!-- 余额不足模态框 -->
@@ -116,11 +120,11 @@ export default {
              */
             pageState: 'leisure',
 
-            stationName: '深圳信挚工业一期充电站', // 充电站名称
+            stationName: '正在加载...', // 充电站名称
             
-            gunName: '1号枪', // 充电枪名
+            gunName: '正在加载...', // 充电枪名
 
-            wallet: '8.00', // 账户余额
+            wallet: '正在加载...', // 账户余额
 
             isuInsufficientShow: false, // 余额不足模态框
         }
@@ -171,13 +175,24 @@ export default {
          * 初始化页面数据
          */
         initPageData: function initPageData() {
+            const _this = this;
             let query = this.$route.query;
             
             this.stationName = query.stationName; // 充电桩名称
 
             this.gunName = query.gunName; // 充电枪名
 
-            this.wallet = '8.00'; // 账户余额
+            ajaxs.checkMoney()
+            .then(  
+                res => {
+                    _this.wallet = res.total_fee; // 账户余额
+                    window.localStorage.setItem('ycpd_charge_out_trade_no', res.out_trade_no); // 全局缓存订单号
+                    window.localStorage.setItem('ycpd_charge_refund_fee', res.total_fee); // 付款金额
+                    window.localStorage.setItem('ycpd_charge_project', res.project); // 项目名称
+                }, error => {
+                    alert(error);
+                }
+            );
         },
 
         /**
@@ -200,6 +215,24 @@ export default {
                     alert(error);
                 }
             );
+        },
+
+        /**
+         * 退款
+         */
+        walletWxRefund: function walletWxRefund() {
+            const _this = this;
+
+            if (confirm('您是否确认退款?')) {
+                ajaxs.outTradeMoney()
+                .then(
+                    res => {
+                        _this.initPageData();
+                    }, error => {
+                        alert(error);
+                    }
+                );
+            }
         },
 
         /**
@@ -292,7 +325,7 @@ export default {
 
 // 按钮
 .button {
-    padding: 25px;
+    padding: 25px 25px 0px 25px;
 
     .button-content {
         height: 45px;
@@ -322,6 +355,7 @@ export default {
 
 // 账户余额
 .wallet {
+    line-height: 70px;
     font-size: 14px;
     text-align: center;
     color: @black3;
@@ -329,6 +363,11 @@ export default {
     span {
         padding-left: 10px;
         color: #E50012;
+    }
+
+    .wallet-WxRefund {
+        padding-left: 15px;
+        color: #5594FF;
     }
 }
 

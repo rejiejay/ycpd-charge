@@ -50,7 +50,7 @@ const routes = [
         component: () => import('@/views/order/list'),
         meta: { title: '充电记录' },
     }, {
-        path: '/order/detail/:id',
+        path: '/order/detail/:StartChargeSeq', // StartChargeSeq 充电订单号 MA5DM667XA00A11DE66DD42CB
         name: 'order-result',
         component: () => import('@/views/order/detail'),
         meta: { title: '充电详情' },

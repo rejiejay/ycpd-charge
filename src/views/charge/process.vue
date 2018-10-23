@@ -31,13 +31,13 @@
     <!-- 描述 -->
     <div class="describe flex-center">
         <div class="describe-content">
-            <div class="describe-accomplish">
+            <!-- <div class="describe-accomplish">
                 <span>充满时间:</span>
                 {{accomplishTime}}分钟
-            </div>
+            </div> -->
             <div class="describe-electricityFee">
                 <span>费&emsp;&emsp;用:</span>
-                {{electricityFee}}元
+                {{TotalMoney}}元
             </div>
             <div class="describe-power">
                 <span>电&emsp;&emsp;量:</span>
@@ -57,7 +57,7 @@
     <!-- 按钮 -->
     <div class="submit flex-center">
         <div class="submit-content" v-if="pageState === 'finishing'">正在结束充电...</div>
-        <div class="submit-content" v-else>手动结束充电</div>
+        <div class="submit-content" v-else @click="stopCharging">手动结束充电</div>
     </div>
 
     <!-- 底部提示信息 -->
@@ -75,6 +75,7 @@ import ajaxs from "@/api/charge/process";
 
 // 组件类
 import RadialProgressBar from '@/components/RadialProgressBar'; // 充电百分比的圈圈
+import TimeConver from '@/utils/TimeConver';
 
 export default {
     name: 'process',
@@ -96,21 +97,23 @@ export default {
              */
             pageState: 'normal',
 
-            stationName: '深圳信挚工业一期充电站', // 充电站名称
+            stationName: '正在加载...', // 充电站名称
 
-            gunName: '1号枪', // 充电枪名
+            gunName: '正在加载...', // 充电枪名
             
-            electricityFee: '0.9', // 电费
+            electricityFee: '正在加载...', // 电费
             
-            serviceFee: '0.6', // 服务费
+            serviceFee: '正在加载...', // 服务费
 
-            chargingPercentage: 74, // 充电百分比
+            chargingPercentage: 100, // 充电百分比
 
             chargingTimestamp: 0, // 充电时间戳
 
-            accomplishTime: '90', // 充满时间(分钟)
+            accomplishTime: '正在加载...', // 充满时间(分钟)
 
-            electricityPower: '55', // 电量(度)
+            TotalMoney: '正在加载...', // 累计总金额
+
+            electricityPower: '正在加载...', // 电量(度)
         }
     },
 
@@ -151,9 +154,58 @@ export default {
          * 初始化页面数据
          */
         initPageData: function initPageData() {
+            const _this = this;
             let query = this.$route.query;
             
+            ajaxs.queryChargeStatus(query.StartChargeSeq)
+            .then(
+                res => {
+                    _this.stationName = res.StationName; // 充电站名称
+
+                    // 初始化枪名
+                    if (res.ConnectorID && res.ConnectorID.split('_')[1]) {
+                        _this.gunName = `${res.ConnectorID.split('_')[1]}号枪`; // 充电枪名
+                    }
+
+                    _this.electricityFee = res.ElecMoney; // 电费
+                    _this.serviceFee = res.SeviceMoney; // 电费
+                    _this.chargingPercentage = res.Soc; // 充电百分比
+
+                    // 计算充电时间
+                    _this.chargingTimestamp = new Date().getTime() - TimeConver.YYYYmmDDhhMMssToTimestamp(res.StartTime);
+                    _this.startChargingTime();
+
+                    _this.TotalMoney = res.TotalMoney; // 充电百分比
+                    _this.electricityPower = res.TotalPower; // 电量(度)
+                }, error => {
+                    _this.pageState = 'connectFailed'; // 连接失败
+                    alert(error);
+                }
+            );
+        },
+
+        /**
+         * 手动结束充电
+         */
+        stopCharging: function stopCharging() {
+            const _this = this;
+            let query = this.$route.query;
             
+            this.pageState = 'finishing';
+            ajaxs.stopCharge(query.StartChargeSeq)
+            .then(
+                res => {
+                    // 操作结果：SuccStat	0：成功，1:失败
+                    if (res.SuccStat === 0) {
+                        _this.jumpToRouter(`/order/detail/${res.StartChargeSeq}`)
+                    } else {
+                        // 结束失败
+                        _this.pageState = 'finished';
+                    }
+                }, error => {
+                    alert(error);
+                }
+            );
         },
 
         /**
@@ -171,7 +223,21 @@ export default {
         breakChargingTime() {
             window.clearInterval(window.setTimeId);
             window.setTimeId = null;
-        }
+        },
+
+        /**
+         * 跳转到路由
+         * @param {object} query 携带的参数 非必填
+         */
+        jumpToRouter: function jumpToRouter(url, query) {
+            let routerConfig = {
+                path: url,
+            }
+
+            query ? routerConfig.query = query : null; // 初始化携带的参数 非必填
+
+            this.$router.push(routerConfig);
+        },
     },
 }
 

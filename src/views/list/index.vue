@@ -346,7 +346,9 @@ export default {
     },
 
     mounted: function () {
-        this.saveRouteQuery(); // 存储页面顶部数据
+        this.saveRouteQuery(); // 存储页面顶部数据 这个必须第一步就获取
+
+        this.queryCheckOrders(); // 查询是否还存在未完成订单
         this.sidebarGroup = JSON.parse(JSON.stringify(this.sidebardefault));
         this.getLocation(); // 初始化位置信息
 
@@ -358,6 +360,24 @@ export default {
     },
 
     methods: {
+        /**
+         * 查询是否还存在未完成订单
+         */
+        queryCheckOrders: function queryCheckOrders() {
+            const _this = this;
+
+            ajaxs.queryCheckOrders()
+            .then(
+                res => {
+                    if (res.code === 200) {
+                        _this.orderRemind(res.data.startchargeseq);
+                    }
+                }, error => {
+                    alert(error);
+                }
+            )
+        },
+
         /**
          * 存储页面顶部数据
          */
@@ -530,29 +550,31 @@ export default {
 
         /**
          * 订单检测提醒
-         * @param {number} orderCount 订单数量
+         * @param {string} StartChargeSeq 充电订单号 MA5DM667XA00A11DE66DD42CB
          */
-        orderRemind: function (orderCount) {
+        orderRemind: function orderRemind(StartChargeSeq) {
+            const _this = this;
+
             MessageBox({
-                message: `您有${orderCount}个正在充电的订单`,
+                message: `您有1个正在充电的订单`,
                 showCancelButton: true, // 是否显示取消按钮
-                confirmButtonText: '查看',  // 确认按钮的文本
-                cancelButtonText: '继续预约',  // 取消按钮的文本
-            })
-            .then(action => {
+                confirmButtonText: '查看订单',  // 确认按钮的文本
+                cancelButtonText: '继续充电',  // 取消按钮的文本
+                closeOnClickModal: false, // 是否在点击遮罩时关闭提示光
+            }).then(action => {
                 if (action === 'confirm') {
-
+                    _this.jumpToRouter('/order/list');
                 } else {
-
+                    _this.jumpToRouter(`/order/detail/${StartChargeSeq}`);
                 }
             });
         },
-        
+
         /**
          * 排序 and 筛选栏
          * @param {String} condition 排序的条件
          */
-        filterHandle: function (condition) {
+        filterHandle: function filterHandle(condition) {
             const _this = this;
             // 距离最近
             if (condition === 'distance') {
@@ -695,6 +717,13 @@ export default {
             window.localStorage.setItem('ycpd_charge_operatorid', item.OperatorID);
             
             this.$router.push({ path: `/list/detail/${item.id}`, query: item });
+        },
+
+        /**
+         * 跳转到路由
+         */
+        jumpToRouter: function jumpToRouter(url) {
+            this.$router.push({path: url});
         },
     },
 
