@@ -26,12 +26,7 @@ let queryChargeRecordDetail = StartChargeSeq => new Promise((resolve, reject) =>
         type: "GET",
         success(res) {
             Indicator.close(); // 关闭加载框
-            if (res.code === 200) {
-                resolve(res.data);
-            } else {
-                console.error(res);
-                reject(`${requestReason}数据有误! 原因: ${res.msg}`);
-            }
+            resolve(res);
         },
         error(error) {
             Indicator.close(); // 关闭加载框

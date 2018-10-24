@@ -77,6 +77,7 @@ import ajaxsQueryChargeRecordDetail from "@/api/common/queryChargeRecordDetail";
 // 组件类
 import RadialProgressBar from '@/components/RadialProgressBar'; // 充电百分比的圈圈
 import TimeConver from '@/utils/TimeConver';
+import { MessageBox } from 'mint-ui';
 
 export default {
     name: 'process',

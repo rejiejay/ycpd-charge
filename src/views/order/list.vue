@@ -118,7 +118,7 @@ export default {
         jumpToDetail: function jumpToDetail(item) {
             // 判断订单是否充电中
             if (item.state === 'charging') {
-                this.jumpToRouter(`/process/normal/${item.StartChargeSeq}`);
+                this.jumpToRouter(`/process/normal`, item.StartChargeSeq);
             } else {
                 this.jumpToRouter(`/order/detail/${item.StartChargeSeq}`);
             }

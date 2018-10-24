@@ -123,16 +123,19 @@ export default {
             ajaxsQueryChargeRecordDetail(StartChargeSeq)
             .then(
                 res => {
-                    _this.chargingPercentage = res.Soc;
-                    _this.ChargingTime = res.ChargingTime;
-                    _this.TotalPower = res.TotalPower;
-                    _this.TotalMoney = res.TotalMoney;
-                    _this.StationName = `${res.StationName} ${res.ConnectorID.split('_')[1]}号枪`
-                    _this.StartChargeSeq = res.StartChargeSeq;
-                    _this.StartTime = res.StartTime;
-                    _this.Money = res.Money;
-
-                    _this.RefundMoney = res.RefundMoney;
+                    if (res.code === 200 && res.data) {
+                        _this.chargingPercentage = res.Soc;
+                        _this.ChargingTime = res.ChargingTime;
+                        _this.TotalPower = res.TotalPower;
+                        _this.TotalMoney = res.TotalMoney;
+                        _this.StationName = `${res.StationName} ${res.ConnectorID.split('_')[1]}号枪`
+                        _this.StartChargeSeq = res.StartChargeSeq;
+                        _this.StartTime = res.StartTime;
+                        _this.Money = res.Money;
+                        _this.RefundMoney = res.RefundMoney;
+                    } else {
+                        alert(`获取订单详情失败，原因: ${res.msg}`);
+                    }
                 }, error => {
                    alert(error); 
                 }
