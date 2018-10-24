@@ -102,7 +102,7 @@
 
 // 请求类
 import ajaxs from "@/api/charge/launch";
-import ajaxsQueryChargeRecord from "@/api/common/queryCheckOrders";
+import ajaxsQueryChargeRecord from "@/api/common/checkOrderStatus";
 
 export default {
     name: 'launch',
@@ -130,6 +130,7 @@ export default {
             isuInsufficientShow: false, // 余额不足模态框
 
             isLaunchSuccessful: false, // 是否启动成功
+            StartChargeSeq: '', // 订单启动成功 缓存的号码
         }
     },
 
@@ -213,6 +214,7 @@ export default {
                 res => {
                     if (res.code === 200) {
                         _this.pageState = 'booting';
+                        _this.StartChargeSeq = res.data.StartChargeSeq;
                         _this.checkOrderLaunch(); // 轮询 判断是否启动成功
                     } else if (res.code === 666) {
                         _this.isuInsufficientShow = true;
@@ -237,13 +239,13 @@ export default {
                 return false;
             }
 
-            ajaxsQueryChargeRecord()
+            ajaxsQueryChargeRecord(this.StartChargeSeq)
             .then(
                 res => {
-                    if (res.code === 200) {
+                    if (res.code === 200 && res.data) {
                         // 启动成功跳转
                         _this.isLaunchSuccessful = true; // 设置为成功
-                        _this.jumpToRouter('/process/normal', res.data.StartChargeSeq); 
+                        _this.jumpToRouter('/process/normal', { StartChargeSeq: _this.StartChargeSeq }); 
                     } else {
                         // 若未启动成功, 5秒循环判断一次
                         window.setTimeout(() => {

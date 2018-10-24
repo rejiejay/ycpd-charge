@@ -20,7 +20,7 @@
                         innerStrokeColor="#dbffdd"
                     >
                         <div class="progress-radial-content progress-radial-percentage">{{chargingPercentage}}<span>%</span></div>
-                        <div class="progress-radial-content progress-radial-describe" :style="pageState === 'connectFailed' ? 'color: #FF8D18': ''">{{pageState === 'connectFailed' ? '连接断开': '充电中'}}</div>
+                        <div class="progress-radial-content progress-radial-describe" :style="pageState === 'connectFailed' ? 'color: #FF8D18': ''">{{pageStateToNmae()}}</div>
                         <div class="progress-radial-content" :style="pageState === 'connectFailed' ? 'color: #FF8D18': ''">{{chargingTimehhMMss}}</div>
                     </radial-progress-bar>
                 </div>
@@ -72,6 +72,7 @@
 
 // 请求类
 import ajaxs from "@/api/charge/process";
+import ajaxsCheckOrderStatus from "@/api/common/checkOrderStatus";
 import ajaxsQueryChargeRecordDetail from "@/api/common/queryChargeRecordDetail";
 
 // 组件类
@@ -137,7 +138,25 @@ export default {
             SS = SS < 10 ? `0${SS}` : `${SS}`;
 
             return `${HH}:${MM}:${SS}`
-        }
+        },
+        
+        /**
+         * 页面状态 转换为中文
+         */
+        pageStateToNmae: function pageStateToNmae() {
+            if (this.pageState === 'normal') {
+                return '充电中'
+            }
+            if (this.pageState === 'connectFailed') {
+                return '连接失败'
+            }
+            if (this.pageState === 'finishing') {
+                return '结束中'
+            }
+            if (this.pageState === 'finished') {
+                return '结束失败'
+            }
+        },
     },
 
     mounted: function () {
@@ -154,6 +173,7 @@ export default {
     },
 
     methods: {
+
         /**
          * 初始化页面数据
          */
@@ -161,26 +181,30 @@ export default {
             const _this = this;
             let query = this.$route.query;
             
-            ajaxs.queryChargeStatus(query.StartChargeSeq)
+            ajaxsCheckOrderStatus(query.StartChargeSeq)
             .then(
                 res => {
-                    _this.stationName = res.StationName; // 充电站名称
+                    if (res.code === 200 && res.data) {
+                        _this.stationName = res.StationName; // 充电站名称
 
-                    // 初始化枪名
-                    if (res.ConnectorID && res.ConnectorID.split('_')[1]) {
-                        _this.gunName = `${res.ConnectorID.split('_')[1]}号枪`; // 充电枪名
+                        // 初始化枪名
+                        if (res.data.ConnectorID && res.data.ConnectorID.split('_')[1]) {
+                            _this.gunName = `${res.data.ConnectorID.split('_')[1]}号枪`; // 充电枪名
+                        }
+
+                        _this.electricityFee = res.data.ElecMoney; // 电费
+                        _this.serviceFee = res.data.SeviceMoney; // 电费
+                        _this.chargingPercentage = res.data.Soc; // 充电百分比
+
+                        // 计算充电时间
+                        _this.chargingTimestamp = new Date().getTime() - TimeConver.YYYYmmDDhhMMssToTimestamp(res.data.StartTime);
+                        _this.startChargingTime();
+
+                        _this.TotalMoney = res.data.TotalMoney; // 充电百分比
+                        _this.electricityPower = res.data.TotalPower; // 电量(度)
+                    } else {
+                        alert(`查询充电数据有误， ${res.data.msg}`);
                     }
-
-                    _this.electricityFee = res.ElecMoney; // 电费
-                    _this.serviceFee = res.SeviceMoney; // 电费
-                    _this.chargingPercentage = res.Soc; // 充电百分比
-
-                    // 计算充电时间
-                    _this.chargingTimestamp = new Date().getTime() - TimeConver.YYYYmmDDhhMMssToTimestamp(res.StartTime);
-                    _this.startChargingTime();
-
-                    _this.TotalMoney = res.TotalMoney; // 充电百分比
-                    _this.electricityPower = res.TotalPower; // 电量(度)
                 }, error => {
                     _this.pageState = 'connectFailed'; // 连接失败
                     alert(error);
@@ -202,6 +226,7 @@ export default {
                     // 操作结果：SuccStat	0：成功，1:失败
                     if (res.SuccStat === 0) {
                         _this.pageState = 'finishing'; // 将页面设置为结束中
+                        _this.breakChargingTime(); // 并且停止倒计时
                         _this.checkOrderStop(); // 轮询 判断是否结束成功
                     } else {
                         // 结束失败

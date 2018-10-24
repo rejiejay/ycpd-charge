@@ -250,7 +250,6 @@
 <script>
 
 import ajaxs from '@/api/list/index';
-import ajaxsQueryChargeRecord from "@/api/common/queryCheckOrders";
 import initLocation from '@/components/initLocation';
 import { Indicator, MessageBox } from 'mint-ui';
 
@@ -367,7 +366,7 @@ export default {
         queryCheckOrders: function queryCheckOrders() {
             const _this = this;
 
-            ajaxsQueryChargeRecord()
+            ajaxs.queryCheckOrders()
             .then(
                 res => {
                     if (res.code === 200) {
