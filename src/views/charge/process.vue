@@ -72,6 +72,7 @@
 
 // 请求类
 import ajaxs from "@/api/charge/process";
+import ajaxsQueryChargeRecordDetail from "@/api/common/queryChargeRecordDetail";
 
 // 组件类
 import RadialProgressBar from '@/components/RadialProgressBar'; // 充电百分比的圈圈
@@ -114,6 +115,8 @@ export default {
             TotalMoney: '正在加载...', // 累计总金额
 
             electricityPower: '正在加载...', // 电量(度)
+
+            isStopSuccessful: false, // 是否结束成功
         }
     },
 
@@ -190,14 +193,15 @@ export default {
         stopCharging: function stopCharging() {
             const _this = this;
             let query = this.$route.query;
-            
+
             this.pageState = 'finishing';
             ajaxs.stopCharge(query.StartChargeSeq)
             .then(
                 res => {
                     // 操作结果：SuccStat	0：成功，1:失败
                     if (res.SuccStat === 0) {
-                        _this.jumpToRouter(`/order/detail/${res.StartChargeSeq}`)
+                        _this.pageState = 'finishing'; // 将页面设置为结束中
+                        _this.checkOrderStop(); // 轮询 判断是否结束成功
                     } else {
                         // 结束失败
                         _this.pageState = 'finished';
@@ -205,6 +209,34 @@ export default {
                 }, error => {
                     alert(error);
                 }
+            );
+        },
+
+        /**
+         * 轮询 判断是否 成功停止充电 
+         */
+        checkOrderStop: function checkOrderStop() {
+            const _this = this;
+
+            // 如果是 成功停止充电，则不再进行判断
+            if (this.isStopSuccessful) {
+                return false;
+            }
+
+            ajaxsQueryChargeRecordDetail(this.$route.query.StartChargeSeq)
+            .then(
+                res => {
+                    if (res.code === 200 && res.data) {
+                        // 成功停止充电 跳转到成功页面
+                        _this.isStopSuccessful = true; // 设置为 成功停止充电
+                        _this.jumpToRouter(`/order/detail/${_this.$route.query.StartChargeSeq}`);
+                    } else {
+                        // 若未 成功停止充电, 5秒循环判断一次
+                        window.setTimeout(() => {
+                            _this.checkOrderStop();
+                        }, 5000);
+                    }
+                }, error => {} // 失败不作处理
             );
         },
 
