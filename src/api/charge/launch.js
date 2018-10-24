@@ -68,19 +68,14 @@ export default {
         let requestReason = '用户金额';
 		Indicator.open('正在加载数据...'); // 弹出加载框
         $.ajax({
-            url: `${config.url.originJAVA}/ycpd/v1/CheckMoney/${window.localStorage.ycpd_charge_customerid}`,
+            url: `${config.url.originJAVA}/ycpd/v1/CheckMoney?OpenId=${window.localStorage.ycpd_charge_openid}&customerId=${window.localStorage.ycpd_charge_customerid}`,
             xhrFields: {
                 withCredentials: true
             },
             type: "GET",
             success(res) {
                 Indicator.close(); // 关闭加载框
-                if (res.code === 200) {
-                    resolve(res.data);
-                } else {
-                    console.error(res);
-                    reject(`${requestReason}数据有误! 原因: ${res.msg}`);
-                }
+                resolve(res);
             },
             error(error) {
                 Indicator.close(); // 关闭加载框

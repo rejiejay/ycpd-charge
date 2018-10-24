@@ -5,6 +5,7 @@
         <div class="list-main-item"
             v-for="(item, key) in list" 
             :key="key"
+            @click="jumpToDetail(item)"
         >
             <div class="main-item-content flex-start-center">
                 <div class="item-content-main flex-rest">
@@ -33,6 +34,9 @@
 
 <script>
 
+// 请求类
+import ajaxs from "@/api/order/list";
+
 export default {
     name: 'order-list',
 
@@ -41,48 +45,57 @@ export default {
             clientWidth: document.body.offsetWidth || document.documentElement.clientWidth || window.innerWidth, // 设备的宽度
 
             list: [
-                {
-                    title: '深圳信挚工业一期充电站 - 1号枪',
-                    time: '2018-9-21 11:00:04',
-                    /**
-                     * 充电状态 默认充电完成
-                     * @param {string} charging 充电中
-                     * @param {string} accomplish 充电完成
-                     * @param {string} cancel 充电取消
-                     */
-                    state: 'accomplish',
-                    price: '99.00',
-                }, {
-                    title: '深圳信挚工业一期充电站 - 1号枪',
-                    time: '2018-9-21 11:00:04',
-                    /**
-                     * 充电状态 默认充电完成
-                     * @param {string} charging 充电中
-                     * @param {string} accomplish 充电完成
-                     * @param {string} cancel 充电取消
-                     */
-                    state: 'charging',
-                    price: '99.00',
-                }, {
-                    title: '深圳信挚工业一期充电站 - 1号枪',
-                    time: '2018-9-21 11:00:04',
-                    /**
-                     * 充电状态 默认充电完成
-                     * @param {string} charging 充电中
-                     * @param {string} accomplish 充电完成
-                     * @param {string} cancel 充电取消
-                     */
-                    state: 'cancel',
-                    price: '99.00',
-                }
+                // {
+                //     title: '深圳信挚工业一期充电站 - 1号枪',
+                //     time: '2018-9-21 11:00:04',
+                //     /**
+                //      * 充电状态 默认充电完成
+                //      * @param {string} charging 充电中
+                //      * @param {string} accomplish 充电完成
+                //      * @param {string} cancel 充电取消
+                //      */
+                //     state: 'accomplish',
+                //     price: '99.00',
+                // },
             ]
         }
     },
 
     mounted: function () {
+        this.queryChargeRecord(); // 获取订单列表
     },
 
     methods: {
+        /**
+         * 获取订单列表
+         */
+        queryChargeRecord: function queryChargeRecord() {
+            const _this = this;
+
+            ajaxs.queryChargeRecord()
+            .then(
+                res => {
+                    _this.list = res.map(val => {
+                        return {
+                            StartChargeSeq: val.StartChargeSeq,
+                            title: `${val.StationName} - ${val.ConnectorID.split('_')[1]}号枪`,
+                            time: val.StartTime,
+                            /**
+                             * 充电状态 默认充电完成
+                             * @param {string} charging 充电中
+                             * @param {string} accomplish 充电完成
+                             * @param {string} cancel 充电取消
+                             */
+                            state: val.StartChargeSeqStat === 3 ? 'accomplish' : 'charging',
+                            price: val.TotalMoney,
+                        }
+                    });
+                }, error => {
+                    alert(error);
+                }
+            )
+        },
+
         /**
          * 渲染 充电状态
          * @param {string} charging 充电中
@@ -97,6 +110,32 @@ export default {
             }
 
             return keyValue[status];
+        },
+        
+        /**
+         * 跳转到详情
+         */
+        jumpToDetail: function jumpToDetail(item) {
+            // 判断订单是否充电中
+            if (item.state === 'charging') {
+                this.jumpToRouter(`/process/normal/${item.StartChargeSeq}`);
+            } else {
+                this.jumpToRouter(`/order/detail/${item.StartChargeSeq}`);
+            }
+        },
+
+        /**
+         * 跳转到路由
+         * @param {object} query 携带的参数 非必填
+         */
+        jumpToRouter: function jumpToRouter(url, query) {
+            let routerConfig = {
+                path: url,
+            }
+
+            query ? routerConfig.query = query : null; // 初始化携带的参数 非必填
+
+            this.$router.push(routerConfig);
         },
     },
 }

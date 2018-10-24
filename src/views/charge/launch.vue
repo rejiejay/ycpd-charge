@@ -102,6 +102,7 @@
 
 // 请求类
 import ajaxs from "@/api/charge/launch";
+import ajaxsQueryChargeRecord from "@/api/common/queryCheckOrders";
 
 export default {
     name: 'launch',
@@ -185,10 +186,14 @@ export default {
             ajaxs.checkMoney()
             .then(  
                 res => {
-                    _this.wallet = res.total_fee; // 账户余额
-                    window.localStorage.setItem('ycpd_charge_out_trade_no', res.out_trade_no); // 全局缓存订单号
-                    window.localStorage.setItem('ycpd_charge_refund_fee', res.total_fee); // 付款金额
-                    window.localStorage.setItem('ycpd_charge_project', res.project); // 项目名称
+                    if (res.code === 200 && res.data.out_trade_no !== null) {
+                        _this.wallet = res.data.total_fee; // 账户余额
+                        window.localStorage.setItem('ycpd_charge_out_trade_no', res.data.out_trade_no); // 全局缓存订单号
+                        window.localStorage.setItem('ycpd_charge_refund_fee', res.data.total_fee); // 付款金额
+                        window.localStorage.setItem('ycpd_charge_project', res.data.project); // 项目名称
+                    } else {
+                        console.error(res);
+                    }
                 }, error => {
                     alert(error);
                 }
@@ -205,7 +210,8 @@ export default {
             .then(
                 res => {
                     if (res.code === 200) {
-                        _this.jumpToRouter('/process/normal', res.data);
+                        _this.pageState = 'booting';
+                        _this.jumpToRouter('/process/normal', res.data.StartChargeSeq);
                     } else if (res.code === 666) {
                         _this.isuInsufficientShow = true;
                     } else {
@@ -215,6 +221,13 @@ export default {
                     alert(error);
                 }
             );
+        },
+
+        /**
+         * 
+         */
+        queryCheckOrders: function queryCheckOrders() {
+            // ajaxsQueryChargeRecord()
         },
 
         /**

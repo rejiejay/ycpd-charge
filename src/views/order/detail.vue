@@ -76,6 +76,9 @@
 
 <script>
 
+// 请求类
+import ajaxs from "@/api/order/detail";
+// 组件类
 import RadialProgressBar from '@/components/RadialProgressBar'; // 充电百分比的圈圈
 
 export default {
@@ -94,9 +97,24 @@ export default {
     },
 
     mounted: function () {
+        this.queryChargeRecordDetail(); // 获取订单详情
     },
 
-    methods: {},
+    methods: {
+        queryChargeRecordDetail: function queryChargeRecordDetail() {
+            const _this = this;
+            const StartChargeSeq = this.$route.params.StartChargeSeq;
+
+            ajaxs.queryChargeRecordDetail(StartChargeSeq)
+            .then(
+                res => {
+                    console.log(res);
+                }, error => {
+                   alert(error); 
+                }
+            );
+        }
+    },
 }
 
 </script>

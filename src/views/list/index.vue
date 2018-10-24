@@ -250,6 +250,7 @@
 <script>
 
 import ajaxs from '@/api/list/index';
+import ajaxsQueryChargeRecord from "@/api/common/queryCheckOrders";
 import initLocation from '@/components/initLocation';
 import { Indicator, MessageBox } from 'mint-ui';
 
@@ -366,7 +367,7 @@ export default {
         queryCheckOrders: function queryCheckOrders() {
             const _this = this;
 
-            ajaxs.queryCheckOrders()
+            ajaxsQueryChargeRecord()
             .then(
                 res => {
                     if (res.code === 200) {
@@ -375,7 +376,7 @@ export default {
                 }, error => {
                     alert(error);
                 }
-            )
+            );
         },
 
         /**
@@ -565,7 +566,7 @@ export default {
                 if (action === 'confirm') {
                     _this.jumpToRouter('/order/list');
                 } else {
-                    _this.jumpToRouter(`/order/detail/${StartChargeSeq}`);
+                    _this.jumpToRouter('/process/normal', {StartChargeSeq: StartChargeSeq});
                 }
             });
         },
@@ -721,9 +722,16 @@ export default {
 
         /**
          * 跳转到路由
+         * @param {object} query 携带的参数 非必填
          */
-        jumpToRouter: function jumpToRouter(url) {
-            this.$router.push({path: url});
+        jumpToRouter: function jumpToRouter(url, query) {
+            let routerConfig = {
+                path: url,
+            }
+
+            query ? routerConfig.query = query : null; // 初始化携带的参数 非必填
+
+            this.$router.push(routerConfig);
         },
     },
 

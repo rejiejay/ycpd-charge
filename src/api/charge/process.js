@@ -66,12 +66,12 @@ export default {
      * @param {string} StartChargeSeq 充电订单号 MA5DM667XA00A11DE66DD42CB
      */
     stopCharge: StartChargeSeq => new Promise((resolve, reject) => {
-        return resolve({
-            ConnectorID: "180100075501110001_1",
-            StartChargeSeq: "MA5DM667XA00A11DE66DD42CB",
-            StartChargeSeqStat: 3,
-            SuccStat: 0,
-        });
+        // return resolve({
+        //     ConnectorID: "180100075501110001_1",
+        //     StartChargeSeq: "MA5DM667XA00A11DE66DD42CB",
+        //     StartChargeSeqStat: 3,
+        //     SuccStat: 0,
+        // });
 
         let requestReason = '停止充电接口';
 		Indicator.open('正在加载数据...'); // 弹出加载框
