@@ -124,15 +124,15 @@ export default {
             .then(
                 res => {
                     if (res.code === 200 && res.data) {
-                        _this.chargingPercentage = res.Soc;
-                        _this.ChargingTime = res.ChargingTime;
-                        _this.TotalPower = res.TotalPower;
-                        _this.TotalMoney = res.TotalMoney;
-                        _this.StationName = `${res.StationName} ${res.ConnectorID.split('_')[1]}号枪`
-                        _this.StartChargeSeq = res.StartChargeSeq;
-                        _this.StartTime = res.StartTime;
-                        _this.Money = res.Money;
-                        _this.RefundMoney = res.RefundMoney;
+                        _this.chargingPercentage = res.data.Soc;
+                        _this.ChargingTime = res.data.ChargingTime;
+                        _this.TotalPower = res.data.TotalPower;
+                        _this.TotalMoney = res.data.TotalMoney;
+                        _this.StationName = `${res.data.StationName} ${res.data.ConnectorID.split('_')[1]}号枪`
+                        _this.StartChargeSeq = res.data.StartChargeSeq;
+                        _this.StartTime = res.data.StartTime;
+                        _this.Money = res.data.Money;
+                        _this.RefundMoney = res.data.RefundMoney;
                     } else {
                         alert(`获取订单详情失败，原因: ${res.msg}`);
                     }

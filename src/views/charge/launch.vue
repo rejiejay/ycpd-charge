@@ -217,7 +217,8 @@ export default {
                         _this.StartChargeSeq = res.data.StartChargeSeq;
                         _this.checkOrderLaunch(); // 轮询 判断是否启动成功
                     } else if (res.code === 666) {
-                        _this.isuInsufficientShow = true;
+                        _this.jumpToRouter('/pay'); // 跳转到付款页面
+                        // _this.isuInsufficientShow = true;
                     } else {
                         _this.pageState = 'bootfailed';
                         alert(`启动充电失败, 原因: ${res.msg}`);

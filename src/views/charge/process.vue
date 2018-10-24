@@ -20,7 +20,7 @@
                         innerStrokeColor="#dbffdd"
                     >
                         <div class="progress-radial-content progress-radial-percentage">{{chargingPercentage}}<span>%</span></div>
-                        <div class="progress-radial-content progress-radial-describe" :style="pageState === 'connectFailed' ? 'color: #FF8D18': ''">{{pageStateToNmae()}}</div>
+                        <div class="progress-radial-content progress-radial-describe" :style="pageState === 'connectFailed' ? 'color: #FF8D18': ''">{{pageStateToNmae}}</div>
                         <div class="progress-radial-content" :style="pageState === 'connectFailed' ? 'color: #FF8D18': ''">{{chargingTimehhMMss}}</div>
                     </radial-progress-bar>
                 </div>
