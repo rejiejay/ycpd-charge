@@ -1245,7 +1245,8 @@ export default {
     width: 160px;
     height: 40px;
     border-radius: 40px;
-    
+
+    background: #5594FF; /* 标准的语法 */
     background: -webkit-linear-gradient(top, #61ADFF, #5594FF); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(top, #61ADFF, #5594FF); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(top, #61ADFF, #5594FF); /* Firefox 3.6 - 15 */

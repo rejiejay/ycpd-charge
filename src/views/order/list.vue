@@ -214,8 +214,10 @@ export default {
 
 // 暂无订单
 .order-no-orders {
-    font-size: 24px;
-    padding: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 150px;
+    color: #999;
     text-align: center;
 }
 

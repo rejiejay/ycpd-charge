@@ -37,7 +37,7 @@
             </div> -->
             <div class="describe-electricityFee">
                 <span>费&emsp;&emsp;用:</span>
-                {{TotalMoney}}元（预存{{SaveMoney}}）
+                {{TotalMoney}}元（预存{{SaveMoney}}￥）
             </div>
             <div class="describe-power">
                 <span>电&emsp;&emsp;量:</span>
@@ -220,9 +220,12 @@ export default {
                         _this.serviceFee = res.data.SeviceMoney; // 电费
                         _this.chargingPercentage = res.data.Soc; // 充电百分比
 
-                        // 计算充电时间
-                        _this.chargingTimestamp = new Date().getTime() - TimeConver.YYYYmmDDhhMMssToTimestamp(res.data.StartTime);
-                        _this.startChargingTime();
+                        // 判断是否存在定时器，如果存在则不进行
+                        if (!window.setTimeId) {
+                            // 计算充电时间
+                            _this.chargingTimestamp = new Date().getTime() - TimeConver.YYYYmmDDhhMMssToTimestamp(res.data.StartTime);
+                            _this.startChargingTime();
+                        }
 
                         _this.TotalMoney = res.data.TotalMoney; // 使用多少钱
                         _this.SaveMoney = res.data.SaveMoney; // 初始化预充金额
@@ -321,9 +324,9 @@ export default {
                 res => {
                     // 操作结果：SuccStat	0：成功，1:失败
                     if (res.SuccStat === 0) {
-                        _this.pageState = 'finishing'; // 将页面设置为结束中
-                        _this.breakChargingTime(); // 并且停止倒计时
-                        _this.checkOrderStop(); // 轮询 判断是否结束成功
+                        _this.isStopSuccessful = true; // 设置为结束充电
+                        // 跳转到充电结束页面
+                        _this.jumpToRouter('/charge/finishing', { StartChargeSeq: query.StartChargeSeq });
                     } else {
                         // 结束失败
                         _this.pageState = 'finished';

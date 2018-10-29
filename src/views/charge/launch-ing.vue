@@ -205,7 +205,7 @@ export default {
                 return false;
             }
 
-            ajaxsQueryChargeRecord(this.StartChargeSeq)
+            ajaxsQueryChargeRecord(this.$route.query.StartChargeSeq)
             .then(
                 res => {
                     /**

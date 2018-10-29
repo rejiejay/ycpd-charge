@@ -249,7 +249,7 @@ export default {
                          * 请求成功，跳到到启动中的页面
                          * 此页面不继续进行任何处理
                          */
-                        _this.jumpToRouter('/charge/launching', _this.$route.query); // 跳转到启动中
+                        _this.jumpToRouter('/charge/launching', { StartChargeSeq: res.data.StartChargeSeq }); // 跳转到启动中
                         // _this.pageState = 'booting';
                         // _this.StartChargeSeq = res.data.StartChargeSeq;
                         // _this.checkOrderLaunch(); // 轮询 判断是否启动成功
