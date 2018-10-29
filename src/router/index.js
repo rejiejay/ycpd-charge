@@ -28,19 +28,29 @@ const routes = [
     // 启动充电 （扫码充电）
     {
         path: '/launch/:pageState',
-        name: 'launch',
-        component: () => import('@/views/charge/launch'),
+        name: 'launch-before',
+        component: () => import('@/views/charge/launch-before'),
         meta: { title: '启动充电' },
+    }, {
+        path: '/pay',
+        name: 'pay-select',
+        component: () => import('@/views/charge/pay'),
+        meta: { title: '启动充电' },
+    }, {
+        path: '/charge/launching',
+        name: 'launch-ing',
+        component: () => import('@/views/charge/launch-ing'),
+        meta: { title: '启动中' },
     }, {
         path: '/process/:pageState',
         name: 'process',
         component: () => import('@/views/charge/process'),
         meta: { title: '充电中' },
     }, {
-        path: '/pay',
-        name: 'pay-select',
-        component: () => import('@/views/charge/pay'),
-        meta: { title: '启动充电' },
+        path: '/charge/finishing',
+        name: 'process-finishing',
+        component: () => import('@/views/charge/finishing'),
+        meta: { title: '结束中' },
     },
 
     // 充电记录

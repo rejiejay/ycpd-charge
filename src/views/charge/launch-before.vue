@@ -17,17 +17,17 @@
                         <path d="M231.891182,116.742606 L231.893456,119.370892 C234.774162,121.484107 237.360012,124.144668 239.475894,127.280544 L276.50383,182.15837 C286.407334,196.836011 282.561408,216.729034 267.910369,226.607981 C260.606587,231.532798 252.021808,233.012267 243.999928,231.482362 L274.268797,276.342808 L252.531351,291 L218.677238,240.825987 C218.677238,240.825987 215.657701,240.897566 214.73223,240.697796 C213.376631,240.376156 205.108211,231.027974 205.108211,231.027974 L201.63022,233.373125 L160.811328,172.876855 L112.541983,172.820627 C111.844766,172.821414 111.175413,172.544257 110.681977,172.050461 C110.188542,171.556665 109.911689,170.886924 109.912657,170.18938 L109.914397,167.051434 C109.754586,167.095823 109.601817,167.103779 109.412618,167.104614 L72.6703345,167.07029 C71.973118,167.071076 71.3037647,166.793919 70.8103292,166.300123 C70.3168938,165.806327 70.0400416,165.136587 70.0410096,164.439043 L70.0000128,131.89494 C69.9978377,131.197392 70.2735316,130.528274 70.7661136,130.035589 C71.2586955,129.542904 71.9275706,129.267255 72.6247898,129.269613 L109.367074,129.303937 C109.519842,129.295982 109.687304,129.309804 109.869459,129.345402 L109.871955,124.052395 L106.850978,122.762508 L106.855676,125.769375 L103.719196,125.761384 L103.720708,121.451262 L102.640651,120.975511 C102.036623,120.970898 101.582332,120.485104 101.578696,119.917233 L101.559077,115.716413 C101.562485,115.112108 102.047146,114.658571 102.614744,114.656064 L110.779696,114.663692 C111.252403,114.245931 111.861593,114.015425 112.49294,114.015434 L168.119317,114.053734 C169.174606,114.070916 170.11015,114.707477 170.516346,115.6376 L200.432765,115.680225 C200.846383,115.496384 201.296431,115.319662 201.724742,115.157597 C202.38247,113.319982 204.11321,111.99455 206.172663,112.000017 L227.152641,112.016579 C229.779692,112.01954 231.903601,114.136096 231.891182,116.742606 Z M242.665012,145.718051 C240.623657,142.692629 234.462732,132.532832 231.080083,130.886845 C223.906299,127.363614 204.034721,133.035654 197.159412,137.671559 C190.65281,142.05885 192.658173,150.175445 193.891797,152.003758 L234.425178,212.076882 C241.077939,221.93671 254.427446,224.557575 264.252414,217.932765 L265.119961,217.347793 C274.94493,210.722983 277.514907,197.367878 270.862146,187.508051 L242.665012,145.718051 Z M199.46062,140.94685 C204.452332,137.581023 219.576361,134.471371 225.519395,138.056361 C228.322232,139.757822 234.041738,149.006597 235.897148,151.756435 L261.653736,189.929386 C267.731298,198.93673 266.862636,210.13904 259.722592,214.953451 L259.09073,215.379505 C251.950686,220.193916 241.235206,216.802597 235.157645,207.795252 L198.122505,152.90675 C196.997572,151.239525 194.721653,144.142256 199.46062,140.94685 Z M233.955988,156.017056 C232.188762,153.397911 226.726595,144.664246 224.235117,142.97804 C218.925527,139.349528 206.196679,141.231796 202.136628,143.96942 C198.309184,146.550201 200.677204,153.114853 201.752267,154.708166 L236.831706,206.698192 C242.589918,215.232239 251.97392,218.97151 257.767951,215.064693 L258.275458,214.72249 C264.090635,210.801414 264.116647,200.717129 258.358435,192.183082 L233.955988,156.017056 Z" id="充电枪" fill="#999999" fill-rule="nonzero" mask="url(#mask-2)"></path></g></g></g></g>
                     </svg>
 
-                    <!-- 空闲 icon -->
-                    <svg v-if="pageState === 'leisure' || pageState === 'booting' || pageState === 'bootfailed'" width="160px" height="160px" viewBox="0 0 320 320" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><circle id="path-1" cx="160" cy="160" r="160"></circle></defs><g id="快速充电二期" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="启动充电" transform="translate(-215.000000, -278.000000)"><g id="充电枪" transform="translate(70.000000, 198.000000)"><g id="Group" transform="translate(145.000000, 80.000000)"><mask id="mask-2" fill="white"><use xlink:href="#path-1"></use></mask><use id="Mask" fill="#E1ECFF" xlink:href="#path-1"></use>
+                    <!-- 空闲 和 占用 icon -->
+                    <svg v-if="pageState === 'leisure' || pageState === 'takeUp' || pageState === 'booting' || pageState === 'bootfailed'" width="160px" height="160px" viewBox="0 0 320 320" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><circle id="path-1" cx="160" cy="160" r="160"></circle></defs><g id="快速充电二期" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="启动充电" transform="translate(-215.000000, -278.000000)"><g id="充电枪" transform="translate(70.000000, 198.000000)"><g id="Group" transform="translate(145.000000, 80.000000)"><mask id="mask-2" fill="white"><use xlink:href="#path-1"></use></mask><use id="Mask" fill="#E1ECFF" xlink:href="#path-1"></use>
                         <path d="M231.891182,116.742606 L231.893456,119.370892 C234.774162,121.484107 237.360012,124.144668 239.475894,127.280544 L276.50383,182.15837 C286.407334,196.836011 282.561408,216.729034 267.910369,226.607981 C260.606587,231.532798 252.021808,233.012267 243.999928,231.482362 L274.268797,276.342808 L252.531351,291 L218.677238,240.825987 C218.677238,240.825987 215.657701,240.897566 214.73223,240.697796 C213.376631,240.376156 205.108211,231.027974 205.108211,231.027974 L201.63022,233.373125 L160.811328,172.876855 L112.541983,172.820627 C111.844766,172.821414 111.175413,172.544257 110.681977,172.050461 C110.188542,171.556665 109.911689,170.886924 109.912657,170.18938 L109.914397,167.051434 C109.754586,167.095823 109.601817,167.103779 109.412618,167.104614 L72.6703345,167.07029 C71.973118,167.071076 71.3037647,166.793919 70.8103292,166.300123 C70.3168938,165.806327 70.0400416,165.136587 70.0410096,164.439043 L70.0000128,131.89494 C69.9978377,131.197392 70.2735316,130.528274 70.7661136,130.035589 C71.2586955,129.542904 71.9275706,129.267255 72.6247898,129.269613 L109.367074,129.303937 C109.519842,129.295982 109.687304,129.309804 109.869459,129.345402 L109.871955,124.052395 L106.850978,122.762508 L106.855676,125.769375 L103.719196,125.761384 L103.720708,121.451262 L102.640651,120.975511 C102.036623,120.970898 101.582332,120.485104 101.578696,119.917233 L101.559077,115.716413 C101.562485,115.112108 102.047146,114.658571 102.614744,114.656064 L110.779696,114.663692 C111.252403,114.245931 111.861593,114.015425 112.49294,114.015434 L168.119317,114.053734 C169.174606,114.070916 170.11015,114.707477 170.516346,115.6376 L200.432765,115.680225 C200.846383,115.496384 201.296431,115.319662 201.724742,115.157597 C202.38247,113.319982 204.11321,111.99455 206.172663,112.000017 L227.152641,112.016579 C229.779692,112.01954 231.903601,114.136096 231.891182,116.742606 Z M242.665012,145.718051 C240.623657,142.692629 234.462732,132.532832 231.080083,130.886845 C223.906299,127.363614 204.034721,133.035654 197.159412,137.671559 C190.65281,142.05885 192.658173,150.175445 193.891797,152.003758 L234.425178,212.076882 C241.077939,221.93671 254.427446,224.557575 264.252414,217.932765 L265.119961,217.347793 C274.94493,210.722983 277.514907,197.367878 270.862146,187.508051 L242.665012,145.718051 Z M199.46062,140.94685 C204.452332,137.581023 219.576361,134.471371 225.519395,138.056361 C228.322232,139.757822 234.041738,149.006597 235.897148,151.756435 L261.653736,189.929386 C267.731298,198.93673 266.862636,210.13904 259.722592,214.953451 L259.09073,215.379505 C251.950686,220.193916 241.235206,216.802597 235.157645,207.795252 L198.122505,152.90675 C196.997572,151.239525 194.721653,144.142256 199.46062,140.94685 Z M233.955988,156.017056 C232.188762,153.397911 226.726595,144.664246 224.235117,142.97804 C218.925527,139.349528 206.196679,141.231796 202.136628,143.96942 C198.309184,146.550201 200.677204,153.114853 201.752267,154.708166 L236.831706,206.698192 C242.589918,215.232239 251.97392,218.97151 257.767951,215.064693 L258.275458,214.72249 C264.090635,210.801414 264.116647,200.717129 258.358435,192.183082 L233.955988,156.017056 Z" id="充电枪" fill="#5594FF" fill-rule="nonzero" mask="url(#mask-2)"></path></g></g></g></g>
                     </svg>
                 </div>
 
                 <div class="central-title flex-center">{{stationName}}</div>
-                
+
                 <div class="central-lable flex-center">
                     {{gunName}}
-                    <span v-if="pageState === 'leisure' || pageState === 'notfree' || pageState === 'offline'"  :style="'color: ' + pageStateColor">{{pageStateName}}</span>
+                    <span v-if="pageState === 'leisure' || pageState === 'takeUp' || pageState === 'notfree' || pageState === 'offline'"  :style="'color: ' + pageStateColor">{{pageStateName}}</span>
                 </div>
             </div>
         </div>
@@ -39,8 +39,8 @@
 
         <div v-if="pageState === 'offline'" class="tips-offline">该电枪已离线，请选择其它空闲充电枪进行充电</div>
 
-        <div v-if="pageState === 'leisure'" class="tips-leisure">启动充电后，请在90秒内插枪</div>
-        <div v-if="pageState === 'leisure'" class="tips-leisure">请确保车辆已就位后开始充电，避免给您带来不变和损失</div>
+        <div v-if="pageState === 'leisure' || pageState === 'takeUp'" class="tips-leisure">启动充电后，请在90秒内插枪</div>
+        <div v-if="pageState === 'leisure' || pageState === 'takeUp'" class="tips-leisure">请确保车辆已就位后开始充电，避免给您带来不便和损失</div>
 
         <div v-if="pageState === 'booting'" class="tips-booting-main">充电启动中...</div>
         <div v-if="pageState === 'booting'" class="tips-booting">启动大约需要2分钟，请确保充电枪已插好</div>
@@ -51,12 +51,14 @@
     </div>
 
     <!-- button -->
-    <div class="button" v-if="pageState !== 'booting'">
+    <div class="button">
         <div v-if="pageState === 'notfree' || pageState === 'offline'" class="button-content button-failure">启动充电</div>
         
-        <div v-if="pageState === 'leisure'" class="button-content button-start" @click="startCharging">启动充电</div>
+        <div v-if="pageState === 'leisure' || pageState === 'takeUp'" class="button-content button-start" @click="startCharging">启动充电</div>
 
-        <div v-if="pageState === 'bootfailed'" class="button-content button-bootfailed">重新启动充电</div>
+        <div v-if="pageState === 'booting'" class="button-content button-start" :class="{'button-content-refresh': refreshCount}" @click="refresh">刷新<span style="padding-left: 5px;" v-if="refreshCount">{{refreshCount}}</span></div>
+
+        <div v-if="pageState === 'bootfailed'" class="button-content button-bootfailed" @click="startCharging">重新启动充电</div>
     </div>
 
     <!-- 账户余额 -->
@@ -64,7 +66,7 @@
         <div class="flex-start-center">
             <div>账户余额</div>
             <span>￥{{wallet}}</span>
-            <div class="wallet-WxRefund" @click="walletWxRefund">退款</div>
+            <div class="wallet-WxRefund" v-if="wallet !== 0" @click="walletWxRefund">退款</div>
         </div>
     </div>
 
@@ -114,7 +116,8 @@ export default {
             /**
              * 页面状态 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
              * @param {string} leisure 空闲 
-             * @param {string} notfree 非空闲/充电中
+             * @param {string} takeUp 占用中
+             * @param {string} notfree 充电中
              * @param {string} offline 离线
              * @param {string} booting 启动中
              * @param {string} bootfailed 启动失败
@@ -131,6 +134,10 @@ export default {
 
             isLaunchSuccessful: false, // 是否启动成功
             StartChargeSeq: '', // 订单启动成功 缓存的号码
+
+            checkMoneyCount: 0, // 请求 账户余额 的次数 5秒请求一次
+
+            refreshCount: 0, // 页面刷新倒计时
         }
     },
 
@@ -141,6 +148,7 @@ export default {
         pageStateName: function () {
             let keyValueName = {
                 leisure: '空闲',
+                takeUp: '占用中',
                 notfree: '充电中',
                 offline: '离线',
                 booting: '启动中',
@@ -167,7 +175,7 @@ export default {
     },
 
     mounted: function () {
-        // 初始化页面状态
+        // // 初始化页面状态
         this.pageState = this.$route.params.pageState;
         window.localStorage.setItem('ycpd_charge_returnurl', window.location.href); // 缓存支付成功返回的页面
 
@@ -179,21 +187,44 @@ export default {
          * 初始化页面数据
          */
         initPageData: function initPageData() {
-            const _this = this;
             let query = this.$route.query;
             
             this.stationName = query.stationName; // 充电桩名称
 
             this.gunName = query.gunName; // 充电枪名
 
+            this.getCheckMoney(); // 请求 账户余额
+        },
+
+        /**
+         * 请求 账户余额
+         */
+        getCheckMoney: function getCheckMoney() {
+            const _this = this;
+
+            if (this.checkMoneyCount >= 3) {
+                return false; // 如果请求的次数 大于3次 则不再进行请求
+            }
+
+            this.checkMoneyCount++; // 请求的次数设置+1
+
             ajaxs.checkMoney()
             .then(  
                 res => {
                     if (res.code === 200 && res.data.out_trade_no !== null) {
+                        // 必须先判断是否数据相同, 下面再进行判断就无意义了
+                        if (window.localStorage.ycpd_charge_total_fee && parseInt(window.localStorage.ycpd_charge_total_fee) == res.data.out_trade_no) {
+                            // 如果数据相同说明 可能未更新数据
+                            window.setTimeout(() => {
+                                _this.getCheckMoney();
+                            }, 2500); // 2.5秒请求一次
+                        }
                         _this.wallet = res.data.total_fee; // 账户余额
+                        window.localStorage.setItem('ycpd_charge_total_fee', res.data.total_fee); // 缓存一下 账户余额 用于判断是否更新
                         window.localStorage.setItem('ycpd_charge_out_trade_no', res.data.out_trade_no); // 全局缓存订单号
                         window.localStorage.setItem('ycpd_charge_refund_fee', res.data.total_fee); // 付款金额
                         window.localStorage.setItem('ycpd_charge_project', res.data.project); // 项目名称
+
                     } else {
                         console.error(res);
                     }
@@ -201,6 +232,7 @@ export default {
                     alert(error);
                 }
             );
+
         },
 
         /**
@@ -213,9 +245,14 @@ export default {
             .then(
                 res => {
                     if (res.code === 200) {
-                        _this.pageState = 'booting';
-                        _this.StartChargeSeq = res.data.StartChargeSeq;
-                        _this.checkOrderLaunch(); // 轮询 判断是否启动成功
+                        /**
+                         * 请求成功，跳到到启动中的页面
+                         * 此页面不继续进行任何处理
+                         */
+                        _this.jumpToRouter('/charge/launching', _this.$route.query); // 跳转到启动中
+                        // _this.pageState = 'booting';
+                        // _this.StartChargeSeq = res.data.StartChargeSeq;
+                        // _this.checkOrderLaunch(); // 轮询 判断是否启动成功
                     } else if (res.code === 666) {
                         _this.jumpToRouter('/pay'); // 跳转到付款页面
                         // _this.isuInsufficientShow = true;
@@ -230,9 +267,37 @@ export default {
         },
 
         /**
+         * 页面刷新5秒倒计时
+         */
+        refresh: function refresh() {
+            const _this = this;
+
+            // 如果存在倒计时 是不允许点击的
+            if (this.refreshCount) {
+                return false;
+            }
+
+            // 定时器倒计时 5 秒
+            this.refreshCount = 6;
+            for(var i = 0; i < 5; i++ ) {
+                (function (i) { // 匿名函数自执行创建闭包
+                    setTimeout(function() {
+                        _this.refreshCount--;
+                        if (i === 4) {
+                            _this.refreshCount = 0;
+                        }
+                    }, i * 1000);
+                })(i);
+            }
+            
+            // 轮询
+            this.checkOrderLaunch('isrefresh');
+        },
+
+        /**
          * 轮询 判断是否启动成功
          */
-        checkOrderLaunch: function checkOrderLaunch() {
+        checkOrderLaunch: function checkOrderLaunch(isrefresh) {
             const _this = this;
 
             // 如果是启动成功了，则不再进行判断
@@ -248,10 +313,17 @@ export default {
                         _this.isLaunchSuccessful = true; // 设置为成功
                         _this.jumpToRouter('/process/normal', { StartChargeSeq: _this.StartChargeSeq }); 
                     } else {
-                        // 若未启动成功, 5秒循环判断一次
-                        window.setTimeout(() => {
-                            _this.checkOrderLaunch();
-                        }, 5000);
+                        /**
+                         * 若未启动成功
+                         * 先判断是不是手动刷新
+                         * 手动刷新 - 不用循环执行
+                         * 自动刷新 - 5秒循环调用
+                         */
+                        if (isrefresh !== 'isrefresh') {
+                            window.setTimeout(() => {
+                                _this.checkOrderLaunch();
+                            }, 5000);
+                        }
                     }
                 }, error => {} // 失败不作处理
             )
@@ -267,6 +339,7 @@ export default {
                 ajaxs.outTradeMoney()
                 .then(
                     res => {
+                        alert('退款申请成功，稍后请注意查看微信退款通知。');
                         _this.initPageData();
                     }, error => {
                         alert(error);
@@ -390,6 +463,11 @@ export default {
     // 重新启动
     .button-bootfailed {
         background: #5594FF;
+    }
+
+    // 点击刷新时
+    .button-content-refresh {
+        background: #9EC2FF;
     }
 }
 

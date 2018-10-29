@@ -46,36 +46,21 @@
         </div>
     </div>
 
-    <!-- 提示信息 -->
-    <div class="tip flex-column-center">
-        <div class="tip-describe" v-if="pageState === 'connectFailed'">充电桩通信延迟，这不影响您正常充电</div>
-        <div class="tip-describe" v-if="pageState === 'connectFailed'">结束充电后您即可离场，订单信息稍后将推送给您</div>
-        <div class="tip-describe" v-if="pageState === 'finished'">停止充电通信失败...请联系场站管理人员处理</div>
-        <div class="tip-describe" v-if="pageState === 'finished'">订单信息稍后将推送给您</div>
-    </div>
-
-    <!-- 按钮-正常充电 -->
-    <div class="submit flex-start-center" v-if="pageState === 'normal'">
-        <div class="submit-refresh" @click="refreshChargingState" :class="{'submit-refreshing': refreshCount}" :style="`width: ${(clientWidth - 45) / 2}px;`">刷新<span style="padding-left: 5px;" v-if="refreshCount">{{refreshCount}}</span></div>
-        <div class="submit-content" @click="stopCharging" :style="`width: ${(clientWidth - 45) / 2}px;`">手动结束充电</div>
-    </div>
-
     <!-- 结束中 -->
-    <div class="submit flex-center" v-if="pageState === 'finishing'">
-        <div class="submit-refresh" @click="refreshFinishingState" :class="{'submit-refreshing': refreshCount}" :style="`width: ${(clientWidth - 45) / 2}px;`">刷新<span style="padding-left: 5px;" v-if="refreshCount">{{refreshCount}}</span></div>
+    <div class="submit flex-center">
+        <div class="submit-refresh" @click="checkOrderStop('isrefresh')" :class="{'submit-refreshing': refreshCount}" :style="`width: ${(clientWidth - 45) / 2}px;`">刷新<span style="padding-left: 5px;" v-if="refreshCount">{{refreshCount}}</span></div>
         <div class="submit-content" :style="`width: ${(clientWidth - 45) / 2}px;`">正在结束...</div>
-    </div>
-
-    <!-- 按钮-结束失败 -->
-    <div class="submit flex-start-center" v-if="pageState === 'finished'">
-        <div class="submit-content" @click="stopCharging" :style="`width: ${(clientWidth - 45) / 2}px;`">手动结束充电</div>
     </div>
 
     <!-- 底部提示信息 -->
     <div class="tip-2 flex-column-center">
-        <div class="tip-2-content" v-if="pageState === 'finishing'">结束充电大约需要2分钟，请耐心等候</div>
-        <div class="tip-2-content" v-else>电池充满后会自动结束充电</div>
+        <div class="tip-2-content">结束充电大约需要2分钟，请耐心等候</div>
+        <div class="tip-2-content">电池充满后会自动结束充电</div>
     </div>
+
+    <!-- 底部提示信息，停止充电提示信息 -->
+    <div class="tip-3 flex-column-center">{{stopMsg}}</div>
+
 </div>
 </template>
 
@@ -134,6 +119,13 @@ export default {
             isStopSuccessful: false, // 是否结束成功
 
             refreshCount: null, // 页面刷新倒计时
+
+            /**
+             * 停止充电提示信息
+             * 202  "数据延迟,请联系场站工作人员处理,订单信息及退款将稍后推送给您。"
+             * 201  "充电桩数据上报可能有延迟,请以充电桩显示数据为准"
+             */
+            stopMsg: '',
         }
     },
 
@@ -175,10 +167,9 @@ export default {
     },
 
     mounted: function () {
-        // 初始化页面状态
-        this.pageState = this.$route.params.pageState;
-
         this.initPageData(); // 初始化页面数据
+
+        this.checkOrderStop(); // 轮询 判断是否 成功停止充电 
     },
 
     destroyed: function () {
@@ -192,23 +183,16 @@ export default {
         /**
          * 初始化页面数据
          */
-        initPageData: function initPageData(isrefresh) {
+        initPageData: function initPageData() {
             const _this = this;
-            let query = this.$route.query;
-
-            /**
-             * 判断是否结束充电
-             * 结束充电则不进行任何请求
-             */
-            if (this.isStopSuccessful) {
-                return false;
-            }
             
-            ajaxsCheckOrderStatus(query.StartChargeSeq)
+            ajaxsCheckOrderStatus(this.$route.query.StartChargeSeq)
             .then(
                 res => {
-                    // 查询成功, 并且充电状态为 充电中的时候
-                    if (res.code === 200 && res.data && res.data.StartChargeSeqStat === 2) {
+                    if (res.code === 200 && res.data) {
+                        /**
+                         * 初始化页面数据
+                         */
                         _this.stationName = res.StationName; // 充电站名称
 
                         // 初始化枪名
@@ -226,29 +210,12 @@ export default {
 
                         _this.TotalMoney = res.data.TotalMoney; // 使用多少钱
                         _this.SaveMoney = res.data.SaveMoney; // 初始化预充金额
-                        
+
                         _this.electricityPower = res.data.TotalPower; // 电量(度)
-
-                    // 如果查询到 充电状态为 充电结束的时候
-                    } else if (res.code === 200 && res.data && res.data.StartChargeSeqStat === 3) {
-                        _this.isStopSuccessful = true; // 设置为结束充电
-                        // 跳转到充电结束页面
-                        _this.jumpToRouter('/charge/finishing', { StartChargeSeq: res.data.StartChargeSeq });
-                    }
-
-                    /**
-                     * 刷新数据
-                     * 先判断是不是手动刷新
-                     * 手动刷新 - 不用循环执行
-                     * 自动刷新 - 10秒循环调用
-                     */
-                    if (isrefresh !== 'isrefresh') {
-                        window.setTimeout(() => {
-                            _this.initPageData();
-                        }, 10000);
+                    } else {
+                        alert(`查询充电数据有误， ${res.data.msg}`);
                     }
                 }, error => {
-                    _this.pageState = 'connectFailed'; // 连接失败
                     alert(error);
                 }
             );
@@ -363,6 +330,15 @@ export default {
                             window.setTimeout(() => {
                                 _this.checkOrderStop();
                             }, 5000);
+                        }
+
+                        /**
+                         * 下面不管哪个状态都需要 轮询 所以放到这下面来
+                         */
+                        if (res.code === 202) {
+                            _this.stopMsg = '数据延迟,请联系场站工作人员处理,订单信息及退款将稍后推送给您。';
+                        } else if (res.code === 201) {
+                            _this.stopMsg = '充电桩数据上报可能有延迟,请以充电桩显示数据为准';
                         }
                     }
                 }, error => {} // 失败不作处理

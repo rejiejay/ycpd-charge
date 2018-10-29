@@ -274,19 +274,19 @@ export default {
             /**
              * 设备状态 status
              * @param {string} leisure 空闲
+             * @param {string} takeUp 占用中
              * @param {string} offline 离线
              * @param {string} insert 待插枪
              * @param {string} pull 待拨枪
              */
             if (status === 'leisure') {
-                // 空闲
-                return 'leisure';
-            } else if (status === 'insert' || status === 'pull') {
-                // 充电中
-                return 'notfree';
+                return 'leisure'; // 空闲
+            } else if (status === 'insert') {
+                return 'takeUp'; // 充电中
+            }  else if (status === 'pull') {
+                return 'notfree'; // 充电中
             } else {
-                // 其他状态都是离线
-                return 'offline';
+                return 'offline'; // 其他状态都是离线
             }
         },
         
@@ -368,18 +368,18 @@ export default {
                              * 设备标签名称 tagName
                              */
                             let tagName = '故障'; // 默认故障
-                        
+
                             // 0：离网 1：空闲 2：占用(未充电) 3：占用(充电中) 4: 占用(预约锁定) 255: 故障
                             if (value.Status === 0) {
                                 tagName = '离网';
                             } else if (value.Status === 1) {
                                 tagName = '空闲';
                             } else if (value.Status === 2) {
-                                tagName = '未充电';
+                                tagName = '已占用';
                             } else if (value.Status === 3) {
                                 tagName = '充电中';
                             } else if (value.Status === 4) {
-                                tagName = '预约锁定';
+                                tagName = '锁定';
                             } else {
                                 tagName = '故障';
                             }

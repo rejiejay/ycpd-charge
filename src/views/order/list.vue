@@ -1,7 +1,7 @@
 <!-- 充电结束 -->
 <template>
 <div class="order-list" id="order-list">
-    <div class="order-list-main">
+    <div class="order-list-main" v-if="list.length > 0">
         <div class="list-main-item"
             v-for="(item, key) in list" 
             :key="key"
@@ -27,8 +27,8 @@
                 </div>
             </div>
         </div>
-        
     </div>
+    <div class="order-no-orders" v-else>暂无充电记录</div>
 </div>
 </template>
 
@@ -75,21 +75,23 @@ export default {
             ajaxs.queryChargeRecord()
             .then(
                 res => {
-                    _this.list = res.map(val => {
-                        return {
-                            StartChargeSeq: val.StartChargeSeq,
-                            title: `${val.StationName} - ${val.ConnectorID.split('_')[1]}号枪`,
-                            time: val.StartTime,
-                            /**
-                             * 充电状态 默认充电完成
-                             * @param {string} charging 充电中
-                             * @param {string} accomplish 充电完成
-                             * @param {string} cancel 充电取消
-                             */
-                            state: val.StartChargeSeqStat === 3 ? 'accomplish' : 'charging',
-                            price: val.TotalMoney,
-                        }
-                    });
+                    if (res) {
+                        _this.list = res.map(val => {
+                            return {
+                                StartChargeSeq: val.StartChargeSeq,
+                                title: `${val.StationName} - ${val.ConnectorID.split('_')[1]}号枪`,
+                                time: val.StartTime,
+                                /**
+                                 * 充电状态 默认充电完成
+                                 * @param {string} charging 充电中
+                                 * @param {string} accomplish 充电完成
+                                 * @param {string} cancel 充电取消
+                                 */
+                                state: val.StartChargeSeqStat === 3 ? 'accomplish' : 'charging',
+                                price: val.TotalMoney,
+                            }
+                        });
+                    }
                 }, error => {
                     alert(error);
                 }
@@ -208,6 +210,13 @@ export default {
             padding-left: 5px;
         }
     }
+}
+
+// 暂无订单
+.order-no-orders {
+    font-size: 24px;
+    padding: 35px;
+    text-align: center;
 }
 
 </style>
