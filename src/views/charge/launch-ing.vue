@@ -17,7 +17,7 @@
 
                 <div class="central-lable flex-center">
                     {{gunName}}
-                    <span>{{pageStateName}}</span>
+                    <span>启动中</span>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
     </div>
 
     <!-- 账户余额 -->
-    <div class="wallet flex-center" v-if="pageState !== 'booting'">
+    <div class="wallet flex-center">
         <div class="flex-start-center">
             <div>账户余额</div>
             <span>￥{{wallet}}</span>
@@ -74,59 +74,13 @@ export default {
         }
     },
 
-    computed: {
-        /**
-         * 页面状态转换为中文
-         */
-        pageStateName: function () {
-            let keyValueName = {
-                leisure: '空闲',
-                takeUp: '占用中',
-                notfree: '充电中',
-                offline: '离线',
-                booting: '启动中',
-                bootfailed: '启动失败',
-            }
-
-            return keyValueName[this.pageState];
-        },
-
-        /**
-         * 页面状态转换为颜色
-         */
-        pageStateColor: function () {
-            let keyValueColor = {
-                leisure: '#00B90A',
-                notfree: '#FF8D18',
-                offline: '#999999',
-                booting: '#5594FF',
-                bootfailed: '#FF8D18',
-            }
-
-            return keyValueColor[this.pageState];
-        },
-    },
-
     mounted: function () {
-        this.initPageData(); // 初始化页面数据
+        this.getCheckMoney(); // 请求 账户余额
 
         this.checkOrderLaunch(); // 轮询 判断是否启动成功
     },
 
     methods: {
-        /**
-         * 初始化页面数据
-         */
-        initPageData: function initPageData() {
-            let query = this.$route.query;
-            
-            this.stationName = query.stationName; // 充电桩名称
-
-            this.gunName = query.gunName; // 充电枪名
-
-            this.getCheckMoney(); // 请求 账户余额
-        },
-
         /**
          * 请求 账户余额
          */
@@ -208,6 +162,13 @@ export default {
             ajaxsQueryChargeRecord(this.$route.query.StartChargeSeq)
             .then(
                 res => {
+                    _this.stationName = res.data.StationName; // 充电站名称
+
+                    // 初始化枪名
+                    if (res.data.ConnectorID && res.data.ConnectorID.split('_')[1]) {
+                        _this.gunName = `${res.data.ConnectorID.split('_')[1]}号枪`; // 充电枪名
+                    }
+
                     /**
                      * 查询到充电订单状态为充电中的时候
                      * 跳转到正在充电

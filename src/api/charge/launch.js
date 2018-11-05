@@ -32,9 +32,9 @@ export default {
 
                 OperatorID: window.localStorage.ycpd_charge_operatorid, // 使用真实数据
 
-                // ConnectorID: window.localStorage.ycpd_charge_connectorid, // 使用真实数据
+                ConnectorID: window.localStorage.ycpd_charge_connectorid, // 使用真实数据
 
-                ConnectorID: '180100075504110001_1', // 暂时写死 测试假数据
+                // ConnectorID: '180100075504110001_1', // 暂时写死 测试假数据
 
                //  QrCode: 180100075501110001, // 可以非必填
             }),

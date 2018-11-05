@@ -102,6 +102,8 @@
 
 <script>
 
+// 组件类
+import { MessageBox } from 'mint-ui';
 // 请求类
 import ajaxs from "@/api/charge/launch";
 import ajaxsQueryChargeRecord from "@/api/common/checkOrderStatus";
@@ -335,7 +337,8 @@ export default {
         walletWxRefund: function walletWxRefund() {
             const _this = this;
 
-            if (confirm('您是否确认退款?')) {
+            MessageBox.confirm('您是否确认退款?')
+            .then(action => {
                 ajaxs.outTradeMoney()
                 .then(
                     res => {
@@ -345,7 +348,7 @@ export default {
                         alert(error);
                     }
                 );
-            }
+            }, error => {});
         },
 
         /**

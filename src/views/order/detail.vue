@@ -123,7 +123,7 @@ export default {
             ajaxsQueryChargeRecordDetail(StartChargeSeq)
             .then(
                 res => {
-                    if (res.code === 200 && res.data) {
+                    if (res.data) {
                         _this.chargingPercentage = res.data.Soc;
                         _this.ChargingTime = res.data.ChargingTime;
                         _this.TotalPower = res.data.TotalPower;

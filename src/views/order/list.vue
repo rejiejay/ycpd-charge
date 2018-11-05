@@ -77,17 +77,30 @@ export default {
                 res => {
                     if (res) {
                         _this.list = res.map(val => {
+                            /**
+                             * 充电状态 默认充电中
+                             * @param {string} launch 启动中
+                             * @param {string} charging 充电中
+                             * @param {string} accomplish 充电完成
+                             * @param {string} defeated 充电失败
+                             * @param {string} cancel 充电取消
+                             */
+                            let state = 'launch';
+                            if (val.StartChargeSeqStat === 1) {
+                                state = 'launch';
+                            } else if (val.StartChargeSeqStat === 2) {
+                                state = 'charging';
+                            } else if (val.StartChargeSeqStat === 3) {
+                                state = 'accomplish';
+                            } else if (val.StartChargeSeqStat === 5) {
+                                state = 'defeated';
+                            }
+
                             return {
                                 StartChargeSeq: val.StartChargeSeq,
                                 title: `${val.StationName} - ${val.ConnectorID.split('_')[1]}号枪`,
                                 time: val.StartTime,
-                                /**
-                                 * 充电状态 默认充电完成
-                                 * @param {string} charging 充电中
-                                 * @param {string} accomplish 充电完成
-                                 * @param {string} cancel 充电取消
-                                 */
-                                state: val.StartChargeSeqStat === 3 ? 'accomplish' : 'charging',
+                                state: state,
                                 price: val.TotalMoney,
                             }
                         });
@@ -102,12 +115,15 @@ export default {
          * 渲染 充电状态
          * @param {string} charging 充电中
          * @param {string} accomplish 充电完成
+         * @param {string} defeated 充电失败
          * @param {string} cancel 充电取消
          */
         rendertagName: function (status) {
             let keyValue = {
+                launch: '启动中',
                 charging: '充电中',
                 accomplish: '充电完成',
+                defeated: '充电失败',
                 cancel: '充电取消',
             }
 
@@ -119,9 +135,18 @@ export default {
          */
         jumpToDetail: function jumpToDetail(item) {
             // 判断订单是否充电中
-            if (item.state === 'charging') {
-                this.jumpToRouter(`/process/normal`, item.StartChargeSeq);
-            } else {
+            if (item.state === 'launch') {
+
+                // 跳转到启动中
+                this.jumpToRouter('/charge/launching', { StartChargeSeq: item.StartChargeSeq }); // 跳转到启动中
+                    
+            } else if (item.state === 'charging') {
+
+                // 跳转到充电中
+                this.jumpToRouter(`/process/normal`, {StartChargeSeq: item.StartChargeSeq});
+            }else if (item.state === 'accomplish') {
+
+                // 跳转到充电完成
                 this.jumpToRouter(`/order/detail/${item.StartChargeSeq}`);
             }
         },
@@ -191,6 +216,10 @@ export default {
 
         .icon-left-price {
             padding-top: 2.5px;
+        }
+
+        .icon-left-launch .icon-left-main { // 启动中
+            color: #FF8D18;
         }
 
         .icon-left-charging .icon-left-main { // 充电中

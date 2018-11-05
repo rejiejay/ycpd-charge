@@ -7,7 +7,7 @@
             <div class="central-main">
                 <div class="central-main-title">{{stationName}}</div>
                 <div class="central-main-gunName">{{gunName}}</div>
-                <div class="central-main-price">{{electricityFee}}元/度(含服务费{{serviceFee}}元)</div>
+                <div class="central-main-price" v-if="'暂不' === '显示'">{{electricityFee}}元/度(含服务费{{serviceFee}}元)</div>
 
                 <div class="central-main-progress flex-center">
                     <radial-progress-bar 
@@ -37,7 +37,7 @@
             </div> -->
             <div class="describe-electricityFee">
                 <span>费&emsp;&emsp;用:</span>
-                {{TotalMoney}}元（预存{{SaveMoney}}￥）
+                {{TotalMoney}}元（预存 ￥{{SaveMoney}}）
             </div>
             <div class="describe-power">
                 <span>电&emsp;&emsp;量:</span>

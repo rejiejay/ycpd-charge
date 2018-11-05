@@ -256,9 +256,13 @@
 
 <script>
 
-import ajaxs from '@/api/list/index';
-import initLocation from '@/components/initLocation';
+// 框架类
 import { Indicator, MessageBox } from 'mint-ui';
+// 请求类
+import ajaxs from '@/api/list/index';
+import checkOrderStatus from '@/api/common/checkOrderStatus';
+// 组件类
+import initLocation from '@/components/initLocation';
 
 export default {
     name: 'list',
@@ -373,11 +377,34 @@ export default {
         queryCheckOrders: function queryCheckOrders() {
             const _this = this;
 
+
+            /**
+             * 查询充电订单状态 - 根据订单号
+             */
+            let checkOrderStatusBy = startchargeseq => {
+                checkOrderStatus(startchargeseq)
+                .then(
+                    res => {
+                        if (res.code === 200 && res.data && res.data.StartChargeSeqStat) {
+                            
+                            /** 弹出 订单检测提示框 */
+                            _this.orderRemind(startchargeseq, res.data.StartChargeSeqStat);
+                        }
+                    }, error => {/** 查询失败了不做处理 */}
+                );
+
+            }
+
             ajaxs.queryCheckOrders()
             .then(
                 res => {
                     if (res.code === 200) {
-                        _this.orderRemind(res.data.startchargeseq);
+                        /**
+                         * 因为接口的问题，无法判断充电订单状态
+                         * 这个接口只进行判断是否还存在未完成订单
+                         * 必须通过另外一个接口（查询充电订单状态）进行判断充电状态
+                         */
+                        checkOrderStatusBy(res.data.startchargeseq);
                     }
                 }, error => {
                     alert(error);
@@ -558,8 +585,9 @@ export default {
         /**
          * 订单检测提醒
          * @param {string} StartChargeSeq 充电订单号 MA5DM667XA00A11DE66DD42CB
+         * @param {string} startchargeseqstat 充电状态 1:启动中；2:充电中; 3:停止中 4:已结束; 5:未知
          */
-        orderRemind: function orderRemind(StartChargeSeq) {
+        orderRemind: function orderRemind(StartChargeSeq, startchargeseqstat) {
             const _this = this;
 
             MessageBox({
@@ -570,9 +598,17 @@ export default {
                 closeOnClickModal: false, // 是否在点击遮罩时关闭提示光
             }).then(action => {
                 if (action === 'confirm') {
+                    // 点击确认的情况
                     _this.jumpToRouter('/order/list');
                 } else {
-                    _this.jumpToRouter('/process/normal', {StartChargeSeq: StartChargeSeq});
+                    // 点击取消的情况
+                    if (startchargeseqstat === 1) {
+                        // 如果启动充电状态为1，则跳转到 “启动中”
+                        _this.jumpToRouter('/charge/launching', { StartChargeSeq: StartChargeSeq }); // 跳转到启动中
+                    } else if (startchargeseqstat === 2) {
+                        // 如果启动充电状态为2，则跳转到 “充电中”
+                        _this.jumpToRouter('/process/normal', {StartChargeSeq: StartChargeSeq});
+                    } 
                 }
             });
         },
