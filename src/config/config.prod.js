@@ -6,7 +6,7 @@ module.exports = {
         origin: 'http://ycpdapi.hotgz.com',
         
         // java 那边的请求源
-        originJAVA: 'http://120.79.36.217:8080/ycpd-charging-bizweb',
+        originJAVA: 'http://charging.sz2.ichebaoyang.com',
 
         // 图片的请求源地址
         picture: 'http://ycpdapi.hotgz.com',

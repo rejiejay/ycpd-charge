@@ -489,6 +489,11 @@ export default {
 
             // 初始化充电桩名称进去
             query.stationName = this.stationName;
+
+            // 全局存储吧, 因为这个是启动前，启动前是无法根据订单拿到的
+            window.localStorage.setItem('ycpd_charge_stationName', this.stationName);
+            window.localStorage.setItem('ycpd_charge_gunName', query.gunName);
+
             this.$router.push({path: url, query: query});
         },
 

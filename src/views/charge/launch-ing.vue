@@ -174,8 +174,14 @@ export default {
                      * 跳转到正在充电
                      */
                     if (res.code === 200 && res.data && res.data.StartChargeSeqStat === 2) {
-                        _this.isLaunchSuccessful = true; // 设置为启动成功, 反正继续请求
+                        _this.isLaunchSuccessful = true; // 设置为启动成功, 阻止继续请求
                         _this.jumpToRouter('/process/normal', { StartChargeSeq: res.data.StartChargeSeq }); // 启动成功跳转
+
+                    // 表示启动失败 StartChargeSeqStat = 5  
+                    } else if (res.code === 200 && res.data && res.data.StartChargeSeqStat === 5) {
+                        _this.isLaunchSuccessful = true; // 设置为启动失败, 阻止继续请求
+                        _this.jumpToRouter('/launch/bootfailed'); // 启动失败
+
                     } else {
                         /**
                          * 若未启动成功

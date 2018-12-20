@@ -232,12 +232,13 @@ export default {
                         
                         _this.electricityPower = res.data.TotalPower; // 电量(度)
 
+                    
                     // 如果查询到 充电状态为 充电结束的时候
                     } else if (res.code === 200 && res.data && res.data.StartChargeSeqStat === 3) {
                         _this.isStopSuccessful = true; // 设置为结束充电
                         // 跳转到充电结束页面
                         _this.jumpToRouter('/charge/finishing', { StartChargeSeq: res.data.StartChargeSeq });
-                    }
+                    } 
 
                     /**
                      * 刷新数据

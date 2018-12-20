@@ -189,11 +189,8 @@ export default {
          * 初始化页面数据
          */
         initPageData: function initPageData() {
-            let query = this.$route.query;
-            
-            this.stationName = query.stationName; // 充电桩名称
-
-            this.gunName = query.gunName; // 充电枪名
+            this.stationName = window.localStorage.ycpd_charge_stationName; // 充电桩名称
+            this.gunName = window.localStorage.ycpd_charge_gunName; // 充电枪名
 
             this.getCheckMoney(); // 请求 账户余额
         },
